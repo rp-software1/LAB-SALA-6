@@ -1,0 +1,7 @@
+TARJETA DE EVALUACIÓN — guardar en entregables/sprint-0-js/dia0/
+EVALUADOR: Luis
+EVALUADO: Renzo
+ESCENARIO ELEGIDO: N°2
+RESUMEN DE LA RESPUESTA
+QUÉ ENTENDIÓ BIEN El uso de los git como el git push
+QUÉ NECESITA REPASAR (una frase): 
