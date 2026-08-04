@@ -1,15 +1,38 @@
-FEEDBACK:SeccionA: Durante el arranque de la actividad tuvimos varias complicaciones técnicas con el 
-entorno local. Lo primero que tuvimos que hacer fue preparar las herramientas base: descargamos e instalamos Visual Studio Code 
-para tener un editor adecuado y luego descargamos e instalamos Git para Windows desde su sitio oficial. Sin embargo, 
-al abrir la terminal integrada en VS Code e intentar ejecutar el comando git init, el sistema nos arrojó el error git : El término 'git' 
-no se reconoce.... Analizando el problema, nos dimos cuenta de que PowerShell no había actualizado las variables de entorno (PATH) 
-y VS Code no detectaba la instalación de Git de forma automática. Para solucionarlo, tuvimos que reiniciar por completo el editor 
-y configurar la terminal. Además, al momento de realizar el primer commit, Git detuvo la ejecución porque faltaba definir la identidad 
-del autor en esta máquina. Tuvimos que ingresar manualmente los comandos git config --global user.email "luisxdghklkhv9@gmail.com" y git 
-config --global user.name "luis890je" para asociar nuestros commits a nuestra cuenta. Superadas estas trabas de software, logramos avanzar 
-con la dinámica Driver/Navigator. Repasamos la diferencia entre manejar archivos en Google Drive (donde se pierde el historial al sobrescribir)
- vs. Git (donde cada commit guarda una instantánea con trazabilidad total). Entendimos también la importancia del área de preparación 
- (staging area) mediante git add antes de confirmar los cambios. Finalmente, creamos la estructura requerida con la carpeta restaurante-js/, 
- redactamos el README.md respetando los saltos de línea, inicializamos el repositorio con git init, capturamos el archivo con git add README.md,
-  ejecutamos git commit -m "Dia0-A: init repositorio restaurante-js" y verificamos el hash generado mediante git log --oneline. Cumplimos 
-  los criterios del Bloque A y dejamos registrada la checklist.
+FEEDBACK:SeccionA:Comenzando con la sesion abrimos Visual Studio Code donde creamos todas las carpetas
+y despues creamos un README adentro de una carpeta llamada restaurante-js y adentro de ese archivo
+escribir los nombres de los autores para despues abrir la terminal y colocar un git init. Despues verificar
+si reconocio la carpeta viendo si el README esta en rojo para despues agregarlo al area de stagging git add
+README md para despues hacer el primer commit y en el repositorio con el nombre restaurante-js y para terminar
+ver si el commit se hizo con una linea de mensaje.
+
+FEEDBACK:SeccionB:Lo primero que llegamos a hacer es crear el repositorio con el nombre de la carpeta de
+restaurante-js para despues colocar la Url que se visualiza en la parte de la cuenta del GitHub. Despues en
+la terminal del Visual Studio Code colocamos un git remote add origin y la URL en la terminal. Revisar que la
+conexion se ejecute de manera correcta para despues subir los commits al remoto usando un push y despues
+revisar que en el Github que ya aparezca renderizado.
+
+FEEDBACK:SeccionC:Solamente el navigator llego a hablarle al driver la URL del repositorio para que 
+el driver clone las carpetas con un git clone y la url del repositorio para despues entrar a la carpeta
+clonada y verificar que el historial este correcto y tenga los mismos commits que el del navigator. Tambien
+verificando que la conexion remota haya sido exitosa colocando en la terminal un git remote -v mostrando 
+el origin. Ambos conseguimos abrir con con un git log en nuestras maquinas y verificamos el registro que
+hicimos.
+FEEDBACK:SeccionD:Al llegar a esta parte del documento llegamos a modificar el README.md agregando unas
+lineas del estado en el que se encuentra nuestro proyecto siendo en desarrollo para ejecutar un git status
+y un git add README.md para entrar a esa carpeta y despues un git status y hacer un git commit y actualizando
+el estado del proyecto para ejecutar un git log oneline y verificar que aparezcan 2 commits ahora y hacer un git push
+para que se guarden en la repositorio para ver si se guardo en el GitHub donde si se guardo.
+
+FEEDBACK:SeccionE: LLegando a esta parte del documento respondimos las preguntas entre nosotros. Teniendo las
+respuestas de cada uno. Despues colocamos en la seccion de entregables de la carpeta LAB-SALA-6 los datos
+que nos dejo el documento siendo Tarjeta de evaluacion y los demas datos. y para terminar marcamos la sesion
+en el checklist y los commit en el codigo.
+
+  Usando el Github se puede llegar a acceder mas rapido y no depender de una pantalla de carga
+  solamente usando un enlance de URL para abrirlo de manera mas rapida. No dependiendo de varias carpetas
+  para abrir el archivo que estemos generando en el programa. solamente accediendo mediante la URL al terminal
+  de nuestro programa y seguir avanzando.
+
+  git add: El git add sirve para seleccionar la carpeta que vamos a usar o preparar el guardado.
+  git commit: El git commit sirve para guardar los avances que estamos haciendo en el programa en las carpetas.
+  git push: Sirve para enviar todos nuestros avances al GitHub.
