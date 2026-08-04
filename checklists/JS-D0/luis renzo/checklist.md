@@ -8,7 +8,7 @@ loom: (agregar link al terminar)
 ---
 ## Secciones
 - [x] A — Repositorio local y primeros commits
-- [ ] B — Conectar a GitHub y push
+- [x] B — Conectar a GitHub y push
 - [ ] C — Clonar el repositorio del compañero
 - [ ] D — git status y git log como hábito
 - [ ] E — Evaluación entre pares
