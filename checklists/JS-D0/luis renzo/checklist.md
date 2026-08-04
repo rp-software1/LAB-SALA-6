@@ -1,9 +1,9 @@
 ---
-alumno: [tunombre]
-sala: I-SALA1
+alumno: [Luis - Renzo]
+sala: I-SALA6
 curso: JS
 dia: 0
-estado: en_progreso
+estado: completado
 loom: (agregar link al terminar)
 ---
 ## Secciones
@@ -11,5 +11,5 @@ loom: (agregar link al terminar)
 - [x] B — Conectar a GitHub y push
 - [x] C — Clonar el repositorio del compañero
 - [x] D — git status y git log como hábito
-- [ ] E — Evaluación entre pares
-- [ ] F — Cierre del día
+- [x] E — Evaluación entre pares
+- [x] F — Cierre del día
