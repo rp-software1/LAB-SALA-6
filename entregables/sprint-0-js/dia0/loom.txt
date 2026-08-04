@@ -5,3 +5,6 @@ ESCENARIO ELEGIDO: N°2
 RESUMEN DE LA RESPUESTA
 QUÉ ENTENDIÓ BIEN El uso de los git como el git push
 QUÉ NECESITA REPASAR (una frase): 
+
+
+link de la grabación: https://github.com/rp-software1/LAB-SALA-6.git
