@@ -1,3 +1,4 @@
+Dia 0:
 FEEDBACK:SeccionA:Comenzando con la sesion abrimos Visual Studio Code donde creamos todas las carpetas
 y despues creamos un README adentro de una carpeta llamada restaurante-js y adentro de ese archivo
 escribir los nombres de los autores para despues abrir la terminal y colocar un git init. Despues verificar
@@ -36,3 +37,5 @@ en el checklist y los commit en el codigo.
   git add: El git add sirve para seleccionar la carpeta que vamos a usar o preparar el guardado.
   git commit: El git commit sirve para guardar los avances que estamos haciendo en el programa en las carpetas.
   git push: Sirve para enviar todos nuestros avances al GitHub.
+
+  Dia 1:
