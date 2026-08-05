@@ -4,7 +4,7 @@ sala: I-SALA6
 curso: JS
 dia: 0
 estado: completado
-loom: (agregar link al terminar)
+loom: (https://drive.google.com/file/d/1NY6vz9U-xqdYYtVUMtnXliJMsK3Z3Ovj/view?usp=sharing)
 ---
 ## Secciones
 - [x] A — Repositorio local y primeros commits
@@ -13,3 +13,4 @@ loom: (agregar link al terminar)
 - [x] D — git status y git log como hábito
 - [x] E — Evaluación entre pares
 - [x] F — Cierre del día
+
