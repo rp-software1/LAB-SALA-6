@@ -59,3 +59,26 @@ console.log(nuevoStock2);        // 9
 console.log(descripcion3);       // "Sopa criolla — S/ 12"
 console.log(disponible3);        // true
 console.log(nuevoStock3);        // 3
+
+// Bloque C — objetos del restaurante
+ 
+const plato1 = { nombre: "Lomo saltado", precio: 18, stock: 5 };
+const plato2 = { nombre: "Arroz con leche", precio: 8, stock: 10 };
+const plato3 = { nombre: "Sopa criolla", precio: 12, stock: 3 };
+ 
+function describir(nombre, precio) {
+  return nombre + " — S/ " + precio;
+}
+ 
+function estaDisponible(stockActual) {
+  return stockActual > 0;
+}
+ 
+function vender(stock) {
+  return stock - 1;
+}
+ 
+console.log(describir(plato1.nombre, plato1.precio));       // "Lomo saltado — S/ 18"
+console.log(estaDisponible(plato1.stock));  // true
+ 
+console.log(vender(plato1.stock));            // 4
