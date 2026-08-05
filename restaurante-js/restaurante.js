@@ -19,3 +19,43 @@ console.log("Plato 1:", nombrePlato, "| Precio:", precioPlato, "| Stock:", stock
 console.log("Plato 2:", nombrePlato2, "| Precio:", precioPlato2, "| Stock:", stockPlato2);
 console.log("Plato 3:", nombrePlato3, "| Precio:", precioPlato3, "| Stock:", stockPlato3);
 
+// Bloque B — funciones del plato
+ 
+function describir(nombre, precio) {
+  return nombre + " — S/ " + precio;
+}
+ 
+function estaDisponible(stock) {
+  return stock > 0;
+}
+ 
+function vender(stockActual) {
+  return stockActual - 1;
+}
+ 
+// Usar las funciones con los datos del Plato 1:
+const descripcion = describir(nombrePlato, precioPlato);
+const disponible = estaDisponible(stockPlato);
+const nuevoStock = vender(stockPlato);
+
+// Usar las funciones con los datos del Plato 2:
+const descripcion2 = describir(nombrePlato2, precioPlato2);
+const disponible2 = estaDisponible(stockPlato2);
+const nuevoStock2 = vender(stockPlato2);
+
+// Usar las funciones con los datos del Plato 3:
+const descripcion3 = describir(nombrePlato3, precioPlato3);
+const disponible3 = estaDisponible(stockPlato3);
+const nuevoStock3 = vender(stockPlato3);
+
+console.log(descripcion);        // "Lomo saltado — S/ 18"
+console.log(disponible);         // true
+console.log(nuevoStock);         // 4
+
+console.log(descripcion2);       // "Arroz con leche — S/ 8"
+console.log(disponible2);        // true
+console.log(nuevoStock2);        // 9
+
+console.log(descripcion3);       // "Sopa criolla — S/ 12"
+console.log(disponible3);        // true
+console.log(nuevoStock3);        // 3
