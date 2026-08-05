@@ -11,5 +11,5 @@ loom: (agregar link al terminar)
 - [x] B — Funciones
 - [x] C — Objeto plato del restaurante
 - [x] D — Exploración con IA
-- [ ] E — Evaluación entre pares
+- [x] E — Evaluación entre pares
 - [ ] F — Cierre del día
