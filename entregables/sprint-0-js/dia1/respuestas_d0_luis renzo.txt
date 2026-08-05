@@ -39,3 +39,23 @@ en el checklist y los commit en el codigo.
   git push: Sirve para enviar todos nuestros avances al GitHub.
 
   Dia 1:
+
+   FEEDBACK:BloqueA: Segun lo que se ha llegado a anvanzar es cear un archivo restaurante.js dentro del restaurante-js para
+  pasar a escribir cada variable en el archivo y verificando que se este usando los const y cada let declarando cada uno con los
+  nombres, precio y tambien los stock agregando un console.log para que aparezca al momento de ejecutar y revisando que cumpla
+  correctamente y agregando 2 platos mas.
+
+  FEEDBACK:BloqueB: Escribimos las funciones nombre y precio que devuelven los String y pasamos con la funcion estaDisponible
+  que los devolvera si es verdadero o falso. Pasamos a escribir otra funcion para ver el stock actual y llamando cada funcion con
+  los datos del plato1 con el resultado consolelog y revisar si estaba disponible y manejandolo perfectamente. Cada funcion
+  tiene su return correcto.
+
+  FEEDBACK:BloqueC: Pasamos a reemplazar las variables con un objeto que se mantenja igual siendo const. Hacer lo mismo con los
+  platos 2 y 3 y adaptar a las 3 funciones para que recibam cada una las propiedades sueltas. Aparte se modifica los stock del 
+  plato y revisar si se genero el cambio.
+
+  FEEDBACK:BloqueD: LLegamos a responder de manera proactiva las 2 de 3 preguntas y escogimos las preguntas que mas nos generaron
+  dudas al momento de leerlas.
+
+  FEEBACK:Bloque E: Nos evaluamos el uno al otro las tres preguntas donde las comtestamos de la manera mas normal usando logica comun
+  y sintaxis que aprendimos. Para al final anotar todo en la TARJETA DE EVALUACION.
