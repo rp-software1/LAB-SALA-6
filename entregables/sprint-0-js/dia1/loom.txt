@@ -1,3 +1,5 @@
+Dia 0:
+
 TARJETA DE EVALUACIÓN — guardar en entregables/sprint-0-js/dia0/
 EVALUADOR: Luis
 EVALUADO: Renzo
