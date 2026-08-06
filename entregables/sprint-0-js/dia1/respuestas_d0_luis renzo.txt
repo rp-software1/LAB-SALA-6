@@ -40,12 +40,11 @@ en el checklist y los commit en el codigo.
 
   Dia 1:
 
-   FEEDBACK:BloqueA: Segun lo que se ha llegado a anvanzar es cear un archivo restaurante.js dentro del restaurante-js para
+  FEEDBACK:BloqueA: Segun lo que se ha llegado a anvanzar es cear un archivo restaurante.js dentro del restaurante-js para
   pasar a escribir cada variable en el archivo y verificando que se este usando los const y cada let declarando cada uno con los
   nombres, precio y tambien los stock agregando un console.log para que aparezca al momento de ejecutar y revisando que cumpla
   correctamente y agregando 2 platos mas.
-
-  FEEDBACK:BloqueB: Escribimos las funciones nombre y precio que devuelven los String y pasamos con la funcion estaDisponible
+FEEDBACK:BloqueB: Escribimos las funciones nombre y precio que devuelven los String y pasamos con la funcion estaDisponible
   que los devolvera si es verdadero o falso. Pasamos a escribir otra funcion para ver el stock actual y llamando cada funcion con
   los datos del plato1 con el resultado consolelog y revisar si estaba disponible y manejandolo perfectamente. Cada funcion
   tiene su return correcto.
@@ -57,5 +56,8 @@ en el checklist y los commit en el codigo.
   FEEDBACK:BloqueD: LLegamos a responder de manera proactiva las 2 de 3 preguntas y escogimos las preguntas que mas nos generaron
   dudas al momento de leerlas.
 
-  FEEBACK:Bloque E: Nos evaluamos el uno al otro las tres preguntas donde las comtestamos de la manera mas normal usando logica comun
+  FEEDBACK:BloqueE: Nos evaluamos el uno al otro las tres preguntas donde las comtestamos de la manera mas normal usando logica comun
   y sintaxis que aprendimos. Para al final anotar todo en la TARJETA DE EVALUACION.
+
+  FEEDBACK:BloqueF: En esta seccion del Bloque llegamos a responder las preguntas de forma exitosa. Explicando el uso de las
+  variables y una proyeccion en el siguiente dia con los Arrays. Enviamos el link.
