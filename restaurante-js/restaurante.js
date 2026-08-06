@@ -13,7 +13,7 @@ let stockPlato2 = 10;
 // Plato 3
 const nombrePlato3 = "Sopa criolla";
 const precioPlato3 = 12;
-let stockPlato3 = 3;
+let stockPlato3 = 5;
  
 console.log("Plato 1:", nombrePlato, "| Precio:", precioPlato, "| Stock:", stockPlato);
 console.log("Plato 2:", nombrePlato2, "| Precio:", precioPlato2, "| Stock:", stockPlato2);

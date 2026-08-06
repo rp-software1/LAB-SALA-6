@@ -20,3 +20,5 @@ ESCENARIO ELEGIDO: N°2
 RESUMEN DE LA RESPUESTA:
 QUÉ ENTENDIÓ BIEN (una frase): El manejo de los const, los let y los functions.
 QUÉ NECESITA REPASAR (una frase): Todo quedo claro.
+
+link de la grabación: https://drive.google.com/file/d/1oqcHog3DmCfDWq-DJTZL2aQnkbaHzQUg/view?usp=sharing
