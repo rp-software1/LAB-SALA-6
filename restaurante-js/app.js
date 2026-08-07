@@ -41,7 +41,29 @@ document.getElementById("btnAgregar").addEventListener("click", () => {
  renderMenu();
 });
 
+document.getElementById("btnBuscar").addEventListener("click", () => {
+ const nombre = document.getElementById("inputBuscar").value;
+ const plato = buscarPlatoPorNombre(nombre);
+ if (plato) {
+   const output = document.getElementById("output");
+   output.innerHTML = `<p>Plato encontrado: ${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</p>`;
+ } else {
+   document.getElementById("output").innerHTML = "<p>Plato no encontrado.</p>";
+ }
+});
+
 function contarPlatos() {
     return menu.length;
 
+}
+
+//funcion buscar plato por nombre
+
+function buscarPlatoPorNombre(nombre) {
+    for (let i = 0; i < menu.length; i++) {
+        if (menu[i].nombre === nombre) {
+            return menu[i];
+        }
+    }
+    return null;
 }
