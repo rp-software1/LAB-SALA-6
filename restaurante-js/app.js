@@ -23,12 +23,11 @@ function renderMenu() {
     let html = "";
     html += "<ul>";
     html += renderLista(menu);
-    html += "</ul>";
     html += `<p>Total de platos en el menú: ${contarPlatos()}</p>`;
     output.innerHTML = html;
 }
 
-// 4) FUNCIÓN AGREGAR PLATO
+// 4) FUNCIÓN AGREGAR PLATOs
 function agregarPlatoDemo() {
     const nuevoPlato = {
         nombre: "Arroz tapado",precio: 17,stock: 5
@@ -56,39 +55,60 @@ function obtenerResumenMenu() {
     }
     return `<h3>Resumen del menú</h3><p>Total de platos: ${menu.length}</p><p>Total de productos en stock: ${totalStock}</p>`;
 }
+// 8) FUNCIÓN VER STOCK
+function verStockBajo() {
+    let platos = menu.filter(
+        plato => plato.stock
+    );
 
-// 8) EVENTO BOTÓN MOSTRAR
+    return renderLista(platos);
+}
+
+// 9) EVENTO BOTÓN MOSTRAR
 document.getElementById("btnMostrar")
 .addEventListener("click", () => {
     renderMenu();
 });
 
-// 9) EVENTO BOTÓN AGREGAR
+// 10) EVENTO BOTÓN AGREGAR
 document.getElementById("btnAgregar")
 .addEventListener("click", () => {
     agregarPlatoDemo();
     renderMenu();
 });
 
-// 10) EVENTO BOTÓN BUSCAR
+// 11) EVENTO BOTÓN BUSCAR
 document.getElementById("btnBuscar")
 .addEventListener("click", () => {
     const nombre = document.getElementById("inputBuscar").value;
     const plato = buscarPlatoPorNombre(nombre);
     const output = document.getElementById("output");
-    if (plato) {
-        output.innerHTML = 
-        <p>Plato encontrado:${plato.nombre} —S/ ${plato.precio} —Stock: ${plato.stock}</p>;
-
-    } else {
+  if (plato) {
+    output.innerHTML =
+    `Plato encontrado: ${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}`;
+}
+    else {
         output.innerHTML = "Plato no encontrado.";
     }
 });
 
-// 11) EVENTO BOTÓN RESUMEN
+// 12) EVENTO BOTÓN RESUMEN
 
 document.getElementById("btnResumen")
 .addEventListener("click", () => {
     const output = document.getElementById("output");
     output.innerHTML = obtenerResumenMenu();
+});
+
+// 13) EVENTO BOTÓN VER STOCK
+document.getElementById("btnStockBajo")
+.addEventListener("click", () => {
+
+    const output = document.getElementById("output");
+
+    output.innerHTML = `
+    <h3>Stock bajo</h3>
+    ${verStockBajo()}
+    `;
+
 });
