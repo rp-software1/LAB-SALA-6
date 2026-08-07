@@ -27,7 +27,7 @@ function renderMenu() {
 
 // 3) FUNCIÓN: agregar un plato demo al menú
 function agregarPlatoDemo() {
- const nuevoPlato = { nombre: "Arroz tapado", precio: 13, stock: 9 };
+ const nuevoPlato = { nombre: "Arroz tapado", precio: 17, stock: 5 };
  menu.push(nuevoPlato);
 }
 
@@ -43,5 +43,5 @@ document.getElementById("btnAgregar").addEventListener("click", () => {
 
 function contarPlatos() {
     return menu.length;
-    
+
 }
