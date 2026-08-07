@@ -11,7 +11,6 @@ let menu = [
 function renderMenu() {
  const output = document.getElementById("output");
  output.innerHTML = ""; // limpiar
-
  // crear una lista HTML simple
  let html = "<ul>";
 
