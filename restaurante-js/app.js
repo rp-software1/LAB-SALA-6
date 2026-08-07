@@ -52,6 +52,17 @@ document.getElementById("btnBuscar").addEventListener("click", () => {
  }
 });
 
+
+
+document.getElementById("btnResumen").addEventListener("click", () => {
+ const resumen = obtenerResumenMenu();
+ const output = document.getElementById("output");
+ output.innerHTML = `
+   <p>Total de platos en el menú: ${resumen.totalPlatos}</p>
+   <p>Total de stock: ${resumen.totalStock}</p>
+ `;
+});
+
 function contarPlatos() {
     return menu.length;
 
