@@ -5,7 +5,7 @@ curso: JS
 dia: 1
 estado: completado
 loom: (https://drive.google.com/file/d/1oqcHog3DmCfDWq-DJTZL2aQnkbaHzQUg/view?usp=sharing)
----
+--- 
 ## Secciones
 - [X] A — Variables
 - [x] B — Funciones
