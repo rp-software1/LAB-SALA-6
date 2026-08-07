@@ -7,6 +7,7 @@ let menu = [
  { nombre: "Ceviche", precio: 15, stock: 7 }
 ];
 
+
 // 2) FUNCIÓN: renderizar (mostrar) el menú en pantalla
 function renderMenu() {
  const output = document.getElementById("output");
