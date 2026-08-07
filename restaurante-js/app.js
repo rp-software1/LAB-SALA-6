@@ -63,6 +63,21 @@ document.getElementById("btnAgregar")
     renderMenu();
 });
 
+// 10) EVENTO BOTÓN BUSCAR
+document.getElementById("btnBuscar")
+.addEventListener("click", () => {
+    const nombre = document.getElementById("inputBuscar").value;
+    const plato = buscarPlatoPorNombre(nombre);
+    const output = document.getElementById("output");
+    if (plato) {
+        output.innerHTML = 
+        <p>Plato encontrado:${plato.nombre} —S/ ${plato.precio} —Stock: ${plato.stock}</p>;
+
+    } else {
+        output.innerHTML = "Plato no encontrado.";
+    }
+});
+
 // 11) EVENTO BOTÓN RESUMEN
 
 document.getElementById("btnResumen")
