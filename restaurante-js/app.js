@@ -41,6 +41,13 @@ function contarPlatos() {
     return menu.length;
 }
 
+// 6) BUSCAR PLATO CON FIND
+function buscarPlatoPorNombre(nombre) {
+    return menu.find(
+        plato => plato.nombre.toLowerCase() === nombre.toLowerCase()
+    );
+}
+
 // 7) OBTENER RESUMEN
 function obtenerResumenMenu() {
     let totalStock = 0;
