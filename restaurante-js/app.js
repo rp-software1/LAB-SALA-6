@@ -17,10 +17,10 @@ function renderMenu() {
 
  for (let i = 0; i < menu.length; i++) {
    const plato = menu[i];
-   html += <li>${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</li>;
+   html += `<li>${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</li>`;
  }
 
- html += <p>Total de platos en el menú: ${contarPlatos()}</p>;
+ html += `<p>Total de platos en el menú: ${contarPlatos()}</p>`;
 
     output.innerHTML = html;
 }
@@ -43,4 +43,5 @@ document.getElementById("btnAgregar").addEventListener("click", () => {
 
 function contarPlatos() {
     return menu.length;
+    
 }
