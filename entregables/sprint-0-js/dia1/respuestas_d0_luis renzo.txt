@@ -60,4 +60,4 @@ FEEDBACK:BloqueB: Escribimos las funciones nombre y precio que devuelven los Str
   y sintaxis que aprendimos. Para al final anotar todo en la TARJETA DE EVALUACION.
 
   FEEDBACK:BloqueF: En esta seccion del Bloque llegamos a responder las preguntas de forma exitosa. Explicando el uso de las
-  variables y una proyeccion en el siguiente dia con los Arrays. Enviamos el link.
+  variables y una proyeccion en el siguiente dia con los Arrays. Enviamos el link. g
