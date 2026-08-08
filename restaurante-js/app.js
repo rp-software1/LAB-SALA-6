@@ -198,3 +198,4 @@ function verificarEstadoGeneral() {
         stockBajo: stockBajo
     };
 }
+
