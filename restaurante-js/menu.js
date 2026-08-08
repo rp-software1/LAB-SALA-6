@@ -1,5 +1,6 @@
-// 1) ARRAY DEL MENÚ
-let menu = [
+// menu.js
+// Menú del restaurante
+const menu = [
     { nombre: "Arroz con pollo", precio: 12, stock: 5 },
     { nombre: "Lomo saltado", precio: 18, stock: 3 },
     { nombre: "Sopa", precio: 8, stock: 10 },
@@ -7,26 +8,27 @@ let menu = [
     { nombre: "Ceviche", precio: 15, stock: 7 }
 ];
 
-// 2) OBTENER EL MENÚ
+// Obtener el menú
 export function obtenerMenu() {
     return menu;
 }
 
-// 3) AGREGAR UN PLATO
-export function agregarPlato(plato) {
-    menu.push(plato);
+// Agregar un plato
+export function agregarPlato(nombre, precio, stock) {
+    menu.push({
+        nombre: nombre,
+        precio: precio,
+        stock: stock
+    });
 }
 
-// 4) ACTUALIZAR EL STOCK
-export function actualizarStock(nombre, cantidad) {
+// Actualizar stock
+export function actualizarStock(nombre, nuevoStock) {
     const plato = menu.find(
-        plato => plato.nombre.toLowerCase().trim() === nombre.toLowerCase().trim()
+        plato => plato.nombre.toLowerCase() === nombre.toLowerCase()
     );
 
-    if (!plato) {
-        return false;
+    if (plato) {
+        plato.stock = nuevoStock;
     }
-
-    plato.stock += cantidad;
-    return true;
 }

@@ -1,20 +1,80 @@
 // operaciones.js
 
-import { obtenerMenu } from "./menu.js";
+import {
+    obtenerMenu,
+    agregarPlato,
+    actualizarStock
+} from "./menu.js";
 
-// 1) BUSCAR PLATO
-function buscarPlato(nombre) {
+
+// ========================================
+// BUSCAR PLATO
+// ========================================
+
+export function buscarPlatoPorNombre(nombre) {
 
     const menu = obtenerMenu();
 
     return menu.find(
-        plato => plato.nombre.toLowerCase().trim() === nombre.toLowerCase().trim()
+        plato => plato.nombre.toLowerCase() === nombre.toLowerCase()
     );
 }
 
-// 2) VENDER PLATO
-function venderPlato(nombre, cantidad) {
-    const plato = buscarPlato(nombre);
+
+// ========================================
+// CONTAR PLATOS
+// ========================================
+
+export function contarPlatos() {
+
+    const menu = obtenerMenu();
+
+    return menu.length;
+}
+
+
+// ========================================
+// OBTENER RESUMEN
+// ========================================
+
+export function obtenerResumenMenu() {
+
+    const menu = obtenerMenu();
+
+    let totalStock = 0;
+
+    for (let plato of menu) {
+        totalStock += plato.stock;
+    }
+
+    return {
+        totalPlatos: menu.length,
+        totalStock: totalStock
+    };
+}
+
+
+// ========================================
+// VER STOCK BAJO
+// ========================================
+
+export function verStockBajo() {
+
+    const menu = obtenerMenu();
+
+    return menu.filter(
+        plato => plato.stock <= 3
+    );
+}
+
+
+// ========================================
+// VENDER PLATO
+// ========================================
+
+export function venderPlato(nombre, cantidad) {
+
+    const plato = buscarPlatoPorNombre(nombre);
 
     if (!plato) {
         return "Plato no encontrado.";
@@ -32,12 +92,32 @@ function venderPlato(nombre, cantidad) {
         return "Stock insuficiente.";
     }
 
-    plato.stock -= cantidad;
+    actualizarStock(
+        nombre,
+        plato.stock - cantidad
+    );
 
     return "Venta realizada correctamente.";
 }
 
-// 3) VERIFICAR ESTADO GENERAL
+
+// ========================================
+// AGREGAR PLATO DEMO
+// ========================================
+
+export function agregarPlatoDemo() {
+
+    agregarPlato(
+        "Arroz tapado",
+        17,
+        5
+    );
+}
+
+
+// ========================================
+// VERIFICAR ESTADO GENERAL
+// ========================================
 
 export function verificarEstadoGeneral() {
 
@@ -46,9 +126,11 @@ export function verificarEstadoGeneral() {
     let agotados = 0;
     let stockBajo = 0;
 
-    for (const plato of menu) {
+    for (let plato of menu) {
+
         if (plato.stock === 0) {
             agotados++;
+
         } else if (plato.stock <= 3) {
             stockBajo++;
         }
@@ -58,12 +140,4 @@ export function verificarEstadoGeneral() {
         agotados: agotados,
         stockBajo: stockBajo
     };
-}
-
-// 4) FILTRAR STOCK BAJO
-function filtrarStockBajo() {
-
-    const menu = obtenerMenu();
-
-    return menu.filter(plato => plato.stock > 0 && plato.stock <= 3);
 }
