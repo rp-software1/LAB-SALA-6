@@ -78,6 +78,32 @@ document.getElementById("btnMostrar")
     renderMenu();
 });
 
+function venderPlato(nombre, cantidad) {
+    const plato = buscarPlatoPorNombre(nombre);
+
+    // 1. Si el plato no existe
+    if (!plato) {
+        return "Plato no encontrado.";
+    }
+
+    // 2. Si el stock es 0
+    if (plato.stock === 0) {
+        return "No disponible.";
+    }
+
+    // 3. Si no hay stock suficiente
+    if (cantidad > plato.stock) {
+        return "Stock insuficiente.";
+    }
+
+    // 4. Descontar el stock
+    plato.stock -= cantidad;
+
+    // 5. Volver a mostrar el menú
+    renderMenu();
+
+    return "Venta realizada correctamente.";
+}
 // 10) EVENTO BOTÓN AGREGAR
 document.getElementById("btnAgregar")
 .addEventListener("click", () => {
