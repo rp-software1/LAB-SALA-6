@@ -29,7 +29,6 @@ function renderLista(lista) {
 function renderMenu() {
     const output = document.getElementById("output");
     let html = "";
-    html += "<ul>";
     html += renderLista(menu);
     html += `<p>Total de platos en el menú: ${contarPlatos()}</p>`;
     output.innerHTML = html;
@@ -78,6 +77,7 @@ document.getElementById("btnMostrar")
     renderMenu();
 });
 
+// FUNCIÓN VENDER PLATO
 function venderPlato(nombre, cantidad) {
     const plato = buscarPlatoPorNombre(nombre);
 
@@ -129,7 +129,6 @@ document.getElementById("btnBuscar")
 });
 
 // 12) EVENTO BOTÓN RESUMEN
-
 document.getElementById("btnResumen")
 .addEventListener("click", () => {
     const output = document.getElementById("output");
@@ -148,6 +147,7 @@ document.getElementById("btnStockBajo")
     `;
 
 });
+// 14) EVENTO BOTÓN VENDER
 document.getElementById("btnVender")
 .addEventListener("click", () => {
     const nombre = document.getElementById("inputVender").value;
