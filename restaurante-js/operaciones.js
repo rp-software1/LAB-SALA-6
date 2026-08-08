@@ -1,7 +1,12 @@
 // operaciones.js
 
+import { obtenerMenu } from "./menu.js";
+
 // 1) BUSCAR PLATO
 function buscarPlato(nombre) {
+
+    const menu = obtenerMenu();
+
     return menu.find(
         plato => plato.nombre.toLowerCase().trim() === nombre.toLowerCase().trim()
     );
@@ -33,7 +38,11 @@ function venderPlato(nombre, cantidad) {
 }
 
 // 3) VERIFICAR ESTADO GENERAL
-function verificarEstadoGeneral() {
+
+export function verificarEstadoGeneral() {
+
+    const menu = obtenerMenu();
+
     let agotados = 0;
     let stockBajo = 0;
 
@@ -53,5 +62,8 @@ function verificarEstadoGeneral() {
 
 // 4) FILTRAR STOCK BAJO
 function filtrarStockBajo() {
+
+    const menu = obtenerMenu();
+
     return menu.filter(plato => plato.stock > 0 && plato.stock <= 3);
 }
