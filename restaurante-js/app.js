@@ -104,6 +104,8 @@ function venderPlato(nombre, cantidad) {
 
     return "Venta realizada correctamente.";
 }
+
+
 // 10) EVENTO BOTÓN AGREGAR
 document.getElementById("btnAgregar")
 .addEventListener("click", () => {
@@ -145,4 +147,13 @@ document.getElementById("btnStockBajo")
     ${verStockBajo()}
     `;
 
+});
+document.getElementById("btnVender")
+.addEventListener("click", () => {
+    const nombre = document.getElementById("inputVender").value;
+    const cantidad = Number(document.getElementById("inputCantidad").value);
+
+    const mensaje = venderPlato(nombre, cantidad);
+
+    alert(mensaje);
 });
