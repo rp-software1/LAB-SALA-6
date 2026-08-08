@@ -4,6 +4,13 @@
  <meta charset="utf-8" />
  <meta name="viewport" content="width=device-width, initial-scale=1" />
  <title>Restaurante La Leña — Día 1</title>
+
+<style>
+ .normal { color: black; }
+ .bajo { color: orange; font-weight: bold; }
+ .agotado { color: red; font-weight: bold; }
+</style>
+
 </head>
 <body>
  <h1>Menú del Restaurante</h1>
@@ -17,13 +24,21 @@
 
 <input id="inputBuscar" placeholder="Buscar plato por nombre" />
 <button id="btnBuscar">Buscar</button>
-
 <button id="btnStockBajo">Ver stock</button>
-
 <button id="btnResumen">Ver resumen</button>
+
+<hr>
+
+<h2>Vender plato</h2>
+<input type="text" id="inputVender" placeholder="Nombre del plato">
+<input type="number" id="inputCantidad" placeholder="Cantidad">
+<button id="btnVender">Vender</button>
+
+<hr>
 
 <div id="lista"></div>
  <div id="output"></div>
  <script src="./app.js"></script>
+
 </body>
 </html>
