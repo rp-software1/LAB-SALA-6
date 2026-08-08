@@ -12,7 +12,15 @@ function renderLista(lista) {
     let html = "";
     for (let i = 0; i < lista.length; i++) {
         const plato = lista[i];
-        html += `<li>${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</li>`;
+        let clase = "";
+        if (plato.stock === 0) {
+            clase = "agotado";
+        } else if (plato.stock <= 3) {
+            clase = "bajo";
+        } else {
+            clase = "normal";
+        }
+        html += `<li class="${clase}">${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}</li>`;
     }
     return html;
 }

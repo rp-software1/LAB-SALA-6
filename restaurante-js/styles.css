@@ -1,0 +1,12 @@
+.agotado {
+  color: red;
+  font-weight: bold;
+}
+
+.bajo {
+  color: orange;
+}
+
+.normal {
+  color: black;
+}
