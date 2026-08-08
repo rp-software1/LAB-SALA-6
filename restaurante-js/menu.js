@@ -8,17 +8,17 @@ let menu = [
 ];
 
 // 2) OBTENER EL MENÚ
-function obtenerMenu() {
+export function obtenerMenu() {
     return menu;
 }
 
 // 3) AGREGAR UN PLATO
-function agregarPlato(plato) {
+export function agregarPlato(plato) {
     menu.push(plato);
 }
 
 // 4) ACTUALIZAR EL STOCK
-function actualizarStock(nombre, cantidad) {
+export function actualizarStock(nombre, cantidad) {
     const plato = menu.find(
         plato => plato.nombre.toLowerCase().trim() === nombre.toLowerCase().trim()
     );
