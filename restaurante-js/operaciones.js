@@ -16,7 +16,9 @@ export function buscarPlatoPorNombre(nombre) {
     const menu = obtenerMenu();
 
     return menu.find(
-        plato => plato.nombre.toLowerCase() === nombre.toLowerCase()
+        plato =>
+            plato.nombre.toLowerCase() ===
+            nombre.toLowerCase()
     );
 }
 
@@ -43,8 +45,9 @@ export function obtenerResumenMenu() {
 
     let totalStock = 0;
 
-    for (let plato of menu) {
-        totalStock += plato.stock;
+    for (let i = 0; i < menu.length; i++) {
+
+        totalStock += menu[i].stock;
     }
 
     return {
@@ -58,13 +61,28 @@ export function obtenerResumenMenu() {
 // VER STOCK BAJO
 // ========================================
 
-export function verStockBajo() {
+export function verStockBajo(limite = 3) {
 
     const menu = obtenerMenu();
 
     return menu.filter(
-        plato => plato.stock <= 3
+        plato => plato.stock <= limite
     );
+}
+
+
+// ========================================
+// AGREGAR PLATO DEMO
+// ========================================
+
+export function agregarPlatoDemo() {
+
+    agregarPlato(
+        "Pollo a la brasa",
+        20,
+        5
+    );
+
 }
 
 
@@ -76,42 +94,76 @@ export function venderPlato(nombre, cantidad) {
 
     const plato = buscarPlatoPorNombre(nombre);
 
+
     if (!plato) {
-        return "Plato no encontrado.";
+
+        return {
+            ok: false,
+            mensaje: "Plato no encontrado."
+        };
     }
 
-    if (cantidad <= 0 || isNaN(cantidad)) {
-        return "Cantidad inválida.";
+
+    if (cantidad <= 0) {
+
+        return {
+            ok: false,
+            mensaje: "Cantidad inválida."
+        };
     }
+
 
     if (plato.stock === 0) {
-        return "No disponible.";
+
+        return {
+            ok: false,
+            mensaje: "No disponible. El plato está agotado."
+        };
     }
 
-    if (cantidad > plato.stock) {
-        return "Stock insuficiente.";
+
+    if (plato.stock < cantidad) {
+
+        return {
+            ok: false,
+            mensaje: "Stock insuficiente."
+        };
     }
+
+
+    const nuevoStock =
+        plato.stock - cantidad;
+
 
     actualizarStock(
-        nombre,
-        plato.stock - cantidad
+        plato.nombre,
+        nuevoStock
     );
 
-    return "Venta realizada correctamente.";
+
+    return {
+        ok: true,
+        mensaje:
+            `Venta realizada: ${plato.nombre} x${cantidad}`
+    };
 }
 
 
 // ========================================
-// AGREGAR PLATO DEMO
+// CALCULAR ESTADO DEL PLATO
 // ========================================
 
-export function agregarPlatoDemo() {
+export function calcularEstadoPlato(plato) {
 
-    agregarPlato(
-        "Arroz tapado",
-        17,
-        5
-    );
+    if (plato.stock === 0) {
+        return "agotado";
+    }
+
+    if (plato.stock <= 3) {
+        return "bajo";
+    }
+
+    return "normal";
 }
 
 
@@ -124,20 +176,33 @@ export function verificarEstadoGeneral() {
     const menu = obtenerMenu();
 
     let agotados = 0;
-    let stockBajo = 0;
+    let bajos = 0;
 
-    for (let plato of menu) {
 
-        if (plato.stock === 0) {
+    for (let i = 0; i < menu.length; i++) {
+
+        if (menu[i].stock === 0) {
+
             agotados++;
 
-        } else if (plato.stock <= 3) {
-            stockBajo++;
+        } else if (menu[i].stock <= 3) {
+
+            bajos++;
         }
     }
 
-    return {
-        agotados: agotados,
-        stockBajo: stockBajo
-    };
+
+    if (agotados > 0) {
+
+        return "Hay platos agotados";
+    }
+
+
+    if (bajos > 0) {
+
+        return "Hay platos con stock bajo";
+    }
+
+
+    return "Todo disponible";
 }

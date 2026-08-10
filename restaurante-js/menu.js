@@ -1,5 +1,8 @@
 // menu.js
-// Datos del menú del restaurante
+
+// ========================================
+// DATOS DEL MENÚ
+// ========================================
 
 let menu = [
     { nombre: "Arroz con pollo", precio: 12, stock: 5 },
@@ -10,13 +13,19 @@ let menu = [
 ];
 
 
-// Obtener el menú completo
+// ========================================
+// OBTENER MENÚ
+// ========================================
+
 export function obtenerMenu() {
     return menu;
 }
 
 
-// Agregar un nuevo plato
+// ========================================
+// AGREGAR PLATO
+// ========================================
+
 export function agregarPlato(nombre, precio, stock) {
 
     menu.push({
@@ -28,12 +37,18 @@ export function agregarPlato(nombre, precio, stock) {
 }
 
 
-// Actualizar el stock de un plato
+// ========================================
+// ACTUALIZAR STOCK
+// ========================================
+
 export function actualizarStock(nombre, nuevoStock) {
 
     for (let i = 0; i < menu.length; i++) {
 
-        if (menu[i].nombre.toLowerCase() === nombre.toLowerCase()) {
+        if (
+            menu[i].nombre.toLowerCase() ===
+            nombre.toLowerCase()
+        ) {
 
             menu[i].stock = nuevoStock;
 
