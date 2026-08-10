@@ -1,10 +1,17 @@
-Retrospectiva: ¿qué cambió en tu comprensión de las variables entre el inicio del día y ahora? ¿Hubo algo que creías entender y resultó diferente de lo que pensabas?
-Al inicio pensaba que las variables solo guardaban datos. Ahora entiendo que pueden cambiar o mantenerse según se use let o const. También aprendí que los objetos permiten organizar mejor la información.
+Retrospectiva: ¿qué cambió en tu comprensión de las variables 
+entre el inicio del día y ahora? ¿Hubo algo que creías entender 
+y resultó diferente de lo que pensabas? Al inicio pensaba que las
+variables solo guardaban datos. Ahora entiendo que pueden cambiar 
+o mantenerse según se use let o const. También aprendí que los objetos
+permiten organizar mejor la información.
 
-Proyección: mañana vas a trabajar con arrays — listas de objetos. Si mañana tuvieras que crear un array con los tres platos que hiciste hoy, ¿cómo lo harías? Escribe cómo imaginas que se vería ese código.
-Lo haría creando un array llamado platos que contiene objetos con la información de cada plato, como nombre, precio y stock.
+Proyección: mañana vas a trabajar con arrays — listas de objetos. 
+Si mañana tuvieras que crear un array con los tres platos que hiciste
+hoy, ¿cómo lo harías? Escribe cómo imaginas que se vería ese código.
+Lo haría creando un array llamado platos que contiene objetos con la 
+información de cada plato, como nombre, precio y stock.
 const platos = [
-  { nombre: "Lomo saltado", precio: 18, stock: 5 },
-  { nombre: "Arroz con leche", precio: 8, stock: 10 },
-  { nombre: "Ceviche", precio: 20, stock: 3 }
+{ nombre: "Lomo saltado", precio: 18, stock: 5 },
+{ nombre: "Arroz con leche", precio: 8, stock: 10 },
+{ nombre: "Ceviche", precio: 20, stock: 3 }
 ];
