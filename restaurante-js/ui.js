@@ -1,5 +1,3 @@
-// ui.js
-
 import {
     obtenerMenu,
     agregarPlato
@@ -30,12 +28,15 @@ export function renderLista(lista) {
         let clase = "";
 
         if (plato.stock === 0) {
+
             clase = "agotado";
 
         } else if (plato.stock <= 3) {
+
             clase = "bajo";
 
         } else {
+
             clase = "normal";
         }
 
@@ -56,22 +57,39 @@ export function renderLista(lista) {
 // MOSTRAR MENSAJES
 // ========================================
 
-export function mostrarMensajes(mensaje, estado = "") {
+export function mostrarMensajes(
+    mensaje,
+    estado = ""
+) {
 
-    const output = document.getElementById("output");
+    const output =
+        document.getElementById("output");
+
+    let color = "black";
+
+    if (estado === "procesando") {
+
+        color = "blue";
+    }
+
+    if (estado === "exito") {
+
+        color = "green";
+    }
+
+    if (estado === "error") {
+
+        color = "red";
+    }
 
     output.innerHTML = `
         <p
             class="mensaje ${estado}"
-            style="color: ${
-                estado === "error"
-                    ? "red"
-                    : estado === "procesando"
-                    ? "blue"
-                    : estado === "exito"
-                    ? "green"
-                    : "black"
-            }; font-weight: bold;"
+            style="
+                color: ${color};
+                font-weight: bold;
+                padding: 10px;
+            "
         >
             ${mensaje}
         </p>
@@ -180,13 +198,11 @@ export function iniciarUI() {
             "click",
             () => {
 
-                const input =
-                    document.getElementById(
-                        "inputBuscar"
-                    );
-
                 const nombre =
-                    input.value.trim();
+                    document
+                        .getElementById("inputBuscar")
+                        .value
+                        .trim();
 
                 if (nombre === "") {
 
@@ -204,7 +220,7 @@ export function iniciarUI() {
                 if (!plato) {
 
                     mostrarMensajes(
-                        "Error: plato no encontrado.",
+                        `Error: el plato "${nombre}" no existe.`,
                         "error"
                     );
 
@@ -212,10 +228,7 @@ export function iniciarUI() {
                 }
 
                 mostrarMensajes(
-                    `Plato encontrado:
-                    ${plato.nombre}
-                    — S/ ${plato.precio}
-                    — Stock: ${plato.stock}`
+                    `Plato encontrado: ${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}`
                 );
             }
         );
@@ -227,9 +240,7 @@ export function iniciarUI() {
     // ====================================
 
     const btnStockBajo =
-        document.getElementById(
-            "btnStockBajo"
-        );
+        document.getElementById("btnStockBajo");
 
     if (btnStockBajo) {
 
@@ -250,9 +261,7 @@ export function iniciarUI() {
                 }
 
                 const output =
-                    document.getElementById(
-                        "output"
-                    );
+                    document.getElementById("output");
 
                 output.innerHTML = `
                     <h3>Stock bajo</h3>
@@ -271,9 +280,7 @@ export function iniciarUI() {
     // ====================================
 
     const btnResumen =
-        document.getElementById(
-            "btnResumen"
-        );
+        document.getElementById("btnResumen");
 
     if (btnResumen) {
 
@@ -285,9 +292,7 @@ export function iniciarUI() {
                     obtenerResumenMenu();
 
                 const output =
-                    document.getElementById(
-                        "output"
-                    );
+                    document.getElementById("output");
 
                 output.innerHTML = `
                     <h3>Resumen del menú</h3>
@@ -312,9 +317,7 @@ export function iniciarUI() {
     // ====================================
 
     const btnVender =
-        document.getElementById(
-            "btnVender"
-        );
+        document.getElementById("btnVender");
 
     if (btnVender) {
 
@@ -323,33 +326,24 @@ export function iniciarUI() {
             async () => {
 
                 // ====================================
-                // OBTENER NOMBRE
+                // OBTENER DATOS
                 // ====================================
 
                 const nombre =
                     document
-                        .getElementById(
-                            "inputVender"
-                        )
+                        .getElementById("inputVender")
                         .value
                         .trim();
 
-
-                // ====================================
-                // OBTENER CANTIDAD COMO TEXTO
-                // ====================================
-
-                const cantidadInput =
+                const cantidadTexto =
                     document
-                        .getElementById(
-                            "inputCantidad"
-                        )
+                        .getElementById("inputCantidad")
                         .value
                         .trim();
 
 
                 // ====================================
-                // NOMBRE VACÍO
+                // VALIDAR NOMBRE
                 // ====================================
 
                 if (nombre === "") {
@@ -364,10 +358,10 @@ export function iniciarUI() {
 
 
                 // ====================================
-                // CANTIDAD VACÍA
+                // VALIDAR CANTIDAD VACÍA
                 // ====================================
 
-                if (cantidadInput === "") {
+                if (cantidadTexto === "") {
 
                     mostrarMensajes(
                         "Error: debes ingresar una cantidad.",
@@ -379,13 +373,13 @@ export function iniciarUI() {
 
 
                 // ====================================
-                // CANTIDAD NO NUMÉRICA
+                // VALIDAR CANTIDAD NUMÉRICA
                 // ====================================
 
-                if (isNaN(cantidadInput)) {
+                if (isNaN(cantidadTexto)) {
 
                     mostrarMensajes(
-                        "Error: la cantidad debe ser numérica.",
+                        "Error: la cantidad debe ser numérica. No se permiten letras.",
                         "error"
                     );
 
@@ -394,11 +388,11 @@ export function iniciarUI() {
 
 
                 const cantidad =
-                    Number(cantidadInput);
+                    Number(cantidadTexto);
 
 
                 // ====================================
-                // CANTIDAD CERO O NEGATIVA
+                // VALIDAR CANTIDAD POSITIVA
                 // ====================================
 
                 if (cantidad <= 0) {
@@ -413,7 +407,7 @@ export function iniciarUI() {
 
 
                 // ====================================
-                // BUSCAR PLATO
+                // VALIDAR PLATO
                 // ====================================
 
                 const plato =
@@ -422,7 +416,7 @@ export function iniciarUI() {
                 if (!plato) {
 
                     mostrarMensajes(
-                        "Error: el plato no existe en el menú.",
+                        `Error: el plato "${nombre}" no existe en el menú.`,
                         "error"
                     );
 
@@ -431,13 +425,13 @@ export function iniciarUI() {
 
 
                 // ====================================
-                // STOCK INSUFICIENTE
+                // VALIDAR STOCK
                 // ====================================
 
                 if (cantidad > plato.stock) {
 
                     mostrarMensajes(
-                        `Error: stock insuficiente. Solo hay ${plato.stock} unidades.`,
+                        `Error: stock insuficiente. Solo hay ${plato.stock} unidades disponibles.`,
                         "error"
                     );
 
@@ -454,12 +448,12 @@ export function iniciarUI() {
                     // 🔵 PROCESANDO
 
                     mostrarMensajes(
-                        "Procesando...",
+                        "Procesando venta...",
                         "procesando"
                     );
 
 
-                    // Esperar respuesta del servidor
+                    // Esperar respuesta
 
                     const respuesta =
                         await venderPlatoAsync(
@@ -476,7 +470,7 @@ export function iniciarUI() {
                     );
 
 
-                    // Actualizar menú después del éxito
+                    // Actualizar menú
 
                     setTimeout(() => {
 
@@ -487,7 +481,7 @@ export function iniciarUI() {
 
                 } catch (error) {
 
-                    // 🔴 TODOS LOS ERRORES
+                    // 🔴 ERROR
 
                     mostrarMensajes(
                         "Error: " + error.message,
