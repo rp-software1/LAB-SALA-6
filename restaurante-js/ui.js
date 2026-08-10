@@ -11,9 +11,9 @@ import {
     obtenerResumenMenu,
     verStockBajo,
     venderPlatoAsync,
-    calcularEstadoPlato,
     verificarEstadoGeneral
 } from "./operaciones.js";
+
 
 // ========================================
 // MOSTRAR LISTA
@@ -30,21 +30,20 @@ export function renderLista(lista) {
         let clase = "";
 
         if (plato.stock === 0) {
-
             clase = "agotado";
 
         } else if (plato.stock <= 3) {
-
             clase = "bajo";
 
         } else {
-
             clase = "normal";
         }
 
         html += `
             <li class="${clase}">
-                ${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}
+                ${plato.nombre}
+                — S/ ${plato.precio}
+                — Stock: ${plato.stock}
             </li>
         `;
     }
@@ -54,16 +53,26 @@ export function renderLista(lista) {
 
 
 // ========================================
-// MOSTRAR MENSAJE CON ESTADO
+// MOSTRAR MENSAJES
 // ========================================
 
 export function mostrarMensajes(mensaje, estado = "") {
 
-    const output =
-        document.getElementById("output");
+    const output = document.getElementById("output");
 
     output.innerHTML = `
-        <p class="mensaje ${estado}">
+        <p
+            class="mensaje ${estado}"
+            style="color: ${
+                estado === "error"
+                    ? "red"
+                    : estado === "procesando"
+                    ? "blue"
+                    : estado === "exito"
+                    ? "green"
+                    : "black"
+            }; font-weight: bold;"
+        >
             ${mensaje}
         </p>
     `;
@@ -92,15 +101,13 @@ export function renderMenu() {
         </ul>
     `;
 
-    // TOTAL DE PLATOS
-
     html += `
         <p>
-            <strong>Total de platos: ${contarPlatos()}</strong>
+            <strong>
+                Total de platos: ${contarPlatos()}
+            </strong>
         </p>
     `;
-
-    // ESTADO GENERAL
 
     html += `
         <p>
@@ -112,11 +119,12 @@ export function renderMenu() {
 }
 
 
-// ====================================
+// ========================================
 // INICIAR EVENTOS
-// ====================================
+// ========================================
 
 export function iniciarUI() {
+
 
     // ====================================
     // MOSTRAR MENÚ
@@ -147,11 +155,11 @@ export function iniciarUI() {
             "click",
             () => {
 
-                agregarPlato(
-                    "Pollo a la brasa",
-                    20,
-                    4
-                );
+                agregarPlato({
+                    nombre: "Pollo a la brasa",
+                    precio: 20,
+                    stock: 4
+                });
 
                 renderMenu();
             }
@@ -173,7 +181,9 @@ export function iniciarUI() {
             () => {
 
                 const input =
-                    document.getElementById("inputBuscar");
+                    document.getElementById(
+                        "inputBuscar"
+                    );
 
                 const nombre =
                     input.value.trim();
@@ -181,7 +191,8 @@ export function iniciarUI() {
                 if (nombre === "") {
 
                     mostrarMensajes(
-                        "Escribe un nombre para buscar."
+                        "Error: debes ingresar el nombre del plato.",
+                        "error"
                     );
 
                     return;
@@ -193,7 +204,8 @@ export function iniciarUI() {
                 if (!plato) {
 
                     mostrarMensajes(
-                        "Plato no encontrado."
+                        "Error: plato no encontrado.",
+                        "error"
                     );
 
                     return;
@@ -215,7 +227,9 @@ export function iniciarUI() {
     // ====================================
 
     const btnStockBajo =
-        document.getElementById("btnStockBajo");
+        document.getElementById(
+            "btnStockBajo"
+        );
 
     if (btnStockBajo) {
 
@@ -236,7 +250,9 @@ export function iniciarUI() {
                 }
 
                 const output =
-                    document.getElementById("output");
+                    document.getElementById(
+                        "output"
+                    );
 
                 output.innerHTML = `
                     <h3>Stock bajo</h3>
@@ -249,10 +265,15 @@ export function iniciarUI() {
         );
     }
 
+
+    // ====================================
     // RESUMEN
+    // ====================================
 
     const btnResumen =
-        document.getElementById("btnResumen");
+        document.getElementById(
+            "btnResumen"
+        );
 
     if (btnResumen) {
 
@@ -264,7 +285,9 @@ export function iniciarUI() {
                     obtenerResumenMenu();
 
                 const output =
-                    document.getElementById("output");
+                    document.getElementById(
+                        "output"
+                    );
 
                 output.innerHTML = `
                     <h3>Resumen del menú</h3>
@@ -283,11 +306,15 @@ export function iniciarUI() {
         );
     }
 
-    // VENDER - ASÍNCRONO
 
+    // ====================================
+    // VENDER - ASÍNCRONO
+    // ====================================
 
     const btnVender =
-        document.getElementById("btnVender");
+        document.getElementById(
+            "btnVender"
+        );
 
     if (btnVender) {
 
@@ -295,63 +322,177 @@ export function iniciarUI() {
             "click",
             async () => {
 
+                // ====================================
+                // OBTENER NOMBRE
+                // ====================================
+
                 const nombre =
                     document
-                        .getElementById("inputVender")
+                        .getElementById(
+                            "inputVender"
+                        )
                         .value
                         .trim();
 
-                const cantidad =
-                    Number(
-                        document
-                            .getElementById("inputCantidad")
-                            .value
+
+                // ====================================
+                // OBTENER CANTIDAD COMO TEXTO
+                // ====================================
+
+                const cantidadInput =
+                    document
+                        .getElementById(
+                            "inputCantidad"
+                        )
+                        .value
+                        .trim();
+
+
+                // ====================================
+                // NOMBRE VACÍO
+                // ====================================
+
+                if (nombre === "") {
+
+                    mostrarMensajes(
+                        "Error: debes ingresar el nombre del plato.",
+                        "error"
                     );
+
+                    return;
+                }
+
+
+                // ====================================
+                // CANTIDAD VACÍA
+                // ====================================
+
+                if (cantidadInput === "") {
+
+                    mostrarMensajes(
+                        "Error: debes ingresar una cantidad.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                // ====================================
+                // CANTIDAD NO NUMÉRICA
+                // ====================================
+
+                if (isNaN(cantidadInput)) {
+
+                    mostrarMensajes(
+                        "Error: la cantidad debe ser numérica.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                const cantidad =
+                    Number(cantidadInput);
+
+
+                // ====================================
+                // CANTIDAD CERO O NEGATIVA
+                // ====================================
+
+                if (cantidad <= 0) {
+
+                    mostrarMensajes(
+                        "Error: la cantidad debe ser mayor que cero.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                // ====================================
+                // BUSCAR PLATO
+                // ====================================
+
+                const plato =
+                    buscarPlatoPorNombre(nombre);
+
+                if (!plato) {
+
+                    mostrarMensajes(
+                        "Error: el plato no existe en el menú.",
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                // ====================================
+                // STOCK INSUFICIENTE
+                // ====================================
+
+                if (cantidad > plato.stock) {
+
+                    mostrarMensajes(
+                        `Error: stock insuficiente. Solo hay ${plato.stock} unidades.`,
+                        "error"
+                    );
+
+                    return;
+                }
+
+
+                // ====================================
+                // PROCESAR VENTA
+                // ====================================
 
                 try {
 
-                    // Mientras espera → AZUL
+                    // 🔵 PROCESANDO
+
                     mostrarMensajes(
                         "Procesando...",
                         "procesando"
                     );
 
-                    // Esperar la venta
+
+                    // Esperar respuesta del servidor
+
                     const respuesta =
                         await venderPlatoAsync(
                             nombre,
                             cantidad
                         );
 
-                    // Éxito → VERDE
+
+                    // 🟢 ÉXITO
+
                     mostrarMensajes(
-                        `Venta realizada. ${respuesta}`,
+                        respuesta,
                         "exito"
                     );
 
-                    // Actualizar menú
+
+                    // Actualizar menú después del éxito
+
                     setTimeout(() => {
+
                         renderMenu();
+
                     }, 2000);
+
 
                 } catch (error) {
 
-                    // MANEJO DIFERENCIADO DE ERRORES
+                    // 🔴 TODOS LOS ERRORES
 
-                    if (error.name === "ErrorNegocio") {
-
-                        mostrarMensajes(
-                            "Advertencia: " + error.message,
-                            "advertencia"
-                        );
-
-                    } else {
-
-                        mostrarMensajes(
-                            "Error del sistema: " + error.message,
-                            "error"
-                        );
-                    }
+                    mostrarMensajes(
+                        "Error: " + error.message,
+                        "error"
+                    );
                 }
             }
         );

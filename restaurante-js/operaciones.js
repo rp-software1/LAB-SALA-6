@@ -3,13 +3,17 @@ import {
     actualizarStock
 } from "./menu.js";
 
+
 // ====================================
 // ERROR DE NEGOCIO PERSONALIZADO
 // ====================================
 
 export class ErrorNegocio extends Error {
+
     constructor(mensaje) {
+
         super(mensaje);
+
         this.name = "ErrorNegocio";
     }
 }
@@ -20,13 +24,16 @@ export class ErrorNegocio extends Error {
 // ====================================
 
 export function buscarPlatoPorNombre(nombre) {
+
     const menu = obtenerMenu();
 
     for (let i = 0; i < menu.length; i++) {
+
         if (
             menu[i].nombre.toLowerCase() ===
             nombre.toLowerCase()
         ) {
+
             return menu[i];
         }
     }
@@ -40,6 +47,7 @@ export function buscarPlatoPorNombre(nombre) {
 // ====================================
 
 export function contarPlatos() {
+
     const menu = obtenerMenu();
 
     return menu.length;
@@ -51,10 +59,14 @@ export function contarPlatos() {
 // ====================================
 
 export function verStockBajo() {
+
     const menu = obtenerMenu();
 
     return menu.filter(function(plato) {
-        return plato.stock > 0 && plato.stock <= 3;
+
+        return plato.stock > 0 &&
+               plato.stock <= 3;
+
     });
 }
 
@@ -66,10 +78,12 @@ export function verStockBajo() {
 export function calcularEstadoPlato(plato) {
 
     if (plato.stock === 0) {
+
         return "Agotado";
     }
 
     if (plato.stock <= 3) {
+
         return "Stock bajo";
     }
 
@@ -82,6 +96,7 @@ export function calcularEstadoPlato(plato) {
 // ====================================
 
 export function verificarEstadoGeneral() {
+
     const menu = obtenerMenu();
 
     let agotados = 0;
@@ -90,6 +105,7 @@ export function verificarEstadoGeneral() {
     for (let i = 0; i < menu.length; i++) {
 
         if (menu[i].stock === 0) {
+
             agotados++;
         }
 
@@ -97,6 +113,7 @@ export function verificarEstadoGeneral() {
             menu[i].stock > 0 &&
             menu[i].stock <= 3
         ) {
+
             stockBajo++;
         }
     }
@@ -110,60 +127,21 @@ export function verificarEstadoGeneral() {
 // ====================================
 
 export function obtenerResumenMenu() {
+
     const menu = obtenerMenu();
 
     let totalStock = 0;
 
     for (let i = 0; i < menu.length; i++) {
+
         totalStock += menu[i].stock;
     }
 
     return {
+
         totalPlatos: menu.length,
+
         totalStock: totalStock
-    };
-}
-
-
-// ====================================
-// VENDER PLATO
-// ====================================
-
-export function venderPlato(nombre, cantidad) {
-
-    const plato = buscarPlatoPorNombre(nombre);
-
-    if (!plato) {
-        return {
-            ok: false,
-            mensaje: "Plato no encontrado."
-        };
-    }
-
-    if (cantidad <= 0 || isNaN(cantidad)) {
-        return {
-            ok: false,
-            mensaje: "Cantidad no válida."
-        };
-    }
-
-    if (plato.stock < cantidad) {
-        return {
-            ok: false,
-            mensaje: "No hay suficiente stock."
-        };
-    }
-
-    const nuevoStock = plato.stock - cantidad;
-
-    actualizarStock(
-        plato.nombre,
-        nuevoStock
-    );
-
-    return {
-        ok: true,
-        mensaje: `Venta realizada. Nuevo stock de ${plato.nombre}: ${nuevoStock}`
     };
 }
 
@@ -181,10 +159,15 @@ export function simularRespuestaServidor(resultado) {
             const falla = Math.random() < 0.3;
 
             if (falla) {
+
                 reject(
-                    new Error("Error del servidor simulado.")
+                    new Error(
+                        "Error del servidor simulado."
+                    )
                 );
+
             } else {
+
                 resolve(resultado);
             }
 
@@ -194,46 +177,71 @@ export function simularRespuestaServidor(resultado) {
 
 
 // ====================================
-// VENDER - ASÍNCRONO
+// VENDER PLATO ASÍNCRONO
 // ====================================
 
-export async function venderPlatoAsync(nombre, cantidad) {
+export async function venderPlatoAsync(
+    nombre,
+    cantidad
+) {
 
-    const plato = buscarPlatoPorNombre(nombre);
+    const plato =
+        buscarPlatoPorNombre(nombre);
 
-    // Plato inexistente
+
+    // Plato no encontrado
+
     if (!plato) {
+
         throw new ErrorNegocio(
             "Plato no encontrado."
         );
     }
 
-    // Cantidad inválida
-    if (cantidad <= 0 || isNaN(cantidad)) {
+
+    // Cantidad no válida
+
+    if (
+        cantidad <= 0 ||
+        isNaN(cantidad)
+    ) {
+
         throw new ErrorNegocio(
-            "Cantidad no válida."
+            "La cantidad debe ser mayor que cero."
         );
     }
+
 
     // Stock insuficiente
-    if (plato.stock < cantidad) {
+
+    if (cantidad > plato.stock) {
+
         throw new ErrorNegocio(
-            "No hay suficiente stock."
+            `Stock insuficiente. Solo hay ${plato.stock} unidades.`
         );
     }
 
+
     // Esperar respuesta del servidor
+
     await simularRespuestaServidor(
         "Venta realizada"
     );
 
-    // Solo modificar stock si hubo éxito
-    const nuevoStock = plato.stock - cantidad;
+
+    // IMPORTANTE:
+    // SOLO SE MODIFICA EL STOCK
+    // SI EL SERVIDOR RESPONDE CORRECTAMENTE
+
+    const nuevoStock =
+        plato.stock - cantidad;
+
 
     actualizarStock(
         plato.nombre,
         nuevoStock
     );
 
-    return `Nuevo stock de ${plato.nombre}: ${nuevoStock}`;
+
+    return `Venta realizada. Nuevo stock de ${plato.nombre}: ${nuevoStock}`;
 }
