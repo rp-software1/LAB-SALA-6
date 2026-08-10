@@ -3,145 +3,282 @@ import {
     actualizarStock
 } from "./menu.js";
 
+
+// ====================================
+// ERROR DE NEGOCIO PERSONALIZADO
+// ====================================
+
+export class ErrorNegocio extends Error {
+
+    constructor(mensaje) {
+
+        super(mensaje);
+
+        this.name = "ErrorNegocio";
+    }
+}
+
+
+// ====================================
 // BUSCAR PLATO
+// ====================================
 
 export function buscarPlatoPorNombre(nombre) {
+
     const menu = obtenerMenu();
+
     for (let i = 0; i < menu.length; i++) {
+
         if (
             menu[i].nombre.toLowerCase() ===
             nombre.toLowerCase()
         ) {
+
             return menu[i];
         }
     }
+
     return null;
 }
 
+
+// ====================================
 // CONTAR PLATOS
+// ====================================
 
 export function contarPlatos() {
+
     const menu = obtenerMenu();
+
     return menu.length;
 }
 
+
+// ====================================
 // STOCK BAJO
+// ====================================
 
 export function verStockBajo() {
+
     const menu = obtenerMenu();
+
     return menu.filter(function(plato) {
-        return plato.stock > 0 && plato.stock <= 3;
+
+        return plato.stock > 0 &&
+               plato.stock <= 3;
+
     });
 }
 
+
+// ====================================
 // ESTADO DEL PLATO
+// ====================================
 
 export function calcularEstadoPlato(plato) {
+
     if (plato.stock === 0) {
+
         return "Agotado";
     }
+
     if (plato.stock <= 3) {
+
         return "Stock bajo";
     }
+
     return "Disponible";
 }
 
+
+// ====================================
 // ESTADO GENERAL
+// ====================================
 
 export function verificarEstadoGeneral() {
+
     const menu = obtenerMenu();
+
     let agotados = 0;
     let stockBajo = 0;
+
     for (let i = 0; i < menu.length; i++) {
+
         if (menu[i].stock === 0) {
+
             agotados++;
         }
-        if (menu[i].stock > 0 && menu[i].stock <= 3) {
+
+        if (
+            menu[i].stock > 0 &&
+            menu[i].stock <= 3
+        ) {
+
             stockBajo++;
         }
     }
+
     return `Agotados: ${agotados} | Stock bajo: ${stockBajo}`;
 }
 
+
+// ====================================
 // RESUMEN DEL MENÚ
+// ====================================
 
 export function obtenerResumenMenu() {
+
     const menu = obtenerMenu();
+
     let totalStock = 0;
+
     for (let i = 0; i < menu.length; i++) {
+
         totalStock += menu[i].stock;
     }
+
     return {
+
         totalPlatos: menu.length,
         totalStock: totalStock
     };
 }
 
-// VENDER PLATO
 
-export function venderPlato(nombre, cantidad) {
-    const plato = buscarPlatoPorNombre(nombre);
-    if (!plato) {
-        return {
-            ok: false,
-            mensaje: "Plato no encontrado."
-        };
-    }
-    if (cantidad <= 0 || isNaN(cantidad)) {
-        return {
-            ok: false,
-            mensaje: "Cantidad no válida."
-        };
-    }
-    if (plato.stock < cantidad) {
-        return {
-            ok: false,
-            mensaje: "No hay suficiente stock."
-        };
-    }
-    const nuevoStock = plato.stock - cantidad;
-    actualizarStock(plato.nombre, nuevoStock);
-    return {
-        ok: true,
-        mensaje: `Venta realizada. Nuevo stock de ${plato.nombre}: ${nuevoStock}`
-    };
-}
-
+// ====================================
 // SIMULAR RESPUESTA DEL SERVIDOR
+// ====================================
 
 export function simularRespuestaServidor(resultado) {
+
     return new Promise((resolve, reject) => {
+
         setTimeout(() => {
+
             const falla = Math.random() < 0.3;
+
             if (falla) {
-                reject(new Error("Error del servidor simulado."));
+
+                reject(
+                    new Error(
+                        "No se pudo procesar la venta. El servidor no respondió correctamente."
+                    )
+                );
+
             } else {
+
                 resolve(resultado);
             }
+
         }, 2000);
     });
 }
 
-export async function venderPlatoAsync(nombre, cantidad) {
-    const plato = buscarPlatoPorNombre(nombre);
+
+// ====================================
+// VENDER PLATO ASÍNCRONO
+// ====================================
+
+export async function venderPlatoAsync(
+    nombre,
+    cantidad
+) {
+
+    // ====================================
+    // VALIDAR NOMBRE
+    // ====================================
+
+    if (!nombre || nombre.trim() === "") {
+
+        throw new ErrorNegocio(
+            "Debes ingresar el nombre del plato."
+        );
+    }
+
+
+    // ====================================
+    // BUSCAR PLATO
+    // ====================================
+
+    const plato =
+        buscarPlatoPorNombre(nombre);
+
     if (!plato) {
-        throw new Error("Plato no encontrado.");
+
+        throw new ErrorNegocio(
+            `El plato "${nombre}" no existe en el menú.`
+        );
     }
-    if (cantidad <= 0 || isNaN(cantidad)) {
-        throw new Error("Cantidad no válida.");
+
+
+    // ====================================
+    // VALIDAR CANTIDAD
+    // ====================================
+
+    if (
+        cantidad === "" ||
+        cantidad === null ||
+        cantidad === undefined ||
+        isNaN(cantidad)
+    ) {
+
+        throw new ErrorNegocio(
+            "La cantidad debe ser un número."
+        );
     }
-    if (plato.stock < cantidad) {
-        throw new Error("No hay suficiente stock.");
+
+
+    // ====================================
+    // VALIDAR CANTIDAD POSITIVA
+    // ====================================
+
+    if (cantidad <= 0) {
+
+        throw new ErrorNegocio(
+            "La cantidad debe ser mayor que cero."
+        );
     }
-    // Esperar respuesta del servidor
+
+
+    // ====================================
+    // VALIDAR STOCK
+    // ====================================
+
+    if (cantidad > plato.stock) {
+
+        throw new ErrorNegocio(
+            `Stock insuficiente. Solo hay ${plato.stock} unidades disponibles.`
+        );
+    }
+
+
+    // ====================================
+    // SIMULAR SERVIDOR
+    // ====================================
+
     await simularRespuestaServidor(
-        "Venta realizada"
+        "Venta procesada correctamente."
     );
-    // Solo modificar stock si hubo éxito
-    const nuevoStock = plato.stock - cantidad;
+
+
+    // ====================================
+    // IMPORTANTE:
+    // EL STOCK SOLO CAMBIA DESPUÉS
+    // DE UNA RESPUESTA EXITOSA
+    // ====================================
+
+    const nuevoStock =
+        plato.stock - cantidad;
+
     actualizarStock(
         plato.nombre,
         nuevoStock
     );
-    return `Nuevo stock de ${plato.nombre}: ${nuevoStock}`;
+
+
+    // ====================================
+    // DEVOLVER RESULTADO
+    // ====================================
+
+    return `Venta realizada correctamente. Nuevo stock de ${plato.nombre}: ${nuevoStock}`;
 }
