@@ -2,10 +2,8 @@
 
 import {
     obtenerMenu,
-    agregarPlato,
     actualizarStock
 } from "./menu.js";
-
 
 // ========================================
 // BUSCAR PLATO
@@ -15,13 +13,18 @@ export function buscarPlatoPorNombre(nombre) {
 
     const menu = obtenerMenu();
 
-    return menu.find(
-        plato =>
-            plato.nombre.toLowerCase() ===
-            nombre.toLowerCase()
-    );
-}
+    for (let i = 0; i < menu.length; i++) {
 
+        if (
+            menu[i].nombre.toLowerCase() ===
+            nombre.toLowerCase()
+        ) {
+            return menu[i];
+        }
+    }
+
+    return null;
+}
 
 // ========================================
 // CONTAR PLATOS
@@ -34,9 +37,63 @@ export function contarPlatos() {
     return menu.length;
 }
 
+// ========================================
+// STOCK BAJO
+// ========================================
+
+export function verStockBajo() {
+
+    const menu = obtenerMenu();
+
+    return menu.filter(function(plato) {
+        return plato.stock > 0 && plato.stock <= 3;
+    });
+}
 
 // ========================================
-// OBTENER RESUMEN
+// ESTADO DEL PLATO
+// ========================================
+
+export function calcularEstadoPlato(plato) {
+
+    if (plato.stock === 0) {
+        return "Agotado";
+    }
+
+    if (plato.stock <= 3) {
+        return "Stock bajo";
+    }
+
+    return "Disponible";
+}
+
+// ========================================
+// ESTADO GENERAL
+// ========================================
+
+export function verificarEstadoGeneral() {
+
+    const menu = obtenerMenu();
+
+    let agotados = 0;
+    let stockBajo = 0;
+
+    for (let i = 0; i < menu.length; i++) {
+
+        if (menu[i].stock === 0) {
+            agotados++;
+        }
+
+        if (menu[i].stock > 0 && menu[i].stock <= 3) {
+            stockBajo++;
+        }
+    }
+
+    return `Agotados: ${agotados} | Stock bajo: ${stockBajo}`;
+}
+
+// ========================================
+// RESUMEN DEL MENÚ
 // ========================================
 
 export function obtenerResumenMenu() {
@@ -46,7 +103,6 @@ export function obtenerResumenMenu() {
     let totalStock = 0;
 
     for (let i = 0; i < menu.length; i++) {
-
         totalStock += menu[i].stock;
     }
 
@@ -56,36 +112,6 @@ export function obtenerResumenMenu() {
     };
 }
 
-
-// ========================================
-// VER STOCK BAJO
-// ========================================
-
-export function verStockBajo(limite = 3) {
-
-    const menu = obtenerMenu();
-
-    return menu.filter(
-        plato => plato.stock <= limite
-    );
-}
-
-
-// ========================================
-// AGREGAR PLATO DEMO
-// ========================================
-
-export function agregarPlatoDemo() {
-
-    agregarPlato(
-        "Pollo a la brasa",
-        20,
-        5
-    );
-
-}
-
-
 // ========================================
 // VENDER PLATO
 // ========================================
@@ -93,7 +119,6 @@ export function agregarPlatoDemo() {
 export function venderPlato(nombre, cantidad) {
 
     const plato = buscarPlatoPorNombre(nombre);
-
 
     if (!plato) {
 
@@ -103,106 +128,28 @@ export function venderPlato(nombre, cantidad) {
         };
     }
 
-
-    if (cantidad <= 0) {
-
-        return {
-            ok: false,
-            mensaje: "Cantidad inválida."
-        };
-    }
-
-
-    if (plato.stock === 0) {
+    if (cantidad <= 0 || isNaN(cantidad)) {
 
         return {
             ok: false,
-            mensaje: "No disponible. El plato está agotado."
+            mensaje: "Cantidad no válida."
         };
     }
-
 
     if (plato.stock < cantidad) {
 
         return {
             ok: false,
-            mensaje: "Stock insuficiente."
+            mensaje: "No hay suficiente stock."
         };
     }
 
+    const nuevoStock = plato.stock - cantidad;
 
-    const nuevoStock =
-        plato.stock - cantidad;
-
-
-    actualizarStock(
-        plato.nombre,
-        nuevoStock
-    );
-
+    actualizarStock(plato.nombre, nuevoStock);
 
     return {
         ok: true,
-        mensaje:
-            `Venta realizada: ${plato.nombre} x${cantidad}`
+        mensaje: `Venta realizada. Nuevo stock de ${plato.nombre}: ${nuevoStock}`
     };
-}
-
-
-// ========================================
-// CALCULAR ESTADO DEL PLATO
-// ========================================
-
-export function calcularEstadoPlato(plato) {
-
-    if (plato.stock === 0) {
-        return "agotado";
-    }
-
-    if (plato.stock <= 3) {
-        return "bajo";
-    }
-
-    return "normal";
-}
-
-
-// ========================================
-// VERIFICAR ESTADO GENERAL
-// ========================================
-
-export function verificarEstadoGeneral() {
-
-    const menu = obtenerMenu();
-
-    let agotados = 0;
-    let bajos = 0;
-
-
-    for (let i = 0; i < menu.length; i++) {
-
-        if (menu[i].stock === 0) {
-
-            agotados++;
-
-        } else if (menu[i].stock <= 3) {
-
-            bajos++;
-        }
-    }
-
-
-    if (agotados > 0) {
-
-        return "Hay platos agotados";
-    }
-
-
-    if (bajos > 0) {
-
-        return "Hay platos con stock bajo";
-    }
-
-
-    return "Todo disponible";
 }
