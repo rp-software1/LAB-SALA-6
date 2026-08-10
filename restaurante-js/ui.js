@@ -10,7 +10,7 @@ import {
     contarPlatos,
     obtenerResumenMenu,
     verStockBajo,
-    venderPlato,
+    venderPlatoAsync,
     calcularEstadoPlato,
     verificarEstadoGeneral
 } from "./operaciones.js";
@@ -30,10 +30,15 @@ export function renderLista(lista) {
         let clase = "";
 
         if (plato.stock === 0) {
+
             clase = "agotado";
+
         } else if (plato.stock <= 3) {
+
             clase = "bajo";
+
         } else {
+
             clase = "normal";
         }
 
@@ -48,15 +53,17 @@ export function renderLista(lista) {
 }
 
 // ========================================
-// MOSTRAR MENSAJE
+// MOSTRAR MENSAJE CON ESTADO
 // ========================================
 
-export function mostrarMensajes(mensaje) {
+export function mostrarMensajes(mensaje, estado = "") {
 
     const output = document.getElementById("output");
 
     output.innerHTML = `
-        <p>${mensaje}</p>
+        <p class="mensaje ${estado}">
+            ${mensaje}
+        </p>
     `;
 }
 
@@ -66,9 +73,11 @@ export function mostrarMensajes(mensaje) {
 
 export function renderMenu() {
 
-    const output = document.getElementById("output");
+    const output =
+        document.getElementById("output");
 
-    const menu = obtenerMenu();
+    const menu =
+        obtenerMenu();
 
     let html = "";
 
@@ -81,6 +90,7 @@ export function renderMenu() {
     `;
 
     // TOTAL DE PLATOS
+
     html += `
         <p>
             <strong>Total de platos: ${contarPlatos()}</strong>
@@ -88,6 +98,7 @@ export function renderMenu() {
     `;
 
     // ESTADO GENERAL
+
     html += `
         <p>
             ${verificarEstadoGeneral()}
@@ -267,46 +278,60 @@ export function iniciarUI() {
         );
     }
 
-    // ====================================
-    // VENDER
-    // ====================================
+// ====================================
+// VENDER - ASÍNCRONO
+// ====================================
 
-    const btnVender =
-        document.getElementById("btnVender");
+const btnVender = document.getElementById("btnVender");
 
-    if (btnVender) {
+if (btnVender) {
 
-        btnVender.addEventListener(
-            "click",
-            () => {
+    btnVender.addEventListener("click", async () => {
 
-                const nombre =
-                    document
-                        .getElementById("inputVender")
-                        .value
-                        .trim();
+        const nombre = document
+            .getElementById("inputVender")
+            .value
+            .trim();
 
-                const cantidad =
-                    Number(
-                        document
-                            .getElementById("inputCantidad")
-                            .value
-                    );
-
-                const resultado =
-                    venderPlato(
-                        nombre,
-                        cantidad
-                    );
-
-                mostrarMensajes(
-                    resultado.mensaje
-                );
-
-                if (resultado.ok) {
-                    renderMenu();
-                }
-            }
+        const cantidad = Number(
+            document
+                .getElementById("inputCantidad")
+                .value
         );
-    }
+
+        try {
+
+            // Mientras espera → AZUL
+            mostrarMensajes(
+                "Procesando...",
+                "procesando"
+            );
+
+            // Esperar la venta
+            const respuesta = await venderPlatoAsync(
+                nombre,
+                cantidad
+            );
+
+            // Éxito → VERDE
+            mostrarMensajes(
+                `Venta realizada. ${respuesta}`,
+                "exito"
+            );
+
+            // Actualizar menú
+            setTimeout(() => {
+                renderMenu();
+            }, 2000);
+
+        } catch (error) {
+
+            // Error → ROJO
+            mostrarMensajes(
+                `Error: ${error.message}`,
+                "error"
+            );
+        }
+    });
+}
 }

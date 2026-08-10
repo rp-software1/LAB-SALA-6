@@ -7,8 +7,6 @@ ESCENARIO ELEGIDO: N°2
 RESUMEN DE LA RESPUESTA
 QUÉ ENTENDIÓ BIEN El uso de los git como el git push
 QUÉ NECESITA REPASAR (una frase): 
-
-
 link de la grabación: https://drive.google.com/file/d/1NY6vz9U-xqdYYtVUMtnXliJMsK3Z3Ovj/view?usp=sharinggit 
 
 DIA 1:
@@ -20,5 +18,4 @@ ESCENARIO ELEGIDO: N°2
 RESUMEN DE LA RESPUESTA:
 QUÉ ENTENDIÓ BIEN (una frase): El manejo de los const, los let y los functions.
 QUÉ NECESITA REPASAR (una frase): Todo quedo claro.
-
 link de la grabación: https://drive.google.com/file/d/1oqcHog3DmCfDWq-DJTZL2aQnkbaHzQUg/view?usp=sharing
