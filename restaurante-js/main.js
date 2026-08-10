@@ -1,5 +1,7 @@
 // main.js
 
-import { iniciarUI } from "./ui.js";
+import { iniciarUI, renderMenu } from "./ui.js";
 
 iniciarUI();
+
+renderMenu();
