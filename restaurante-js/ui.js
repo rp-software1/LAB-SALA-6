@@ -249,10 +249,7 @@ export function iniciarUI() {
         );
     }
 
-
-    // ====================================
     // RESUMEN
-    // ====================================
 
     const btnResumen =
         document.getElementById("btnResumen");
