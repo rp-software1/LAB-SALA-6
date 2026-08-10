@@ -1,6 +1,9 @@
 // ui.js
 
-import { obtenerMenu } from "./menu.js";
+import {
+    obtenerMenu,
+    agregarPlato
+} from "./menu.js";
 
 import {
     buscarPlatoPorNombre,
@@ -8,13 +11,12 @@ import {
     obtenerResumenMenu,
     verStockBajo,
     venderPlato,
-    agregarPlatoDemo,
+    calcularEstadoPlato,
     verificarEstadoGeneral
 } from "./operaciones.js";
 
-
 // ========================================
-// MOSTRAR LISTAS
+// MOSTRAR LISTA
 // ========================================
 
 export function renderLista(lista) {
@@ -29,10 +31,8 @@ export function renderLista(lista) {
 
         if (plato.stock === 0) {
             clase = "agotado";
-
         } else if (plato.stock <= 3) {
             clase = "bajo";
-
         } else {
             clase = "normal";
         }
@@ -47,18 +47,18 @@ export function renderLista(lista) {
     return html;
 }
 
-
 // ========================================
-// MOSTRAR MENSAJES
+// MOSTRAR MENSAJE
 // ========================================
 
 export function mostrarMensajes(mensaje) {
 
     const output = document.getElementById("output");
 
-    output.innerHTML = mensaje;
+    output.innerHTML = `
+        <p>${mensaje}</p>
+    `;
 }
-
 
 // ========================================
 // MOSTRAR MENÚ
@@ -68,182 +68,245 @@ export function renderMenu() {
 
     const output = document.getElementById("output");
 
-    let html = "";
-
-    const estado = verificarEstadoGeneral();
-
-    if (estado.agotados > 0) {
-
-        html += `
-            <p>
-                ⚠️ Hay ${estado.agotados} plato(s) agotado(s).
-            </p>
-        `;
-    }
-
-    if (estado.stockBajo > 0) {
-
-        html += `
-            <p>
-                ⚠️ Hay ${estado.stockBajo} plato(s) con stock bajo.
-            </p>
-        `;
-    }
-
     const menu = obtenerMenu();
 
-    html += renderLista(menu);
+    let html = "";
 
     html += `
+        <h3>Menú del restaurante</h3>
+
+        <ul>
+            ${renderLista(menu)}
+        </ul>
+    `;
+
+    // TOTAL DE PLATOS
+    html += `
         <p>
-            Total de platos en el menú: ${contarPlatos()}
+            <strong>Total de platos: ${contarPlatos()}</strong>
+        </p>
+    `;
+
+    // ESTADO GENERAL
+    html += `
+        <p>
+            ${verificarEstadoGeneral()}
         </p>
     `;
 
     output.innerHTML = html;
 }
 
-
 // ========================================
-// INICIALIZAR BOTONES
+// INICIAR EVENTOS
 // ========================================
 
 export function iniciarUI() {
 
     // ====================================
-    // BOTÓN MOSTRAR
+    // MOSTRAR MENÚ
     // ====================================
 
-    document
-        .getElementById("btnMostrar")
-        .addEventListener("click", () => {
+    const btnMostrar =
+        document.getElementById("btnMostrar");
 
-            renderMenu();
+    if (btnMostrar) {
 
-        });
-
-
-    // ====================================
-    // BOTÓN AGREGAR
-    // ====================================
-
-    document
-        .getElementById("btnAgregar")
-        .addEventListener("click", () => {
-
-            agregarPlatoDemo();
-
-            renderMenu();
-
-        });
-
+        btnMostrar.addEventListener(
+            "click",
+            renderMenu
+        );
+    }
 
     // ====================================
-    // BOTÓN BUSCAR
+    // AGREGAR PLATO
     // ====================================
 
-    document
-        .getElementById("btnBuscar")
-        .addEventListener("click", () => {
+    const btnAgregar =
+        document.getElementById("btnAgregar");
 
-            const nombre =
-                document.getElementById("inputBuscar").value;
+    if (btnAgregar) {
 
-            const plato =
-                buscarPlatoPorNombre(nombre);
+        btnAgregar.addEventListener(
+            "click",
+            () => {
 
-            const output =
-                document.getElementById("output");
-
-            if (plato) {
-
-                output.innerHTML =
-                    `Plato encontrado: ${plato.nombre} — S/ ${plato.precio} — Stock: ${plato.stock}`;
-
-            } else {
-
-                output.innerHTML =
-                    "Plato no encontrado.";
-            }
-
-        });
-
-
-    // ====================================
-    // BOTÓN RESUMEN
-    // ====================================
-
-    document
-        .getElementById("btnResumen")
-        .addEventListener("click", () => {
-
-            const resumen =
-                obtenerResumenMenu();
-
-            const output =
-                document.getElementById("output");
-
-            output.innerHTML = `
-                <h3>Resumen del menú</h3>
-
-                <p>
-                    Total de platos:
-                    ${resumen.totalPlatos}
-                </p>
-
-                <p>
-                    Total de productos en stock:
-                    ${resumen.totalStock}
-                </p>
-            `;
-
-        });
-
-
-    // ====================================
-    // BOTÓN STOCK BAJO
-    // ====================================
-
-    document
-        .getElementById("btnStockBajo")
-        .addEventListener("click", () => {
-
-            const platos =
-                verStockBajo();
-
-            const output =
-                document.getElementById("output");
-
-            output.innerHTML = `
-                <h3>Stock bajo</h3>
-                ${renderLista(platos)}
-            `;
-
-        });
-
-
-    // ====================================
-    // BOTÓN VENDER
-    // ====================================
-
-    document
-        .getElementById("btnVender")
-        .addEventListener("click", () => {
-
-            const nombre =
-                document.getElementById("inputVender").value;
-
-            const cantidad =
-                Number(
-                    document.getElementById("inputCantidad").value
+                agregarPlato(
+                    "Pollo a la brasa",
+                    20,
+                    4
                 );
 
-            const mensaje =
-                venderPlato(nombre, cantidad);
+                renderMenu();
+            }
+        );
+    }
 
-            alert(mensaje);
+    // ====================================
+    // BUSCAR
+    // ====================================
 
-            renderMenu();
+    const btnBuscar =
+        document.getElementById("btnBuscar");
 
-        });
+    if (btnBuscar) {
+
+        btnBuscar.addEventListener(
+            "click",
+            () => {
+
+                const input =
+                    document.getElementById("inputBuscar");
+
+                const nombre =
+                    input.value.trim();
+
+                if (nombre === "") {
+
+                    mostrarMensajes(
+                        "Escribe un nombre para buscar."
+                    );
+
+                    return;
+                }
+
+                const plato =
+                    buscarPlatoPorNombre(nombre);
+
+                if (!plato) {
+
+                    mostrarMensajes(
+                        "Plato no encontrado."
+                    );
+
+                    return;
+                }
+
+                mostrarMensajes(
+                    `Plato encontrado:
+                    ${plato.nombre}
+                    — S/ ${plato.precio}
+                    — Stock: ${plato.stock}`
+                );
+            }
+        );
+    }
+
+    // ====================================
+    // STOCK BAJO
+    // ====================================
+
+    const btnStockBajo =
+        document.getElementById("btnStockBajo");
+
+    if (btnStockBajo) {
+
+        btnStockBajo.addEventListener(
+            "click",
+            () => {
+
+                const platos =
+                    verStockBajo();
+
+                if (platos.length === 0) {
+
+                    mostrarMensajes(
+                        "No hay platos con stock bajo."
+                    );
+
+                    return;
+                }
+
+                const output =
+                    document.getElementById("output");
+
+                output.innerHTML = `
+                    <h3>Stock bajo</h3>
+
+                    <ul>
+                        ${renderLista(platos)}
+                    </ul>
+                `;
+            }
+        );
+    }
+
+    // ====================================
+    // RESUMEN
+    // ====================================
+
+    const btnResumen =
+        document.getElementById("btnResumen");
+
+    if (btnResumen) {
+
+        btnResumen.addEventListener(
+            "click",
+            () => {
+
+                const resumen =
+                    obtenerResumenMenu();
+
+                const output =
+                    document.getElementById("output");
+
+                output.innerHTML = `
+                    <h3>Resumen del menú</h3>
+
+                    <p>
+                        Total de platos:
+                        ${resumen.totalPlatos}
+                    </p>
+
+                    <p>
+                        Total de productos en stock:
+                        ${resumen.totalStock}
+                    </p>
+                `;
+            }
+        );
+    }
+
+    // ====================================
+    // VENDER
+    // ====================================
+
+    const btnVender =
+        document.getElementById("btnVender");
+
+    if (btnVender) {
+
+        btnVender.addEventListener(
+            "click",
+            () => {
+
+                const nombre =
+                    document
+                        .getElementById("inputVender")
+                        .value
+                        .trim();
+
+                const cantidad =
+                    Number(
+                        document
+                            .getElementById("inputCantidad")
+                            .value
+                    );
+
+                const resultado =
+                    venderPlato(
+                        nombre,
+                        cantidad
+                    );
+
+                mostrarMensajes(
+                    resultado.mensaje
+                );
+
+                if (resultado.ok) {
+                    renderMenu();
+                }
+            }
+        );
+    }
 }
