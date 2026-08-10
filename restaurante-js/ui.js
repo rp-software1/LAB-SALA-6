@@ -286,10 +286,8 @@ export function iniciarUI() {
         );
     }
 
-
-    // ====================================
     // VENDER - ASÍNCRONO
-    // ====================================
+
 
     const btnVender =
         document.getElementById("btnVender");
@@ -341,9 +339,7 @@ export function iniciarUI() {
 
                 } catch (error) {
 
-                    // ====================================
                     // MANEJO DIFERENCIADO DE ERRORES
-                    // ====================================
 
                     if (error.name === "ErrorNegocio") {
 
