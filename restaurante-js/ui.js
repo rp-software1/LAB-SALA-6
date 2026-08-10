@@ -52,13 +52,15 @@ export function renderLista(lista) {
     return html;
 }
 
+
 // ========================================
 // MOSTRAR MENSAJE CON ESTADO
 // ========================================
 
 export function mostrarMensajes(mensaje, estado = "") {
 
-    const output = document.getElementById("output");
+    const output =
+        document.getElementById("output");
 
     output.innerHTML = `
         <p class="mensaje ${estado}">
@@ -66,6 +68,7 @@ export function mostrarMensajes(mensaje, estado = "") {
         </p>
     `;
 }
+
 
 // ========================================
 // MOSTRAR MENÚ
@@ -108,9 +111,10 @@ export function renderMenu() {
     output.innerHTML = html;
 }
 
-// ========================================
+
+// ====================================
 // INICIAR EVENTOS
-// ========================================
+// ====================================
 
 export function iniciarUI() {
 
@@ -128,6 +132,7 @@ export function iniciarUI() {
             renderMenu
         );
     }
+
 
     // ====================================
     // AGREGAR PLATO
@@ -152,6 +157,7 @@ export function iniciarUI() {
             }
         );
     }
+
 
     // ====================================
     // BUSCAR
@@ -203,6 +209,7 @@ export function iniciarUI() {
         );
     }
 
+
     // ====================================
     // STOCK BAJO
     // ====================================
@@ -242,6 +249,7 @@ export function iniciarUI() {
         );
     }
 
+
     // ====================================
     // RESUMEN
     // ====================================
@@ -278,60 +286,81 @@ export function iniciarUI() {
         );
     }
 
-// ====================================
-// VENDER - ASÍNCRONO
-// ====================================
 
-const btnVender = document.getElementById("btnVender");
+    // ====================================
+    // VENDER - ASÍNCRONO
+    // ====================================
 
-if (btnVender) {
+    const btnVender =
+        document.getElementById("btnVender");
 
-    btnVender.addEventListener("click", async () => {
+    if (btnVender) {
 
-        const nombre = document
-            .getElementById("inputVender")
-            .value
-            .trim();
+        btnVender.addEventListener(
+            "click",
+            async () => {
 
-        const cantidad = Number(
-            document
-                .getElementById("inputCantidad")
-                .value
+                const nombre =
+                    document
+                        .getElementById("inputVender")
+                        .value
+                        .trim();
+
+                const cantidad =
+                    Number(
+                        document
+                            .getElementById("inputCantidad")
+                            .value
+                    );
+
+                try {
+
+                    // Mientras espera → AZUL
+                    mostrarMensajes(
+                        "Procesando...",
+                        "procesando"
+                    );
+
+                    // Esperar la venta
+                    const respuesta =
+                        await venderPlatoAsync(
+                            nombre,
+                            cantidad
+                        );
+
+                    // Éxito → VERDE
+                    mostrarMensajes(
+                        `Venta realizada. ${respuesta}`,
+                        "exito"
+                    );
+
+                    // Actualizar menú
+                    setTimeout(() => {
+                        renderMenu();
+                    }, 2000);
+
+                } catch (error) {
+
+                    // ====================================
+                    // MANEJO DIFERENCIADO DE ERRORES
+                    // ====================================
+
+                    if (error.name === "ErrorNegocio") {
+
+                        mostrarMensajes(
+                            "Advertencia: " + error.message,
+                            "advertencia"
+                        );
+
+                    } else {
+
+                        mostrarMensajes(
+                            "Error del sistema: " + error.message,
+                            "error"
+                        );
+                    }
+                }
+            }
         );
-
-        try {
-
-            // Mientras espera → AZUL
-            mostrarMensajes(
-                "Procesando...",
-                "procesando"
-            );
-
-            // Esperar la venta
-            const respuesta = await venderPlatoAsync(
-                nombre,
-                cantidad
-            );
-
-            // Éxito → VERDE
-            mostrarMensajes(
-                `Venta realizada. ${respuesta}`,
-                "exito"
-            );
-
-            // Actualizar menú
-            setTimeout(() => {
-                renderMenu();
-            }, 2000);
-
-        } catch (error) {
-
-            // Error → ROJO
-            mostrarMensajes(
-                `Error: ${error.message}`,
-                "error"
-            );
-        }
-    });
-}
+    }
 }
