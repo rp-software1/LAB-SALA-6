@@ -166,19 +166,32 @@ export function simularRespuestaServidor(resultado) {
     });
 }
 
-// VENDER PLATO ASÍNCRONO
-
 export async function venderPlatoAsync(nombre, cantidad) {
 
-    const resultado = venderPlato(nombre, cantidad);
+    const plato = buscarPlatoPorNombre(nombre);
 
-    if (!resultado.ok) {
-
-        throw new Error(resultado.mensaje);
-
+    if (!plato) {
+        throw new Error("Plato no encontrado.");
     }
 
-    const respuesta = await simularRespuestaServidor(resultado.mensaje);
+    if (cantidad <= 0 || isNaN(cantidad)) {
+        throw new Error("Cantidad no válida.");
+    }
 
-    return respuesta;
+    if (plato.stock < cantidad) {
+        throw new Error("No hay suficiente stock.");
+    }
+
+    await simularRespuestaServidor(
+        "Venta realizada"
+    );
+
+    const nuevoStock = plato.stock - cantidad;
+
+    actualizarStock(
+        plato.nombre,
+        nuevoStock
+    );
+
+    return `Nuevo stock de ${plato.nombre}: ${nuevoStock}`;
 }

@@ -278,66 +278,50 @@ export function iniciarUI() {
     }
 
     // ====================================
-    // VENDER - ASÍNCRONO
-    // ====================================
+// VENDER - ASÍNCRONO
+// ====================================
 
-    const btnVender =
-        document.getElementById("btnVender");
+const btnVender = document.getElementById("btnVender");
 
-    if (btnVender) {
+if (btnVender) {
 
-        btnVender.addEventListener(
-            "click",
-            async () => {
+    btnVender.addEventListener("click", async () => {
 
-                const nombre =
-                    document
-                        .getElementById("inputVender")
-                        .value
-                        .trim();
+        const nombre = document
+            .getElementById("inputVender")
+            .value
+            .trim();
 
-                const cantidad =
-                    Number(
-                        document
-                            .getElementById("inputCantidad")
-                            .value
-                    );
-
-                // Mostrar inmediatamente
-
-                mostrarMensajes(
-                    "Procesando pedido..."
-                );
-
-                try {
-
-                    // Esperar 2 segundos
-
-                    const respuesta =
-                        await venderPlatoAsync(
-                            nombre,
-                            cantidad
-                        );
-
-                    // Pedido exitoso
-  
-                    mostrarMensajes(
-                        `Pedido confirmado: ${respuesta}`
-                    );
-
-                    // Actualizar interfaz
-
-                    renderMenu();
-
-                } catch (error) {
-
-                    // Mostrar error
-
-                    mostrarMensajes(
-                        error.message
-                    );
-                }
-            }
+        const cantidad = Number(
+            document
+                .getElementById("inputCantidad")
+                .value
         );
-    }
+
+        mostrarMensajes("Procesando...");
+
+        try {
+
+            const respuesta = await venderPlatoAsync(
+                nombre,
+                cantidad
+            );
+
+            mostrarMensajes(
+                `Venta realizada. ${respuesta}`
+            );
+
+            // Esperar 2 segundos y actualizar menú
+            setTimeout(() => {
+                renderMenu();
+            }, 2000);
+
+        } catch (error) {
+
+            mostrarMensajes(
+                `Error: ${error.message}`
+            );
+        }
+    });
+}
 }
