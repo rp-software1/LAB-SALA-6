@@ -21,7 +21,7 @@ export function agregarPlato(nombre, precio, stock) {
         stock: stock
     });
 }
-
+ 
 // Actualizar stock
 export function actualizarStock(nombre, nuevoStock) {
     const plato = menu.find(
