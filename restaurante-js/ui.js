@@ -10,7 +10,7 @@ import {
     contarPlatos,
     obtenerResumenMenu,
     verStockBajo,
-    venderPlato,
+    venderPlatoAsync,
     calcularEstadoPlato,
     verificarEstadoGeneral
 } from "./operaciones.js";
@@ -30,10 +30,15 @@ export function renderLista(lista) {
         let clase = "";
 
         if (plato.stock === 0) {
+
             clase = "agotado";
+
         } else if (plato.stock <= 3) {
+
             clase = "bajo";
+
         } else {
+
             clase = "normal";
         }
 
@@ -53,7 +58,8 @@ export function renderLista(lista) {
 
 export function mostrarMensajes(mensaje) {
 
-    const output = document.getElementById("output");
+    const output =
+        document.getElementById("output");
 
     output.innerHTML = `
         <p>${mensaje}</p>
@@ -66,9 +72,11 @@ export function mostrarMensajes(mensaje) {
 
 export function renderMenu() {
 
-    const output = document.getElementById("output");
+    const output =
+        document.getElementById("output");
 
-    const menu = obtenerMenu();
+    const menu =
+        obtenerMenu();
 
     let html = "";
 
@@ -81,6 +89,7 @@ export function renderMenu() {
     `;
 
     // TOTAL DE PLATOS
+
     html += `
         <p>
             <strong>Total de platos: ${contarPlatos()}</strong>
@@ -88,6 +97,7 @@ export function renderMenu() {
     `;
 
     // ESTADO GENERAL
+
     html += `
         <p>
             ${verificarEstadoGeneral()}
@@ -268,7 +278,7 @@ export function iniciarUI() {
     }
 
     // ====================================
-    // VENDER
+    // VENDER - ASÍNCRONO
     // ====================================
 
     const btnVender =
@@ -278,7 +288,7 @@ export function iniciarUI() {
 
         btnVender.addEventListener(
             "click",
-            () => {
+            async () => {
 
                 const nombre =
                     document
@@ -293,18 +303,39 @@ export function iniciarUI() {
                             .value
                     );
 
-                const resultado =
-                    venderPlato(
-                        nombre,
-                        cantidad
-                    );
+                // Mostrar inmediatamente
 
                 mostrarMensajes(
-                    resultado.mensaje
+                    "Procesando pedido..."
                 );
 
-                if (resultado.ok) {
+                try {
+
+                    // Esperar 2 segundos
+
+                    const respuesta =
+                        await venderPlatoAsync(
+                            nombre,
+                            cantidad
+                        );
+
+                    // Pedido exitoso
+
+                    mostrarMensajes(
+                        `Pedido confirmado: ${respuesta}`
+                    );
+
+                    // Actualizar interfaz
+
                     renderMenu();
+
+                } catch (error) {
+
+                    // Mostrar error
+
+                    mostrarMensajes(
+                        error.message
+                    );
                 }
             }
         );

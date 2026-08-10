@@ -5,9 +5,7 @@ import {
     actualizarStock
 } from "./menu.js";
 
-// ========================================
 // BUSCAR PLATO
-// ========================================
 
 export function buscarPlatoPorNombre(nombre) {
 
@@ -26,9 +24,7 @@ export function buscarPlatoPorNombre(nombre) {
     return null;
 }
 
-// ========================================
 // CONTAR PLATOS
-// ========================================
 
 export function contarPlatos() {
 
@@ -37,9 +33,8 @@ export function contarPlatos() {
     return menu.length;
 }
 
-// ========================================
+
 // STOCK BAJO
-// ========================================
 
 export function verStockBajo() {
 
@@ -50,9 +45,7 @@ export function verStockBajo() {
     });
 }
 
-// ========================================
 // ESTADO DEL PLATO
-// ========================================
 
 export function calcularEstadoPlato(plato) {
 
@@ -67,9 +60,7 @@ export function calcularEstadoPlato(plato) {
     return "Disponible";
 }
 
-// ========================================
 // ESTADO GENERAL
-// ========================================
 
 export function verificarEstadoGeneral() {
 
@@ -92,9 +83,7 @@ export function verificarEstadoGeneral() {
     return `Agotados: ${agotados} | Stock bajo: ${stockBajo}`;
 }
 
-// ========================================
 // RESUMEN DEL MENÚ
-// ========================================
 
 export function obtenerResumenMenu() {
 
@@ -112,9 +101,7 @@ export function obtenerResumenMenu() {
     };
 }
 
-// ========================================
 // VENDER PLATO
-// ========================================
 
 export function venderPlato(nombre, cantidad) {
 
@@ -154,9 +141,7 @@ export function venderPlato(nombre, cantidad) {
     };
 }
 
-// ========================================
 // SIMULAR RESPUESTA DEL SERVIDOR
-// ========================================
 
 export function simularRespuestaServidor(resultado) {
 
@@ -168,7 +153,7 @@ export function simularRespuestaServidor(resultado) {
 
             if (falla) {
 
-                reject("Error del servidor simulado.");
+                reject(new Error("Error del servidor simulado."));
 
             } else {
 
@@ -179,4 +164,21 @@ export function simularRespuestaServidor(resultado) {
         }, 2000);
 
     });
+}
+
+// VENDER PLATO ASÍNCRONO
+
+export async function venderPlatoAsync(nombre, cantidad) {
+
+    const resultado = venderPlato(nombre, cantidad);
+
+    if (!resultado.ok) {
+
+        throw new Error(resultado.mensaje);
+
+    }
+
+    const respuesta = await simularRespuestaServidor(resultado.mensaje);
+
+    return respuesta;
 }
