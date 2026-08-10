@@ -12,7 +12,6 @@ let menu = [
     { nombre: "Ceviche", precio: 15, stock: 7 }
 ];
 
-
 // ========================================
 // OBTENER MENÚ
 // ========================================
@@ -21,21 +20,17 @@ export function obtenerMenu() {
     return menu;
 }
 
-
 // ========================================
 // AGREGAR PLATO
 // ========================================
 
 export function agregarPlato(nombre, precio, stock) {
-
     menu.push({
         nombre: nombre,
         precio: precio,
         stock: stock
     });
-
 }
-
 
 // ========================================
 // ACTUALIZAR STOCK
@@ -49,9 +44,7 @@ export function actualizarStock(nombre, nuevoStock) {
             menu[i].nombre.toLowerCase() ===
             nombre.toLowerCase()
         ) {
-
             menu[i].stock = nuevoStock;
-
             return true;
         }
     }

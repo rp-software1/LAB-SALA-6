@@ -1,6 +1,9 @@
 // ui.js
 
-import { obtenerMenu } from "./menu.js";
+import {
+    obtenerMenu,
+    agregarPlato
+} from "./menu.js";
 
 import {
     buscarPlatoPorNombre,
@@ -8,11 +11,9 @@ import {
     obtenerResumenMenu,
     verStockBajo,
     venderPlato,
-    agregarPlatoDemo,
     calcularEstadoPlato,
     verificarEstadoGeneral
 } from "./operaciones.js";
-
 
 // ========================================
 // MOSTRAR LISTA
@@ -29,15 +30,10 @@ export function renderLista(lista) {
         let clase = "";
 
         if (plato.stock === 0) {
-
             clase = "agotado";
-
         } else if (plato.stock <= 3) {
-
             clase = "bajo";
-
         } else {
-
             clase = "normal";
         }
 
@@ -57,14 +53,12 @@ export function renderLista(lista) {
 
 export function mostrarMensajes(mensaje) {
 
-    const output =
-        document.getElementById("output");
+    const output = document.getElementById("output");
 
     output.innerHTML = `
         <p>${mensaje}</p>
     `;
 }
-
 
 // ========================================
 // MOSTRAR MENÚ
@@ -72,11 +66,9 @@ export function mostrarMensajes(mensaje) {
 
 export function renderMenu() {
 
-    const output =
-        document.getElementById("output");
+    const output = document.getElementById("output");
 
-    const menu =
-        obtenerMenu();
+    const menu = obtenerMenu();
 
     let html = "";
 
@@ -88,13 +80,14 @@ export function renderMenu() {
         </ul>
     `;
 
+    // TOTAL DE PLATOS
     html += `
         <p>
-            Total de platos:
-            ${contarPlatos()}
+            <strong>Total de platos: ${contarPlatos()}</strong>
         </p>
     `;
 
+    // ESTADO GENERAL
     html += `
         <p>
             ${verificarEstadoGeneral()}
@@ -104,13 +97,11 @@ export function renderMenu() {
     output.innerHTML = html;
 }
 
-
 // ========================================
 // INICIAR EVENTOS
 // ========================================
 
 export function iniciarUI() {
-
 
     // ====================================
     // MOSTRAR MENÚ
@@ -127,7 +118,6 @@ export function iniciarUI() {
         );
     }
 
-
     // ====================================
     // AGREGAR PLATO
     // ====================================
@@ -141,14 +131,16 @@ export function iniciarUI() {
             "click",
             () => {
 
-                agregarPlatoDemo();
+                agregarPlato(
+                    "Pollo a la brasa",
+                    20,
+                    4
+                );
 
                 renderMenu();
-
             }
         );
     }
-
 
     // ====================================
     // BUSCAR
@@ -169,7 +161,6 @@ export function iniciarUI() {
                 const nombre =
                     input.value.trim();
 
-
                 if (nombre === "") {
 
                     mostrarMensajes(
@@ -179,10 +170,8 @@ export function iniciarUI() {
                     return;
                 }
 
-
                 const plato =
                     buscarPlatoPorNombre(nombre);
-
 
                 if (!plato) {
 
@@ -193,18 +182,15 @@ export function iniciarUI() {
                     return;
                 }
 
-
                 mostrarMensajes(
                     `Plato encontrado:
                     ${plato.nombre}
                     — S/ ${plato.precio}
                     — Stock: ${plato.stock}`
                 );
-
             }
         );
     }
-
 
     // ====================================
     // STOCK BAJO
@@ -222,7 +208,6 @@ export function iniciarUI() {
                 const platos =
                     verStockBajo();
 
-
                 if (platos.length === 0) {
 
                     mostrarMensajes(
@@ -232,10 +217,8 @@ export function iniciarUI() {
                     return;
                 }
 
-
                 const output =
                     document.getElementById("output");
-
 
                 output.innerHTML = `
                     <h3>Stock bajo</h3>
@@ -244,11 +227,9 @@ export function iniciarUI() {
                         ${renderLista(platos)}
                     </ul>
                 `;
-
             }
         );
     }
-
 
     // ====================================
     // RESUMEN
@@ -266,10 +247,8 @@ export function iniciarUI() {
                 const resumen =
                     obtenerResumenMenu();
 
-
                 const output =
                     document.getElementById("output");
-
 
                 output.innerHTML = `
                     <h3>Resumen del menú</h3>
@@ -284,11 +263,9 @@ export function iniciarUI() {
                         ${resumen.totalStock}
                     </p>
                 `;
-
             }
         );
     }
-
 
     // ====================================
     // VENDER
@@ -309,7 +286,6 @@ export function iniciarUI() {
                         .value
                         .trim();
 
-
                 const cantidad =
                     Number(
                         document
@@ -317,27 +293,20 @@ export function iniciarUI() {
                             .value
                     );
 
-
                 const resultado =
                     venderPlato(
                         nombre,
                         cantidad
                     );
 
-
                 mostrarMensajes(
                     resultado.mensaje
                 );
 
-
                 if (resultado.ok) {
-
                     renderMenu();
-
                 }
-
             }
         );
     }
-
 }
