@@ -320,7 +320,7 @@ export function iniciarUI() {
                         );
 
                     // Pedido exitoso
-
+  
                     mostrarMensajes(
                         `Pedido confirmado: ${respuesta}`
                     );
