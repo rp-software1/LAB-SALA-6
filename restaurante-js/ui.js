@@ -53,16 +53,17 @@ export function renderLista(lista) {
 }
 
 // ========================================
-// MOSTRAR MENSAJE
+// MOSTRAR MENSAJE CON ESTADO
 // ========================================
 
-export function mostrarMensajes(mensaje) {
+export function mostrarMensajes(mensaje, estado = "") {
 
-    const output =
-        document.getElementById("output");
+    const output = document.getElementById("output");
 
     output.innerHTML = `
-        <p>${mensaje}</p>
+        <p class="mensaje ${estado}">
+            ${mensaje}
+        </p>
     `;
 }
 
@@ -277,7 +278,7 @@ export function iniciarUI() {
         );
     }
 
-    // ====================================
+  // ====================================
 // VENDER - ASÍNCRONO
 // ====================================
 
@@ -298,28 +299,35 @@ if (btnVender) {
                 .value
         );
 
-        mostrarMensajes("Procesando...");
-
         try {
+
+            // MIENTRAS ESPERA → AZUL
+            mostrarMensajes(
+                "Procesando...",
+                "procesando"
+            );
 
             const respuesta = await venderPlatoAsync(
                 nombre,
                 cantidad
             );
 
+            // ÉXITO → VERDE
             mostrarMensajes(
-                `Venta realizada. ${respuesta}`
+                `Venta realizada. ${respuesta}`,
+                "exito"
             );
 
-            // Esperar 2 segundos y actualizar menú
             setTimeout(() => {
                 renderMenu();
             }, 2000);
 
         } catch (error) {
 
+            // ERROR → ROJO
             mostrarMensajes(
-                `Error: ${error.message}`
+                `Error: ${error.message}`,
+                "error"
             );
         }
     });
