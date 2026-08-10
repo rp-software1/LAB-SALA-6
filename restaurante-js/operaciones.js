@@ -182,10 +182,12 @@ export async function venderPlatoAsync(nombre, cantidad) {
         throw new Error("No hay suficiente stock.");
     }
 
+    // Esperar respuesta del servidor
     await simularRespuestaServidor(
         "Venta realizada"
     );
 
+    // Solo modificar stock si hubo éxito
     const nuevoStock = plato.stock - cantidad;
 
     actualizarStock(

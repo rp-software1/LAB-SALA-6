@@ -278,7 +278,7 @@ export function iniciarUI() {
         );
     }
 
-  // ====================================
+// ====================================
 // VENDER - ASÍNCRONO
 // ====================================
 
@@ -301,30 +301,32 @@ if (btnVender) {
 
         try {
 
-            // MIENTRAS ESPERA → AZUL
+            // Mientras espera → AZUL
             mostrarMensajes(
                 "Procesando...",
                 "procesando"
             );
 
+            // Esperar la venta
             const respuesta = await venderPlatoAsync(
                 nombre,
                 cantidad
             );
 
-            // ÉXITO → VERDE
+            // Éxito → VERDE
             mostrarMensajes(
                 `Venta realizada. ${respuesta}`,
                 "exito"
             );
 
+            // Actualizar menú
             setTimeout(() => {
                 renderMenu();
             }, 2000);
 
         } catch (error) {
 
-            // ERROR → ROJO
+            // Error → ROJO
             mostrarMensajes(
                 `Error: ${error.message}`,
                 "error"
