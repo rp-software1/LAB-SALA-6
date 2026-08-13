@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carta del Restaurante</title>
+</head>
+
+<body>
+
+    <h1>🍽️ Carta del Restaurante</h1>
+
+    <div id="carta"></div>
+
+    <button id="btnAgregar">Agregar plato</button>
+
+    <script>
+
+        // ==========================================
+        // 1. ARRAY DE PLATOS
+        // ==========================================
+
+        let platos = [
+            {
+                id: 1,
+                nombre: "Lomo saltado",
+                categoria: "segundos",
+                precio: 18,
+                stock: 3,
+                disponible: true
+            },
+            {
+                id: 2,
+                nombre: "Arroz con pollo",
+                categoria: "segundos",
+                precio: 12,
+                stock: 5,
+                disponible: true
+            },
+            {
+                id: 3,
+                nombre: "Sopa de verduras",
+                categoria: "entradas",
+                precio: 8,
+                stock: 0,
+                disponible: false
+            }
+        ];
+
+
+        // ==========================================
+        // 2. FUNCIÓN renderCarta()
+        // ==========================================
+
+        function renderCarta(platos) {
+
+            // Buscamos el div donde mostraremos la carta
+            const carta = document.getElementById("carta");
+
+            // Limpiamos lo que había anteriormente
+            carta.innerHTML = "";
+
+            // Recorremos todos los platos
+            platos.forEach(function(plato) {
+
+                // Agregamos cada plato al HTML
+                carta.innerHTML += `
+                    <div>
+                        <h2>${plato.nombre}</h2>
+
+                        <p>
+                            Categoría:
+                            ${plato.categoria}
+                        </p>
+
+                        <p>
+                            Precio:
+                            S/ ${plato.precio}
+                        </p>
+
+                        <p>
+                            Stock:
+                            ${plato.stock}
+                        </p>
+
+                        <p>
+                            Disponible:
+                            ${plato.disponible ? "Sí" : "No"}
+                        </p>
+                    </div>
+
+                    <hr>
+                `;
+            });
+        }
+
+
+        // ==========================================
+        // 3. MOSTRAR LA CARTA AL ABRIR LA PÁGINA
+        // ==========================================
+
+        renderCarta(platos);
+
+
+        // ==========================================
+        // 4. BOTÓN "AGREGAR PLATO"
+        // ==========================================
+
+        const btnAgregar = document.getElementById("btnAgregar");
+
+        btnAgregar.addEventListener("click", function() {
+
+            // Creamos un cuarto plato
+            const nuevoPlato = {
+                id: 4,
+                nombre: "Ceviche",
+                categoria: "entradas",
+                precio: 20,
+                stock: 4,
+                disponible: true
+            };
+
+            // Lo agregamos al array
+            platos.push(nuevoPlato);
+
+            // Volvemos a dibujar toda la carta
+            renderCarta(platos);
+        });
+
+    </script>
+
+</body>
+</html>
