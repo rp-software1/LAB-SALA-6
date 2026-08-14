@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Restaurant React</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        .carta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .plato-card {
+            width: 250px;
+            padding: 20px;
+            border-radius: 10px;
+            background: #f5f5f5;
+        }
+
+        .disponible {
+            border: 3px solid green;
+        }
+
+        .agotado {
+            border: 3px solid red;
+        }
+
+        .estado-disponible {
+            color: green;
+            font-weight: bold;
+        }
+
+        .estado-agotado {
+            color: red;
+            font-weight: bold;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+
+    <!-- ==========================================
+         REACT
+         ========================================== -->
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+    <!-- ==========================================
+         REACT
+         ========================================== -->
+
+    <script type="text/babel">
+
+        // ==========================================
+        // DATOS MOCK
+        // ==========================================
+
+        const platosMock = [
+
+            {
+                id: 1,
+                nombre: "Lomo saltado",
+                categoria: "segundos",
+                precio: 18,
+                stock: 3,
+                disponible: true
+            },
+
+            {
+                id: 2,
+                nombre: "Arroz con pollo",
+                categoria: "segundos",
+                precio: 12,
+                stock: 5,
+                disponible: true
+            },
+
+            {
+                id: 3,
+                nombre: "Sopa de verduras",
+                categoria: "entradas",
+                precio: 8,
+                stock: 0,
+                disponible: false
+            },
+
+            {
+                id: 4,
+                nombre: "Pollo a la brasa",
+                categoria: "segundos",
+                precio: 20,
+                stock: 4,
+                disponible: true
+            },
+
+            {
+                id: 5,
+                nombre: "Jugo de naranja",
+                categoria: "bebidas",
+                precio: 5,
+                stock: 8,
+                disponible: true
+            }
+
+        ];
+
+
+        // ==========================================
+        // PLATOCARD
+        // ==========================================
+
+        function PlatoCard({ plato }) {
+
+            return (
+
+                <div
+                    className={
+                        plato.disponible
+                            ? "plato-card disponible"
+                            : "plato-card agotado"
+                    }
+                >
+
+                    <h2>
+                        {plato.nombre}
+                    </h2>
+
+                    <p>
+                        Categoría: {plato.categoria}
+                    </p>
+
+                    <p>
+                        Precio: S/ {plato.precio}
+                    </p>
+
+                    <p>
+                        Stock: {plato.stock}
+                    </p>
+
+                    <p
+                        className={
+                            plato.disponible
+                                ? "estado-disponible"
+                                : "estado-agotado"
+                        }
+                    >
+                        {
+                            plato.disponible
+                                ? "✅ Disponible"
+                                : "❌ Agotado"
+                        }
+                    </p>
+
+                </div>
+
+            );
+
+        }
+
+
+
+        // CARTA
+
+        function Carta({ platos }) {
+
+            return (
+
+                <div>
+
+                    <h1>
+                        🍽️ Restaurante La Leña
+                    </h1>
+
+                    <div className="carta">
+
+                        {platos.map((plato) => (
+
+                            <PlatoCard
+                                key={plato.id}
+                                plato={plato}
+                            />
+
+                        ))}
+
+                    </div>
+
+                </div>
+
+            );
+
+        }
+
+
+        // ==========================================
+        // APP
+        // ==========================================
+
+        function App() {
+
+            return (
+                <Carta platos={platosMock} />
+            );
+
+        }
+
+
+        // ==========================================
+        // ROOT
+        // ==========================================
+
+        const root = ReactDOM.createRoot(
+            document.getElementById("root")
+        );
+
+        root.render(
+            <App />
+        );
+
+    </script>
+
+</body>
+
+</html>
