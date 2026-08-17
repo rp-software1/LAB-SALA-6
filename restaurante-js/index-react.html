@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bloque A - React</title>
 </head>
+
 <body>
+
     <div id="root"></div>
+
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
     <script type="text/babel">
 
+        // ==========================================
         // Datos del restaurante
+        // ==========================================
+
         let platos = [
             {
                 id: 1,
@@ -37,44 +45,107 @@
                 precio: 8,
                 stock: 0,
                 disponible: false
+            },
+            {
+                id: 4,
+                nombre: "Pollo a la brasa",
+                categoria: "segundos",
+                precio: 20,
+                stock: 4,
+                disponible: true
+            },
+            {
+                id: 5,
+                nombre: "Jugo de naranja",
+                categoria: "bebidas",
+                precio: 5,
+                stock: 8,
+                disponible: true
             }
         ];
 
+
+        // ==========================================
         // Componente Carta
+        // ==========================================
+
         function Carta({ platos }) {
+
             return (
+
                 <div>
+
                     <h1>Carta del Restaurante</h1>
+
                     {platos.map(plato => (
-                        <div key={plato.id}>
+
+                        <div
+                            key={plato.id}
+                            style={{
+                                backgroundColor: plato.disponible
+                                    ? "#d4edda"
+                                    : "#f8d7da",
+                                padding: "15px",
+                                marginBottom: "10px",
+                                borderRadius: "8px",
+                                border: "1px solid #ccc"
+                            }}
+                        >
+
                             <h3>{plato.nombre}</h3>
-                            <p>Categoría: {plato.categoria}</p>
-                            <p>Precio: S/ {plato.precio}</p>
-                            <p>Stock: {plato.stock}</p>
+
                             <p>
-                                {
-                                    plato.disponible
-                                        ? "✅ Disponible"
-                                        : "❌ Agotado"
-                                }
+                                <strong>Categoría:</strong>{" "}
+                                {plato.categoria}
                             </p>
-                            <hr />
+
+                            <p>
+                                <strong>Precio:</strong>{" "}
+                                S/ {plato.precio}
+                            </p>
+
+                            <p>
+                                <strong>Stock:</strong>{" "}
+                                {plato.stock}
+                            </p>
+
+                            <p>
+                                <strong>
+                                    {plato.disponible
+                                        ? "🟢 Disponible"
+                                        : "🔴 Agotado"
+                                    }
+                                </strong>
+                            </p>
+
                         </div>
+
                     ))}
+
                     <button id="btnAgregar">
                         Agregar plato
                     </button>
-                </div>
-            );
-        } 
 
+                </div>
+
+            );
+        }
+
+
+        // ==========================================
         // Render inicial
+        // ==========================================
+
         const root = ReactDOM.createRoot(
             document.getElementById("root")
         );
+
         root.render(
             <Carta platos={platos} />
         );
+
     </script>
+
 </body>
+
 </html>

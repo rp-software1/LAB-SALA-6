@@ -1,24 +1,34 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloque A - DOM Puro</title>
+    <title>Bloque C - PlatoCard</title>
 </head>
 
 <body>
 
-    <h1>Carta del Restaurante</h1>
+    <div id="root"></div>
 
-    <div id="carta"></div>
+    <!-- React -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
 
-    <br>
+    <!-- ReactDOM -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 
-    <button id="btnAgregar">Agregar plato</button>
+    <!-- Babel para poder escribir JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-    <script>
-        // Datos del restaurante
-        let platos = [
+
+    <script type="text/babel">
+
+        // ==========================================
+        // DATA - platos.mock.js
+        // ==========================================
+
+        const platosMock = [
+
             {
                 id: 1,
                 nombre: "Lomo saltado",
@@ -27,6 +37,7 @@
                 stock: 3,
                 disponible: true
             },
+
             {
                 id: 2,
                 nombre: "Arroz con pollo",
@@ -35,6 +46,7 @@
                 stock: 5,
                 disponible: true
             },
+
             {
                 id: 3,
                 nombre: "Sopa de verduras",
@@ -42,70 +54,151 @@
                 precio: 8,
                 stock: 0,
                 disponible: false
+            },
+
+            {
+                id: 4,
+                nombre: "Pollo a la brasa",
+                categoria: "segundos",
+                precio: 20,
+                stock: 4,
+                disponible: true
+            },
+
+            {
+                id: 5,
+                nombre: "Jugo de naranja",
+                categoria: "bebidas",
+                precio: 5,
+                stock: 8,
+                disponible: true
             }
+
         ];
 
 
-        // Renderiza la carta usando DOM e innerHTML
-        function renderCarta(platos) {
+        // ==========================================
+        // COMPONENTE - PlatoCard.jsx
+        // ==========================================
 
-            const carta = document.getElementById("carta");
+        function PlatoCard({
+            nombre,
+            categoria,
+            precio,
+            stock,
+            disponible
+        }) {
 
-            // Limpiamos la carta antes de volver a dibujarla
-            carta.innerHTML = "";
+            return (
 
-            // Recorremos todos los platos
-            platos.forEach(plato => {
+                <div
+                    style={{
+                        border: "1px solid #ccc",
+                        padding: "15px",
+                        margin: "10px 0",
+                        borderRadius: "8px",
 
-                carta.innerHTML += `
-                    <div>
-                        <h3>${plato.nombre}</h3>
+                        backgroundColor: disponible
+                            ? "#d4edda"
+                            : "#f8d7da",
 
-                        <p>Categoría: ${plato.categoria}</p>
+                        color: "#333"
+                    }}
+                >
 
-                        <p>Precio: S/ ${plato.precio}</p>
+                    <h2>{nombre}</h2>
 
-                        <p>Stock: ${plato.stock}</p>
+                    <p>
+                        <strong>Categoría:</strong>{" "}
+                        {categoria}
+                    </p>
 
-                        <p>
-                            ${
-                                plato.disponible
-                                    ? "✅ Disponible"
-                                    : "❌ Agotado"
+                    <p>
+                        <strong>Precio:</strong>{" "}
+                        S/ {precio}
+                    </p>
+
+                    <p>
+                        <strong>Stock:</strong>{" "}
+                        {stock}
+                    </p>
+
+                    <p>
+                        <strong>
+                            {disponible
+                                ? "🟢 Disponible"
+                                : "🔴 Agotado"
                             }
-                        </p>
+                        </strong>
+                    </p>
 
-                        <hr>
-                    </div>
-                `;
-            });
+                </div>
+
+            );
         }
 
 
-        // Mostrar los platos inicialmente
-        renderCarta(platos);
+        // ==========================================
+        // APP - App.jsx
+        // ==========================================
+
+        function App() {
+
+            return (
+
+                <div
+                    style={{
+                        maxWidth: "600px",
+                        margin: "30px auto",
+                        fontFamily: "Arial, sans-serif"
+                    }}
+                >
+
+                    <h1
+                        style={{
+                            textAlign: "center",
+                            marginBottom: "25px"
+                        }}
+                    >
+                        Carta del Restaurante
+                    </h1>
 
 
-        // Botón para agregar un nuevo plato
-        document
-            .getElementById("btnAgregar")
-            .addEventListener("click", () => {
+                    <div>
 
-                // Agregamos un nuevo plato al array
-                platos.push({
-                    id: 4,
-                    nombre: "Pollo a la brasa",
-                    categoria: "segundos",
-                    precio: 20,
-                    stock: 4,
-                    disponible: true
-                });
+                        {platosMock.map(plato => (
 
-                // Volvemos a renderizar la carta
-                renderCarta(platos);
-            });
+                            <PlatoCard
+                                key={plato.id}
+                                nombre={plato.nombre}
+                                categoria={plato.categoria}
+                                precio={plato.precio}
+                                stock={plato.stock}
+                                disponible={plato.disponible}
+                            />
+
+                        ))}
+
+                    </div>
+
+                </div>
+
+            );
+        }
+
+
+        // ==========================================
+        // RENDER DE REACT
+        // ==========================================
+
+        const root = ReactDOM.createRoot(
+            document.getElementById("root")
+        );
+
+        root.render(<App />);
 
     </script>
 
 </body>
+
 </html>
