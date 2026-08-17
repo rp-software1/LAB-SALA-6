@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloque A - DOM Puro</title>
+</head>
+
+<body>
+
+    <h1>Carta del Restaurante</h1>
+
+    <div id="carta"></div>
+
+    <br>
+
+    <button id="btnAgregar">Agregar plato</button>
+
+    <script>
+        // Datos del restaurante
+        let platos = [
+            {
+                id: 1,
+                nombre: "Lomo saltado",
+                categoria: "segundos",
+                precio: 18,
+                stock: 3,
+                disponible: true
+            },
+            {
+                id: 2,
+                nombre: "Arroz con pollo",
+                categoria: "segundos",
+                precio: 12,
+                stock: 5,
+                disponible: true
+            },
+            {
+                id: 3,
+                nombre: "Sopa de verduras",
+                categoria: "entradas",
+                precio: 8,
+                stock: 0,
+                disponible: false
+            }
+        ];
+
+
+        // Renderiza la carta usando DOM e innerHTML
+        function renderCarta(platos) {
+
+            const carta = document.getElementById("carta");
+
+            // Limpiamos la carta antes de volver a dibujarla
+            carta.innerHTML = "";
+
+            // Recorremos todos los platos
+            platos.forEach(plato => {
+
+                carta.innerHTML += `
+                    <div>
+                        <h3>${plato.nombre}</h3>
+
+                        <p>Categoría: ${plato.categoria}</p>
+
+                        <p>Precio: S/ ${plato.precio}</p>
+
+                        <p>Stock: ${plato.stock}</p>
+
+                        <p>
+                            ${
+                                plato.disponible
+                                    ? "✅ Disponible"
+                                    : "❌ Agotado"
+                            }
+                        </p>
+
+                        <hr>
+                    </div>
+                `;
+            });
+        }
+
+
+        // Mostrar los platos inicialmente
+        renderCarta(platos);
+
+
+        // Botón para agregar un nuevo plato
+        document
+            .getElementById("btnAgregar")
+            .addEventListener("click", () => {
+
+                // Agregamos un nuevo plato al array
+                platos.push({
+                    id: 4,
+                    nombre: "Pollo a la brasa",
+                    categoria: "segundos",
+                    precio: 20,
+                    stock: 4,
+                    disponible: true
+                });
+
+                // Volvemos a renderizar la carta
+                renderCarta(platos);
+            });
+
+    </script>
+
+</body>
+</html>

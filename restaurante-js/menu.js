@@ -18,9 +18,9 @@ export function obtenerMenu() {
 
 export function agregarPlato(nombre, precio, stock) {
     menu.push({
-        nombre: nombre,
-        precio: precio,
-        stock: stock
+        nombre: "Pollo a la brasa",
+        precio: 20,
+        stock: 4
     });
 }
 
