@@ -1,0 +1,41 @@
+EVALUADOR: Renzo 
+
+EVALUADO: Luis
+
+ESCENARIOS ELEGIDOS: Escenario 1 y Escenario 3
+
+Escenario 1
+
+RESUMEN DE LA RESPUESTA: Renzo explicó que con renderMenu() e innerHTML, si hay 50 platos y cambia el stock de uno, se
+vuelve a generar todo el contenido de la carta, mientras que React utiliza el Virtual DOM para detectar el cambio y actualizar 
+solamente la parte necesaria.
+
+QUÉ ENTENDIÓ BIEN: Entendió claramente la diferencia entre modificar directamente el DOM y utilizar el Virtual DOM de React.
+
+QUÉ NECESITA REPASAR: Debe repasar cómo React determina exactamente qué nodos del DOM real necesita actualizar después del 
+cambio.
+
+Escenario 3
+
+RESUMEN DE LA RESPUESTA: Renzo identificó que el problema está en usar if directamente dentro del JSX y también en utilizar 
+class en lugar de className. Explicó que una condición dentro del JSX debe hacerse con una expresión como el operador ternario.
+
+QUÉ ENTENDIÓ BIEN: Identificó correctamente los dos errores de sintaxis y cómo solucionarlos.
+
+QUÉ NECESITA REPASAR: Puede reforzar las diferentes formas de utilizar condiciones dentro de JSX.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+EVALUADOR: Renzo
+
+ESCENARIO ELEGIDO: Escenario 2
+
+Escenario 2 
+
+RESUMEN DE LA RESPUESTA: Luis explicó que PlatoCard es una función que recibe mediante props los datos del plato, como nombre, 
+categoría, precio, stock y disponibilidad, y devuelve JSX para mostrar esa información. También explicó que disponible determina
+si se muestra el estado de disponible o agotado.
+
+QUÉ ENTENDIÓ BIEN: Entendió la función de cada prop y cómo PlatoCard utiliza esos datos para construir la interfaz.
+
+QUÉ NECESITA REPASAR: Puede repasar con más detalle cómo React recibe y procesa las props cuando PlatoCard es utilizado desde App.
