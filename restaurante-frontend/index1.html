@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloque C - PlatoCard</title>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <!-- React -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+
+    <!-- ReactDOM -->
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+
+    <!-- Babel para poder escribir JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+
+    <script type="text/babel">
+
+        // ==========================================
+        // DATA - platos.mock.js
+        // ==========================================
+
+        const platosMock = [
+
+            {
+                id: 1,
+                nombre: "Lomo saltado",
+                categoria: "segundos",
+                precio: 18,
+                stock: 3,
+                disponible: true
+            },
+
+            {
+                id: 2,
+                nombre: "Arroz con pollo",
+                categoria: "segundos",
+                precio: 12,
+                stock: 5,
+                disponible: true
+            },
+
+            {
+                id: 3,
+                nombre: "Sopa de verduras",
+                categoria: "entradas",
+                precio: 8,
+                stock: 0,
+                disponible: false
+            },
+
+            {
+                id: 4,
+                nombre: "Pollo a la brasa",
+                categoria: "segundos",
+                precio: 20,
+                stock: 4,
+                disponible: true
+            },
+
+            {
+                id: 5,
+                nombre: "Jugo de naranja",
+                categoria: "bebidas",
+                precio: 5,
+                stock: 8,
+                disponible: true
+            }
+
+        ];
+
+
+        // ==========================================
+        // COMPONENTE - PlatoCard.jsx
+        // ==========================================
+
+        function PlatoCard({
+            nombre,
+            categoria,
+            precio,
+            stock,
+            disponible
+        }) {
+
+            return (
+
+                <div
+                    style={{
+                        border: "1px solid #ccc",
+                        padding: "15px",
+                        margin: "10px 0",
+                        borderRadius: "8px",
+
+                        backgroundColor: disponible
+                            ? "#d4edda"
+                            : "#f8d7da",
+
+                        color: "#333"
+                    }}
+                >
+
+                    <h2>{nombre}</h2>
+
+                    <p>
+                        <strong>Categoría:</strong>{" "}
+                        {categoria}
+                    </p>
+
+                    <p>
+                        <strong>Precio:</strong>{" "}
+                        S/ {precio}
+                    </p>
+
+                    <p>
+                        <strong>Stock:</strong>{" "}
+                        {stock}
+                    </p>
+
+                    <p>
+                        <strong>
+                            {disponible
+                                ? "🟢 Disponible"
+                                : "🔴 Agotado"
+                            }
+                        </strong>
+                    </p>
+
+                </div>
+
+            );
+        }
+
+
+        // ==========================================
+        // APP - App.jsx
+        // ==========================================
+
+        function App() {
+
+            return (
+
+                <div
+                    style={{
+                        maxWidth: "600px",
+                        margin: "30px auto",
+                        fontFamily: "Arial, sans-serif"
+                    }}
+                >
+
+                    <h1
+                        style={{
+                            textAlign: "center",
+                            marginBottom: "25px"
+                        }}
+                    >
+                        Carta del Restaurante
+                    </h1>
+
+
+                    <div>
+
+                        {platosMock.map(plato => (
+
+                            <PlatoCard
+                                key={plato.id}
+                                nombre={plato.nombre}
+                                categoria={plato.categoria}
+                                precio={plato.precio}
+                                stock={plato.stock}
+                                disponible={plato.disponible}
+                            />
+
+                        ))}
+
+                    </div>
+
+                </div>
+
+            );
+        }
+
+
+        // ==========================================
+        // RENDER DE REACT
+        // ==========================================
+
+        const root = ReactDOM.createRoot(
+            document.getElementById("root")
+        );
+
+        root.render(<App />);
+
+    </script>
+
+</body>
+
+</html>
