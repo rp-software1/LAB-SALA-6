@@ -1,0 +1,28 @@
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO:	Escenario 1 
+
+Escenario 1 / Escenario 2
+
+RESUMEN DE LA RESPUESTA: Luis explicó que PlatoCard está en components/ porque es reutilizable y que NavBar también debe estar allí porque aparecerá en varias páginas.
+QUÉ ENTENDIÓ BIEN:	Entendió correctamente la diferencia entre un componente reutilizable y una página completa.
+QUÉ NECESITA REPASAR:	Repasar cómo una página puede combinar varios componentes para construir una vista completa.
+
+RESUMEN DE LA RESPUESTA: main.jsx es el punto de entrada de React: importa App, busca el elemento root del HTML, crea la raíz
+con ReactDOM.createRoot() y finalmente renderiza <App /> dentro de ella.
+
+-------------------------------------------------------------------------------------------------------------
+
+EVALUADOR: Luis
+
+EVALUADO: Renzo
+
+ESCENARIO ELEGIDO:	Escenario 3
+
+Escenario 3
+
+RESUMEN DE LA RESPUESTA:	Renzo explicó que con CDN React se cargaba desde una dirección externa, mientras que con Vite se trabaja con módulos, archivos JSX y una estructura organizada del proyecto.
+QUÉ ENTENDIÓ BIEN:	Entendió las diferencias principales entre trabajar con CDN y trabajar con Vite.
+QUÉ NECESITA REPASAR:	Repasar cómo Vite resuelve los módulos y procesa los archivos durante el desarrollo.
