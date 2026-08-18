@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PlatoCard & MesaCard - UI Unificada</title>
+    <title>Restaurante App - UI Unificada con NavBar</title>
 </head>
 
-<body style="background-color: #f8f9fa; margin: 0; padding: 20px;">
+<body style="background-color: #f8f9fa; margin: 0; padding: 0;">
 
     <div id="root"></div>
 
@@ -39,11 +39,11 @@
             { id: 2, numero: 2, capacidad: 2, estado: "ocupada", comensales: 2 },
             { id: 3, numero: 3, capacidad: 6, estado: "reservada", comensales: 0 },
             { id: 4, numero: 4, capacidad: 4, estado: "ocupada", comensales: 3 },
-            { id: 5, numero: 5, capacidad: 8, estado: "libre", comensales: 0 },
+            { id: 5, numero: 5, capacidad: 8, estado: "ocupada", comensales: 0 },
             { id: 6, numero: 6, capacidad: 2, estado: "reservada", comensales: 0 }
         ];
 
-        // Estilos base compartidos
+        // Estilos base compartidos para las cards
         const cardStyle = {
             padding: "20px 24px",
             margin: "16px 0",
@@ -52,6 +52,34 @@
             color: "#2d3748",
             boxSizing: "border-box"
         };
+
+        // ==========================================
+        // COMPONENTE - NavBar.jsx (BLOQUE C)
+        // ==========================================
+        function NavBar({ nombreRestaurante = "Mi Restaurante" }) {
+            return (
+                <nav style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    padding: "16px 32px",
+                    backgroundColor: "#1a202c",
+                    color: "#ffffff",
+                    fontFamily: "system-ui, -apple-system, sans-serif",
+                    boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+                }}>
+                    <h2 style={{ margin: 0, fontSize: "20px", fontWeight: "700" }}>
+                        {nombreRestaurante}
+                    </h2>
+
+                    <div style={{ display: "flex", gap: "24px", fontSize: "16px" }}>
+                        <span style={{ cursor: "pointer", opacity: 0.9 }}>Carta</span>
+                        <span style={{ cursor: "pointer", opacity: 0.9 }}>Mesas</span>
+                        <span style={{ cursor: "pointer", opacity: 0.9 }}>Comandas</span>
+                    </div>
+                </nav>
+            );
+        }
 
         // ==========================================
         // COMPONENTE - PlatoCard.jsx
@@ -154,63 +182,68 @@
         // ==========================================
         function App() {
             return (
-                <div style={{
-                    maxWidth: "600px",
-                    margin: "20px auto",
-                    padding: "0 10px"
-                }}>
-                    <h1 style={{
-                        fontFamily: "system-ui, sans-serif",
-                        textAlign: "center",
-                        fontSize: "28px",
-                        color: "#1a202c",
-                        marginBottom: "20px"
+                <div>
+                    {/* BLOQUE C: NavBar como primer hijo de App */}
+                    <NavBar nombreRestaurante="Sabor & Tradición" />
+
+                    <main style={{
+                        maxWidth: "600px",
+                        margin: "20px auto",
+                        padding: "0 10px"
                     }}>
-                        Carta del Restaurante
-                    </h1>
+                        <h1 style={{
+                            fontFamily: "system-ui, sans-serif",
+                            textAlign: "center",
+                            fontSize: "28px",
+                            color: "#1a202c",
+                            marginBottom: "20px"
+                        }}>
+                            Carta del Restaurante
+                        </h1>
 
-                    <div>
-                        {platosMock.map(plato => (
-                            <PlatoCard
-                                key={plato.id}
-                                nombre={plato.nombre}
-                                categoria={plato.categoria}
-                                precio={plato.precio}
-                                stock={plato.stock}
-                                disponible={plato.disponible}
-                            />
-                        ))}
-                    </div>
+                        <div>
+                            {platosMock.map(plato => (
+                                <PlatoCard
+                                    key={plato.id}
+                                    nombre={plato.nombre}
+                                    categoria={plato.categoria}
+                                    precio={plato.precio}
+                                    stock={plato.stock}
+                                    disponible={plato.disponible}
+                                />
+                            ))}
+                        </div>
 
-                    <hr style={{ margin: "40px 0", border: "none", borderTop: "2px dashed #cbd5e0" }} />
+                        <hr style={{ margin: "40px 0", border: "none", borderTop: "2px dashed #cbd5e0" }} />
 
-                    <h1 style={{
-                        fontFamily: "system-ui, sans-serif",
-                        textAlign: "center",
-                        fontSize: "28px",
-                        color: "#1a202c",
-                        marginBottom: "20px"
-                    }}>
-                        Gestión de Mesas
-                    </h1>
+                        <h1 style={{
+                            fontFamily: "system-ui, sans-serif",
+                            textAlign: "center",
+                            fontSize: "28px",
+                            color: "#1a202c",
+                            marginBottom: "20px"
+                        }}>
+                            Gestión de Mesas
+                        </h1>
 
-                    <div>
-                        {mesasMock.map(mesa => (
-                            <MesaCard
-                                key={mesa.id}
-                                numero={mesa.numero}
-                                capacidad={mesa.capacidad}
-                                estado={mesa.estado}
-                                comensales={mesa.comensales}
-                            />
-                        ))}
-                    </div>
+                        <div>
+                            {mesasMock.map(mesa => (
+                                <MesaCard
+                                    key={mesa.id}
+                                    numero={mesa.numero}
+                                    capacidad={mesa.capacidad}
+                                    estado={mesa.estado}
+                                    comensales={mesa.comensales}
+                                />
+                            ))}
+                        </div>
+                    </main>
                 </div>
             );
         }
 
         // ==========================================
-        // RENDER DE REACT
+        // RENDER DE REACT - main.jsx
         // ==========================================
         const root = ReactDOM.createRoot(document.getElementById("root"));
         root.render(<App />);
