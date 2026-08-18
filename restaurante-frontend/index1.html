@@ -4,25 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Restaurante App - UI Unificada con NavBar</title>
+    <title>Restaurante App</title>
 </head>
 
-<body style="background-color: #f8f9fa; margin: 0; padding: 0;">
+<body style="background-color: #f8f9fa; margin: 0;">
 
     <div id="root"></div>
 
     <!-- React -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-    <!-- ReactDOM -->
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-    <!-- Babel para escribir JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <script type="text/babel">
 
         // ==========================================
-        // DATA - platos.mock.js
+        // DATOS
         // ==========================================
+
         const platosMock = [
             { id: 1, nombre: "Lomo saltado", categoria: "segundos", precio: 18, stock: 3, disponible: true },
             { id: 2, nombre: "Arroz con pollo", categoria: "segundos", precio: 12, stock: 5, disponible: true },
@@ -31,9 +30,6 @@
             { id: 5, nombre: "Jugo de naranja", categoria: "bebidas", precio: 5, stock: 8, disponible: true }
         ];
 
-        // ==========================================
-        // DATA - mesas.mock.js
-        // ==========================================
         const mesasMock = [
             { id: 1, numero: 1, capacidad: 4, estado: "libre", comensales: 0 },
             { id: 2, numero: 2, capacidad: 2, estado: "ocupada", comensales: 2 },
@@ -43,19 +39,20 @@
             { id: 6, numero: 6, capacidad: 2, estado: "reservada", comensales: 0 }
         ];
 
-        // Estilos base compartidos para las cards
         const cardStyle = {
             padding: "20px 24px",
             margin: "16px 0",
             borderRadius: "12px",
-            fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+            fontFamily: "system-ui, sans-serif",
             color: "#2d3748",
             boxSizing: "border-box"
         };
 
+
         // ==========================================
-        // COMPONENTE - NavBar.jsx (BLOQUE C)
+        // NAVBAR
         // ==========================================
+
         function NavBar({ nombreRestaurante = "Mi Restaurante" }) {
             return (
                 <nav style={{
@@ -64,26 +61,26 @@
                     alignItems: "center",
                     padding: "16px 32px",
                     backgroundColor: "#1a202c",
-                    color: "#ffffff",
-                    fontFamily: "system-ui, -apple-system, sans-serif",
-                    boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+                    color: "white"
                 }}>
-                    <h2 style={{ margin: 0, fontSize: "20px", fontWeight: "700" }}>
+                    <h2 style={{ margin: 0 }}>
                         {nombreRestaurante}
                     </h2>
 
-                    <div style={{ display: "flex", gap: "24px", fontSize: "16px" }}>
-                        <span style={{ cursor: "pointer", opacity: 0.9 }}>Carta</span>
-                        <span style={{ cursor: "pointer", opacity: 0.9 }}>Mesas</span>
-                        <span style={{ cursor: "pointer", opacity: 0.9 }}>Comandas</span>
+                    <div style={{ display: "flex", gap: "24px" }}>
+                        <span>Carta</span>
+                        <span>Mesas</span>
+                        <span>Comandas</span>
                     </div>
                 </nav>
             );
         }
 
+
         // ==========================================
-        // COMPONENTE - PlatoCard.jsx
+        // PLATO CARD
         // ==========================================
+
         function PlatoCard({ nombre, categoria, precio, stock, disponible }) {
             const backgroundColor = disponible ? "#e0f2e1" : "#ffebee";
             const borderColor = disponible ? "#c8e6c9" : "#ffcdd2";
@@ -91,99 +88,206 @@
             return (
                 <div style={{
                     ...cardStyle,
-                    backgroundColor,
+                    backgroundColor: backgroundColor,
                     border: `1px solid ${borderColor}`
                 }}>
-                    <h2 style={{ margin: "0 0 16px 0", fontSize: "24px", fontWeight: "700", color: "#1a202c" }}>
-                        {nombre}
-                    </h2>
-                    
-                    <p style={{ margin: "8px 0", fontSize: "16px" }}>
-                        <strong style={{ fontWeight: "700" }}>Categoría:</strong> <span style={{ color: "#4a5568" }}>{categoria}</span>
-                    </p>
-
-                    <p style={{ margin: "8px 0", fontSize: "16px" }}>
-                        <strong style={{ fontWeight: "700" }}>Precio:</strong> <span style={{ color: "#4a5568" }}>S/ {precio}</span>
-                    </p>
-
-                    <p style={{ margin: "8px 0 16px 0", fontSize: "16px" }}>
-                        <strong style={{ fontWeight: "700" }}>Stock:</strong> <span style={{ color: "#4a5568" }}>{stock}</span>
-                    </p>
-
-                    <p style={{ margin: "0", fontSize: "16px", fontWeight: "700" }}>
-                        {disponible ? "🟢 Disponible" : "🔴 Agotado"}
-                    </p>
+                    <h2>{nombre}</h2>
+                    <p><strong>Categoría:</strong> {categoria}</p>
+                    <p><strong>Precio:</strong> S/ {precio}</p>
+                    <p><strong>Stock:</strong> {stock}</p>
+                    <p>{disponible ? "🟢 Disponible" : "🔴 Agotado"}</p>
                 </div>
             );
         }
 
-        // ==========================================
-        // COMPONENTE - MesaCard.jsx
-        // ==========================================
-        function MesaCard({ numero, capacidad, estado, comensales }) {
-            const obtenerEstilosEstado = (est) => {
-                switch (est) {
-                    case "libre":
-                        return {
-                            bg: "#e0f2e1",
-                            border: "#c8e6c9",
-                            icono: "🟢 Libre"
-                        };
-                    case "ocupada":
-                        return {
-                            bg: "#ffebee",
-                            border: "#ffcdd2",
-                            icono: "🔴 Ocupada"
-                        };
-                    case "reservada":
-                        return {
-                            bg: "#fff8e1",
-                            border: "#ffe082",
-                            icono: "🟡 Reservada"
-                        };
-                    default:
-                        return {
-                            bg: "#f5f5f5",
-                            border: "#e0e0e0",
-                            icono: "⚪ Desconocido"
-                        };
-                }
-            };
 
-            const estilo = obtenerEstilosEstado(estado);
+        // ==========================================
+        // MESA CARD
+        // ==========================================
+
+        function MesaCard({ numero, capacidad, estado, comensales }) {
+            let color = "#f5f5f5";
+            let texto = "⚪ Desconocido";
+
+            if (estado === "libre") {
+                color = "#e0f2e1";
+                texto = "🟢 Libre";
+            }
+            if (estado === "ocupada") {
+                color = "#ffebee";
+                texto = "🔴 Ocupada";
+            }
+            if (estado === "reservada") {
+                color = "#fff8e1";
+                texto = "🟡 Reservada";
+            }
 
             return (
                 <div style={{
                     ...cardStyle,
-                    backgroundColor: estilo.bg,
-                    border: `1px solid ${estilo.border}`
+                    backgroundColor: color
                 }}>
-                    <h2 style={{ margin: "0 0 16px 0", fontSize: "24px", fontWeight: "700", color: "#1a202c" }}>
-                        Mesa #{numero}
-                    </h2>
-                    
-                    <p style={{ margin: "8px 0", fontSize: "16px" }}>
-                        <strong style={{ fontWeight: "700" }}>Capacidad:</strong> <span style={{ color: "#4a5568" }}>{capacidad} personas</span>
-                    </p>
-
-                    <p style={{ margin: "8px 0 16px 0", fontSize: "16px" }}>
-                        <strong style={{ fontWeight: "700" }}>Comensales actuales:</strong> <span style={{ color: "#4a5568" }}>{comensales}</span>
-                    </p>
-
-                    <p style={{ margin: "0", fontSize: "16px", fontWeight: "700" }}>
-                        {estilo.icono}
-                    </p>
+                    <h2>Mesa #{numero}</h2>
+                    <p><strong>Capacidad:</strong> {capacidad} personas</p>
+                    <p><strong>Comensales actuales:</strong> {comensales}</p>
+                    <p><strong>{texto}</strong></p>
                 </div>
             );
         }
 
+
         // ==========================================
-        // APP - App.jsx
+        // ORDER FORM (Componente Funcional)
         // ==========================================
+
+        function OrderForm({ mesaNumero = 1 }) {
+            const [plato, setPlato] = React.useState("");
+            const [cantidad, setCantidad] = React.useState(1);
+            const [mensaje, setMensaje] = React.useState("");
+
+            function enviarComanda(event) {
+                event.preventDefault();
+
+                if (plato === "") {
+                    setMensaje("❌ Escribe el nombre del plato");
+                    return;
+                }
+
+                setMensaje(`✅ Comanda enviada: ${plato} x${cantidad} — Mesa ${mesaNumero}`);
+                setPlato("");
+                setCantidad(1);
+            }
+
+            return (
+                <form
+                    onSubmit={enviarComanda}
+                    style={{
+                        backgroundColor: "white",
+                        padding: "24px",
+                        margin: "20px 0",
+                        borderRadius: "12px",
+                        boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
+                    }}
+                >
+                    <h2 style={{ margin: "0 0 16px 0" }}>
+                        Comanda — Mesa {mesaNumero}
+                    </h2>
+
+                    <input
+                        type="text"
+                        placeholder="Nombre del plato"
+                        value={plato}
+                        onChange={(event) => setPlato(event.target.value)}
+                        style={{
+                            width: "100%",
+                            padding: "10px",
+                            marginBottom: "10px",
+                            boxSizing: "border-box",
+                            borderRadius: "6px",
+                            border: "1px solid #cbd5e0"
+                        }}
+                    />
+
+                    <input
+                        type="number"
+                        min="1"
+                        value={cantidad}
+                        onChange={(event) => setCantidad(Number(event.target.value))}
+                        style={{
+                            width: "100%",
+                            padding: "10px",
+                            marginBottom: "10px",
+                            boxSizing: "border-box",
+                            borderRadius: "6px",
+                            border: "1px solid #cbd5e0"
+                        }}
+                    />
+
+                    <button
+                        type="submit"
+                        style={{
+                            width: "100%",
+                            padding: "12px",
+                            backgroundColor: "#1a202c",
+                            color: "white",
+                            border: "none",
+                            borderRadius: "6px",
+                            cursor: "pointer",
+                            fontWeight: "bold"
+                        }}
+                    >
+                        Agregar a comanda
+                    </button>
+
+                    {mensaje && (
+                        <p style={{
+                            color: mensaje.includes("❌") ? "red" : "green",
+                            fontWeight: "bold",
+                            marginTop: "12px"
+                        }}>
+                            {mensaje}
+                        </p>
+                    )}
+                </form>
+            );
+        }
+
+
+        // ==========================================
+        // COMANDAS PAGE (BLOQUE C)
+        // ==========================================
+
+        function ComandasPage() {
+            // Estado para sincronizar el selector con el OrderForm
+            const [mesaSeleccionada, setMesaSeleccionada] = React.useState(1);
+
+            return (
+                <div style={{
+                    backgroundColor: "#edf2f7",
+                    padding: "20px",
+                    borderRadius: "12px",
+                    marginTop: "20px"
+                }}>
+                    <h1 style={{ textAlign: "center", margin: "0 0 16px 0" }}>
+                        Gestión de Comandas
+                    </h1>
+
+                    <div style={{ textAlign: "center", marginBottom: "16px" }}>
+                        <label style={{ fontWeight: "bold", marginRight: "10px" }}>
+                            Seleccionar Mesa:
+                        </label>
+                        <select
+                            value={mesaSeleccionada}
+                            onChange={(e) => setMesaSeleccionada(Number(e.target.value))}
+                            style={{
+                                padding: "8px 12px",
+                                borderRadius: "6px",
+                                fontSize: "16px",
+                                border: "1px solid #cbd5e0"
+                            }}
+                        >
+                            {mesasMock.map((mesa) => (
+                                <option key={mesa.id} value={mesa.numero}>
+                                    Mesa #{mesa.numero}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* El formulario recibe dinámicamente la prop de la mesa seleccionada */}
+                    <OrderForm mesaNumero={mesaSeleccionada} />
+                </div>
+            );
+        }
+
+
+        // ==========================================
+        // APP
+        // ==========================================
+
         function App() {
             return (
                 <div>
-                    {/* BLOQUE C: NavBar como primer hijo de App */}
                     <NavBar nombreRestaurante="Sabor & Tradición" />
 
                     <main style={{
@@ -191,64 +295,55 @@
                         margin: "20px auto",
                         padding: "0 10px"
                     }}>
-                        <h1 style={{
-                            fontFamily: "system-ui, sans-serif",
-                            textAlign: "center",
-                            fontSize: "28px",
-                            color: "#1a202c",
-                            marginBottom: "20px"
-                        }}>
-                            Carta del Restaurante
-                        </h1>
-
-                        <div>
-                            {platosMock.map(plato => (
-                                <PlatoCard
-                                    key={plato.id}
-                                    nombre={plato.nombre}
-                                    categoria={plato.categoria}
-                                    precio={plato.precio}
-                                    stock={plato.stock}
-                                    disponible={plato.disponible}
-                                />
-                            ))}
-                        </div>
+                        {/* 1. SECCIÓN COMANDAS CON SELECTOR DINÁMICO */}
+                        <ComandasPage />
 
                         <hr style={{ margin: "40px 0", border: "none", borderTop: "2px dashed #cbd5e0" }} />
 
-                        <h1 style={{
-                            fontFamily: "system-ui, sans-serif",
-                            textAlign: "center",
-                            fontSize: "28px",
-                            color: "#1a202c",
-                            marginBottom: "20px"
-                        }}>
+                        {/* 2. CARTA */}
+                        <h1 style={{ textAlign: "center" }}>
+                            Carta del Restaurante
+                        </h1>
+
+                        {platosMock.map(plato => (
+                            <PlatoCard
+                                key={plato.id}
+                                {...plato}
+                            />
+                        ))}
+
+                        <hr style={{ margin: "40px 0", border: "none", borderTop: "2px dashed #cbd5e0" }} />
+
+                        {/* 3. MESAS */}
+                        <h1 style={{ textAlign: "center" }}>
                             Gestión de Mesas
                         </h1>
 
-                        <div>
-                            {mesasMock.map(mesa => (
-                                <MesaCard
-                                    key={mesa.id}
-                                    numero={mesa.numero}
-                                    capacidad={mesa.capacidad}
-                                    estado={mesa.estado}
-                                    comensales={mesa.comensales}
-                                />
-                            ))}
-                        </div>
+                        {mesasMock.map(mesa => (
+                            <MesaCard
+                                key={mesa.id}
+                                {...mesa}
+                            />
+                        ))}
+
                     </main>
                 </div>
             );
         }
 
+
         // ==========================================
-        // RENDER DE REACT - main.jsx
+        // RENDER
         // ==========================================
-        const root = ReactDOM.createRoot(document.getElementById("root"));
+
+        const root = ReactDOM.createRoot(
+            document.getElementById("root")
+        );
+
         root.render(<App />);
 
     </script>
+
 </body>
 
 </html>
