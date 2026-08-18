@@ -1,25 +1,19 @@
-import PlatoCard from "./components/PlatoCard";
-import { platosMock } from "./data/platos.mock";
+// src/App.jsx
+import Home from "./pages/Home.jsx";
+import MesasPage from "./pages/MesasPage.jsx";
 
 function App() {
-    return (
-        <div>
-            <h1>Carta del Restaurante</h1>
+  return (
+    <div>
+      {/* 1. Vista del Menú de Platos */}
+      <Home />
 
-            <div>
-                {platosMock.map(plato => (
-                    <PlatoCard
-                        key={plato.id}
-                        nombre={plato.nombre}
-                        categoria={plato.categoria}
-                        precio={plato.precio}
-                        stock={plato.stock}
-                        disponible={plato.disponible}
-                    />
-                ))}
-            </div>
-        </div>
-    );
+      <hr style={{ margin: "40px 0", border: "1px solid #eee" }} />
+
+      {/* 2. Vista de la Gestión de Mesas */}
+      <MesasPage />
+    </div>
+  );
 }
 
 export default App;

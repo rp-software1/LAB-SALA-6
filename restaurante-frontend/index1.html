@@ -4,170 +4,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bloque C - PlatoCard</title>
+    <title>PlatoCard & MesaCard - UI Unificada</title>
 </head>
 
-<body>
+<body style="background-color: #f8f9fa; margin: 0; padding: 20px;">
 
     <div id="root"></div>
 
     <!-- React -->
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-
     <!-- ReactDOM -->
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-
-    <!-- Babel para poder escribir JSX -->
+    <!-- Babel para escribir JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
 
     <script type="text/babel">
 
         // ==========================================
         // DATA - platos.mock.js
         // ==========================================
-
         const platosMock = [
-
-            {
-                id: 1,
-                nombre: "Lomo saltado",
-                categoria: "segundos",
-                precio: 18,
-                stock: 3,
-                disponible: true
-            },
-
-            {
-                id: 2,
-                nombre: "Arroz con pollo",
-                categoria: "segundos",
-                precio: 12,
-                stock: 5,
-                disponible: true
-            },
-
-            {
-                id: 3,
-                nombre: "Sopa de verduras",
-                categoria: "entradas",
-                precio: 20,
-                stock: 0,
-                disponible: false
-            },
-
-            {
-                id: 4,
-                nombre: "Pollo a la brasa",
-                categoria: "segundos",
-                precio: 20,
-                stock: 4,
-                disponible: true
-            },
-
-            {
-                id: 5,
-                nombre: "Jugo de naranja",
-                categoria: "bebidas",
-                precio: 5,
-                stock: 8,
-                disponible: true
-            }
-
+            { id: 1, nombre: "Lomo saltado", categoria: "segundos", precio: 18, stock: 3, disponible: true },
+            { id: 2, nombre: "Arroz con pollo", categoria: "segundos", precio: 12, stock: 5, disponible: true },
+            { id: 3, nombre: "Sopa de verduras", categoria: "entradas", precio: 8, stock: 0, disponible: false },
+            { id: 4, nombre: "Pollo a la brasa", categoria: "segundos", precio: 20, stock: 4, disponible: true },
+            { id: 5, nombre: "Jugo de naranja", categoria: "bebidas", precio: 5, stock: 8, disponible: true }
         ];
 
+        // ==========================================
+        // DATA - mesas.mock.js
+        // ==========================================
+        const mesasMock = [
+            { id: 1, numero: 1, capacidad: 4, estado: "libre", comensales: 0 },
+            { id: 2, numero: 2, capacidad: 2, estado: "ocupada", comensales: 2 },
+            { id: 3, numero: 3, capacidad: 6, estado: "reservada", comensales: 0 },
+            { id: 4, numero: 4, capacidad: 4, estado: "ocupada", comensales: 3 },
+            { id: 5, numero: 5, capacidad: 8, estado: "libre", comensales: 0 },
+            { id: 6, numero: 6, capacidad: 2, estado: "reservada", comensales: 0 }
+        ];
+
+        // Estilos base compartidos
+        const cardStyle = {
+            padding: "20px 24px",
+            margin: "16px 0",
+            borderRadius: "12px",
+            fontFamily: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+            color: "#2d3748",
+            boxSizing: "border-box"
+        };
 
         // ==========================================
         // COMPONENTE - PlatoCard.jsx
         // ==========================================
-
-        function PlatoCard({
-            nombre,
-            categoria,
-            precio,
-            stock,
-            disponible
-        }) {
+        function PlatoCard({ nombre, categoria, precio, stock, disponible }) {
+            const backgroundColor = disponible ? "#e0f2e1" : "#ffebee";
+            const borderColor = disponible ? "#c8e6c9" : "#ffcdd2";
 
             return (
-
-                <div
-                    style={{
-                        border: "1px solid #ccc",
-                        padding: "15px",
-                        margin: "10px 0",
-                        borderRadius: "8px",
-
-                        backgroundColor: disponible
-                            ? "#d4edda"
-                            : "#f8d7da",
-
-                        color: "#333"
-                    }}
-                >
-
-                    <h2>{nombre}</h2>
-
-                    <p>
-                        <strong>Categoría:</strong>{" "}
-                        {categoria}
+                <div style={{
+                    ...cardStyle,
+                    backgroundColor,
+                    border: `1px solid ${borderColor}`
+                }}>
+                    <h2 style={{ margin: "0 0 16px 0", fontSize: "24px", fontWeight: "700", color: "#1a202c" }}>
+                        {nombre}
+                    </h2>
+                    
+                    <p style={{ margin: "8px 0", fontSize: "16px" }}>
+                        <strong style={{ fontWeight: "700" }}>Categoría:</strong> <span style={{ color: "#4a5568" }}>{categoria}</span>
                     </p>
 
-                    <p>
-                        <strong>Precio:</strong>{" "}
-                        S/ {precio}
+                    <p style={{ margin: "8px 0", fontSize: "16px" }}>
+                        <strong style={{ fontWeight: "700" }}>Precio:</strong> <span style={{ color: "#4a5568" }}>S/ {precio}</span>
                     </p>
 
-                    <p>
-                        <strong>Stock:</strong>{" "}
-                        {stock}
+                    <p style={{ margin: "8px 0 16px 0", fontSize: "16px" }}>
+                        <strong style={{ fontWeight: "700" }}>Stock:</strong> <span style={{ color: "#4a5568" }}>{stock}</span>
                     </p>
 
-                    <p>
-                        <strong>
-                            {disponible
-                                ? "🟢 Disponible"
-                                : "🔴 Agotado"
-                            }
-                        </strong>
+                    <p style={{ margin: "0", fontSize: "16px", fontWeight: "700" }}>
+                        {disponible ? "🟢 Disponible" : "🔴 Agotado"}
                     </p>
-
                 </div>
-
             );
         }
 
+        // ==========================================
+        // COMPONENTE - MesaCard.jsx
+        // ==========================================
+        function MesaCard({ numero, capacidad, estado, comensales }) {
+            const obtenerEstilosEstado = (est) => {
+                switch (est) {
+                    case "libre":
+                        return {
+                            bg: "#e0f2e1",
+                            border: "#c8e6c9",
+                            icono: "🟢 Libre"
+                        };
+                    case "ocupada":
+                        return {
+                            bg: "#ffebee",
+                            border: "#ffcdd2",
+                            icono: "🔴 Ocupada"
+                        };
+                    case "reservada":
+                        return {
+                            bg: "#fff8e1",
+                            border: "#ffe082",
+                            icono: "🟡 Reservada"
+                        };
+                    default:
+                        return {
+                            bg: "#f5f5f5",
+                            border: "#e0e0e0",
+                            icono: "⚪ Desconocido"
+                        };
+                }
+            };
+
+            const estilo = obtenerEstilosEstado(estado);
+
+            return (
+                <div style={{
+                    ...cardStyle,
+                    backgroundColor: estilo.bg,
+                    border: `1px solid ${estilo.border}`
+                }}>
+                    <h2 style={{ margin: "0 0 16px 0", fontSize: "24px", fontWeight: "700", color: "#1a202c" }}>
+                        Mesa #{numero}
+                    </h2>
+                    
+                    <p style={{ margin: "8px 0", fontSize: "16px" }}>
+                        <strong style={{ fontWeight: "700" }}>Capacidad:</strong> <span style={{ color: "#4a5568" }}>{capacidad} personas</span>
+                    </p>
+
+                    <p style={{ margin: "8px 0 16px 0", fontSize: "16px" }}>
+                        <strong style={{ fontWeight: "700" }}>Comensales actuales:</strong> <span style={{ color: "#4a5568" }}>{comensales}</span>
+                    </p>
+
+                    <p style={{ margin: "0", fontSize: "16px", fontWeight: "700" }}>
+                        {estilo.icono}
+                    </p>
+                </div>
+            );
+        }
 
         // ==========================================
         // APP - App.jsx
         // ==========================================
-
         function App() {
-
             return (
-
-                <div
-                    style={{
-                        maxWidth: "600px",
-                        margin: "30px auto",
-                        fontFamily: "Arial, sans-serif"
-                    }}
-                >
-
-                    <h1
-                        style={{
-                            textAlign: "center",
-                            marginBottom: "25px"
-                        }}
-                    >
+                <div style={{
+                    maxWidth: "600px",
+                    margin: "20px auto",
+                    padding: "0 10px"
+                }}>
+                    <h1 style={{
+                        fontFamily: "system-ui, sans-serif",
+                        textAlign: "center",
+                        fontSize: "28px",
+                        color: "#1a202c",
+                        marginBottom: "20px"
+                    }}>
                         Carta del Restaurante
                     </h1>
 
-
                     <div>
-
                         {platosMock.map(plato => (
-
                             <PlatoCard
                                 key={plato.id}
                                 nombre={plato.nombre}
@@ -176,29 +179,43 @@
                                 stock={plato.stock}
                                 disponible={plato.disponible}
                             />
-
                         ))}
-
                     </div>
 
-                </div>
+                    <hr style={{ margin: "40px 0", border: "none", borderTop: "2px dashed #cbd5e0" }} />
 
+                    <h1 style={{
+                        fontFamily: "system-ui, sans-serif",
+                        textAlign: "center",
+                        fontSize: "28px",
+                        color: "#1a202c",
+                        marginBottom: "20px"
+                    }}>
+                        Gestión de Mesas
+                    </h1>
+
+                    <div>
+                        {mesasMock.map(mesa => (
+                            <MesaCard
+                                key={mesa.id}
+                                numero={mesa.numero}
+                                capacidad={mesa.capacidad}
+                                estado={mesa.estado}
+                                comensales={mesa.comensales}
+                            />
+                        ))}
+                    </div>
+                </div>
             );
         }
-
 
         // ==========================================
         // RENDER DE REACT
         // ==========================================
-
-        const root = ReactDOM.createRoot(
-            document.getElementById("root")
-        );
-
+        const root = ReactDOM.createRoot(document.getElementById("root"));
         root.render(<App />);
 
     </script>
-
 </body>
 
 </html>
