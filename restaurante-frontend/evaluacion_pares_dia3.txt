@@ -1,0 +1,40 @@
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO:	Escenario 1
+
+RESUMEN DE LA RESPUESTA: Luis explicó que MesaCard recibiría "cerrada" mediante props y que PropTypes.oneOf() 
+permite indicar los estados válidos.
+
+QUÉ ENTENDIÓ BIEN:	Entendió que PropTypes sirve para validar los valores que recibe un componente.
+
+QUÉ NECESITA REPASAR:	Repasar que PropTypes muestra advertencias en desarrollo, pero no impide por sí mismo
+que llegue un valor inválido.
+
+
+ESCENARIO ELEGIDO:	Escenario 2
+
+RESUMEN DE LA RESPUESTA:	Luis explicó que en DevTools, al seleccionar MesaCard, puede ver en el panel 
+derecho las props que recibe el componente, como id, numero y estado, además de su estado interno si lo tiene.
+
+QUÉ ENTENDIÓ BIEN:	Entendió que DevTools permite inspeccionar los datos y el estado de un componente sin modificar 
+directamente el código.
+
+QUÉ NECESITA REPASAR: Nada.
+
+--------------------------------------------------------------------------------------------------------------
+
+EVALUADOR: Luis
+
+EVALUADO: Renzo
+
+ESCENARIO ELEGIDO:	Escenario 3 — NavBar y MesaCard
+
+RESUMEN DE LA RESPUESTA:	Renzo explicó que NavBar no necesita los mocks porque su función es
+la navegación y que MesaCard sí trabaja con los datos de una mesa.
+
+QUÉ ENTENDIÓ BIEN:	Entendió correctamente la diferencia entre un componente de navegación reutilizable y 
+un componente que representa datos específicos.
+
+QUÉ NECESITA REPASAR:	Repasar las diferentes formas en que un componente puede recibir datos, como props o Context.
