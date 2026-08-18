@@ -23,91 +23,20 @@
         // ==========================================
 
         const platosMock = [
-            {
-                id: 1,
-                nombre: "Lomo saltado",
-                categoria: "segundos",
-                precio: 18,
-                stock: 3,
-                disponible: true
-            },
-            {
-                id: 2,
-                nombre: "Arroz con pollo",
-                categoria: "segundos",
-                precio: 12,
-                stock: 5,
-                disponible: true
-            },
-            {
-                id: 3,
-                nombre: "Sopa de verduras",
-                categoria: "entradas",
-                precio: 8,
-                stock: 0,
-                disponible: false
-            },
-            {
-                id: 4,
-                nombre: "Pollo a la brasa",
-                categoria: "segundos",
-                precio: 20,
-                stock: 4,
-                disponible: true
-            },
-            {
-                id: 5,
-                nombre: "Jugo de naranja",
-                categoria: "bebidas",
-                precio: 5,
-                stock: 8,
-                disponible: true
-            }
+            { id: 1, nombre: "Lomo saltado", categoria: "segundos", precio: 18, stock: 3, disponible: true },
+            { id: 2, nombre: "Arroz con pollo", categoria: "segundos", precio: 12, stock: 5, disponible: true },
+            { id: 3, nombre: "Sopa de verduras", categoria: "entradas", precio: 8, stock: 0, disponible: false },
+            { id: 4, nombre: "Pollo a la brasa", categoria: "segundos", precio: 20, stock: 4, disponible: true },
+            { id: 5, nombre: "Jugo de naranja", categoria: "bebidas", precio: 5, stock: 8, disponible: true }
         ];
 
         const mesasMock = [
-            {
-                id: 1,
-                numero: 1,
-                capacidad: 4,
-                estado: "libre",
-                comensales: 0
-            },
-            {
-                id: 2,
-                numero: 2,
-                capacidad: 2,
-                estado: "ocupada",
-                comensales: 2
-            },
-            {
-                id: 3,
-                numero: 3,
-                capacidad: 6,
-                estado: "reservada",
-                comensales: 0
-            },
-            {
-                id: 4,
-                numero: 4,
-                capacidad: 4,
-                estado: "ocupada",
-                comensales: 3
-            },
-            {
-                id: 5,
-                numero: 5,
-                capacidad: 8,
-                estado: "ocupada",
-                comensales: 0
-            },
-            {
-                id: 6,
-                numero: 6,
-                capacidad: 2,
-                estado: "reservada",
-                comensales: 0
-            }
+            { id: 1, numero: 1, capacidad: 4, estado: "libre", comensales: 0 },
+            { id: 2, numero: 2, capacidad: 2, estado: "ocupada", comensales: 2 },
+            { id: 3, numero: 3, capacidad: 6, estado: "reservada", comensales: 0 },
+            { id: 4, numero: 4, capacidad: 4, estado: "ocupada", comensales: 3 },
+            { id: 5, numero: 5, capacidad: 8, estado: "ocupada", comensales: 0 },
+            { id: 6, numero: 6, capacidad: 2, estado: "reservada", comensales: 0 }
         ];
 
         const cardStyle = {
@@ -125,7 +54,6 @@
         // ==========================================
 
         function NavBar({ nombreRestaurante = "Mi Restaurante" }) {
-
             return (
                 <nav style={{
                     display: "flex",
@@ -135,20 +63,15 @@
                     backgroundColor: "#1a202c",
                     color: "white"
                 }}>
-
                     <h2 style={{ margin: 0 }}>
                         {nombreRestaurante}
                     </h2>
 
-                    <div style={{
-                        display: "flex",
-                        gap: "24px"
-                    }}>
+                    <div style={{ display: "flex", gap: "24px" }}>
                         <span>Carta</span>
                         <span>Mesas</span>
                         <span>Comandas</span>
                     </div>
-
                 </nav>
             );
         }
@@ -158,19 +81,9 @@
         // PLATO CARD
         // ==========================================
 
-        function PlatoCard({
-            nombre,
-            categoria,
-            precio,
-            stock,
-            disponible
-        }) {
-
-            const backgroundColor =
-                disponible ? "#e0f2e1" : "#ffebee";
-
-            const borderColor =
-                disponible ? "#c8e6c9" : "#ffcdd2";
+        function PlatoCard({ nombre, categoria, precio, stock, disponible }) {
+            const backgroundColor = disponible ? "#e0f2e1" : "#ffebee";
+            const borderColor = disponible ? "#c8e6c9" : "#ffcdd2";
 
             return (
                 <div style={{
@@ -178,28 +91,11 @@
                     backgroundColor: backgroundColor,
                     border: `1px solid ${borderColor}`
                 }}>
-
                     <h2>{nombre}</h2>
-
-                    <p>
-                        <strong>Categoría:</strong> {categoria}
-                    </p>
-
-                    <p>
-                        <strong>Precio:</strong> S/ {precio}
-                    </p>
-
-                    <p>
-                        <strong>Stock:</strong> {stock}
-                    </p>
-
-                    <p>
-                        {disponible
-                            ? "🟢 Disponible"
-                            : "🔴 Agotado"
-                        }
-                    </p>
-
+                    <p><strong>Categoría:</strong> {categoria}</p>
+                    <p><strong>Precio:</strong> S/ {precio}</p>
+                    <p><strong>Stock:</strong> {stock}</p>
+                    <p>{disponible ? "🟢 Disponible" : "🔴 Agotado"}</p>
                 </div>
             );
         }
@@ -209,13 +105,7 @@
         // MESA CARD
         // ==========================================
 
-        function MesaCard({
-            numero,
-            capacidad,
-            estado,
-            comensales
-        }) {
-
+        function MesaCard({ numero, capacidad, estado, comensales }) {
             let color = "#f5f5f5";
             let texto = "⚪ Desconocido";
 
@@ -223,12 +113,10 @@
                 color = "#e0f2e1";
                 texto = "🟢 Libre";
             }
-
             if (estado === "ocupada") {
                 color = "#ffebee";
                 texto = "🔴 Ocupada";
             }
-
             if (estado === "reservada") {
                 color = "#fff8e1";
                 texto = "🟡 Reservada";
@@ -239,39 +127,25 @@
                     ...cardStyle,
                     backgroundColor: color
                 }}>
-
                     <h2>Mesa #{numero}</h2>
-
-                    <p>
-                        <strong>Capacidad:</strong> {capacidad} personas
-                    </p>
-
-                    <p>
-                        <strong>Comensales actuales:</strong> {comensales}
-                    </p>
-
-                    <p>
-                        <strong>{texto}</strong>
-                    </p>
-
+                    <p><strong>Capacidad:</strong> {capacidad} personas</p>
+                    <p><strong>Comensales actuales:</strong> {comensales}</p>
+                    <p><strong>{texto}</strong></p>
                 </div>
             );
         }
 
 
         // ==========================================
-        // ORDER FORM
+        // ORDER FORM (Componente Funcional)
         // ==========================================
 
-        function OrderForm({ mesaNumero }) {
-
+        function OrderForm({ mesaNumero = 1 }) {
             const [plato, setPlato] = React.useState("");
             const [cantidad, setCantidad] = React.useState(1);
             const [mensaje, setMensaje] = React.useState("");
 
-            // FUNCIÓN PARA ENVIAR LA COMANDA
             function enviarComanda(event) {
-
                 event.preventDefault();
 
                 if (plato === "") {
@@ -279,10 +153,7 @@
                     return;
                 }
 
-                setMensaje(
-                    `✅ Comanda enviada: ${plato} x${cantidad} — Mesa ${mesaNumero}`
-                );
-
+                setMensaje(`✅ Comanda enviada: ${plato} x${cantidad} — Mesa ${mesaNumero}`);
                 setPlato("");
                 setCantidad(1);
             }
@@ -298,8 +169,7 @@
                         boxShadow: "0 2px 8px rgba(0,0,0,0.1)"
                     }}
                 >
-
-                    <h2>
+                    <h2 style={{ margin: "0 0 16px 0" }}>
                         Comanda — Mesa {mesaNumero}
                     </h2>
 
@@ -307,14 +177,14 @@
                         type="text"
                         placeholder="Nombre del plato"
                         value={plato}
-                        onChange={(event) =>
-                            setPlato(event.target.value)
-                        }
+                        onChange={(event) => setPlato(event.target.value)}
                         style={{
                             width: "100%",
                             padding: "10px",
                             marginBottom: "10px",
-                            boxSizing: "border-box"
+                            boxSizing: "border-box",
+                            borderRadius: "6px",
+                            border: "1px solid #cbd5e0"
                         }}
                     />
 
@@ -322,14 +192,14 @@
                         type="number"
                         min="1"
                         value={cantidad}
-                        onChange={(event) =>
-                            setCantidad(Number(event.target.value))
-                        }
+                        onChange={(event) => setCantidad(Number(event.target.value))}
                         style={{
                             width: "100%",
                             padding: "10px",
                             marginBottom: "10px",
-                            boxSizing: "border-box"
+                            boxSizing: "border-box",
+                            borderRadius: "6px",
+                            border: "1px solid #cbd5e0"
                         }}
                     />
 
@@ -342,7 +212,8 @@
                             color: "white",
                             border: "none",
                             borderRadius: "6px",
-                            cursor: "pointer"
+                            cursor: "pointer",
+                            fontWeight: "bold"
                         }}
                     >
                         Agregar a comanda
@@ -350,16 +221,62 @@
 
                     {mensaje && (
                         <p style={{
-                            color: mensaje.includes("❌")
-                                ? "red"
-                                : "green",
-                            fontWeight: "bold"
+                            color: mensaje.includes("❌") ? "red" : "green",
+                            fontWeight: "bold",
+                            marginTop: "12px"
                         }}>
                             {mensaje}
                         </p>
                     )}
-
                 </form>
+            );
+        }
+
+
+        // ==========================================
+        // COMANDAS PAGE (BLOQUE C)
+        // ==========================================
+
+        function ComandasPage() {
+            // Estado para sincronizar el selector con el OrderForm
+            const [mesaSeleccionada, setMesaSeleccionada] = React.useState(1);
+
+            return (
+                <div style={{
+                    backgroundColor: "#edf2f7",
+                    padding: "20px",
+                    borderRadius: "12px",
+                    marginTop: "20px"
+                }}>
+                    <h1 style={{ textAlign: "center", margin: "0 0 16px 0" }}>
+                        Gestión de Comandas
+                    </h1>
+
+                    <div style={{ textAlign: "center", marginBottom: "16px" }}>
+                        <label style={{ fontWeight: "bold", marginRight: "10px" }}>
+                            Seleccionar Mesa:
+                        </label>
+                        <select
+                            value={mesaSeleccionada}
+                            onChange={(e) => setMesaSeleccionada(Number(e.target.value))}
+                            style={{
+                                padding: "8px 12px",
+                                borderRadius: "6px",
+                                fontSize: "16px",
+                                border: "1px solid #cbd5e0"
+                            }}
+                        >
+                            {mesasMock.map((mesa) => (
+                                <option key={mesa.id} value={mesa.numero}>
+                                    Mesa #{mesa.numero}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+
+                    {/* El formulario recibe dinámicamente la prop de la mesa seleccionada */}
+                    <OrderForm mesaNumero={mesaSeleccionada} />
+                </div>
             );
         }
 
@@ -369,10 +286,8 @@
         // ==========================================
 
         function App() {
-
             return (
                 <div>
-
                     <NavBar nombreRestaurante="Sabor & Tradición" />
 
                     <main style={{
@@ -380,7 +295,12 @@
                         margin: "20px auto",
                         padding: "0 10px"
                     }}>
+                        {/* 1. SECCIÓN COMANDAS CON SELECTOR DINÁMICO */}
+                        <ComandasPage />
 
+                        <hr style={{ margin: "40px 0", border: "none", borderTop: "2px dashed #cbd5e0" }} />
+
+                        {/* 2. CARTA */}
                         <h1 style={{ textAlign: "center" }}>
                             Carta del Restaurante
                         </h1>
@@ -392,10 +312,9 @@
                             />
                         ))}
 
+                        <hr style={{ margin: "40px 0", border: "none", borderTop: "2px dashed #cbd5e0" }} />
 
-                        <hr />
-
-
+                        {/* 3. MESAS */}
                         <h1 style={{ textAlign: "center" }}>
                             Gestión de Mesas
                         </h1>
@@ -407,18 +326,7 @@
                             />
                         ))}
 
-
-                        <hr />
-
-
-                        <h1 style={{ textAlign: "center" }}>
-                            Nueva Comanda
-                        </h1>
-
-                        <OrderForm mesaNumero={1} />
-
                     </main>
-
                 </div>
             );
         }
