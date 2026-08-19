@@ -46,7 +46,7 @@ function OrderForm({ mesaNumero }) {
         type="number"
         name="cantidad"
         value={cantidad}
-        onChange={handleChange}
+        onChange={handleChange} 
         min="1"
       />
 
