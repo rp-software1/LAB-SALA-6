@@ -13,22 +13,42 @@ function CarritoPage() {
     }, 800);
   }, []);
 
+  // 1. LÓGICA DE AGREGAR (Maneja id o _id según exista en la data)
   const agregarAlCarrito = (plato) => {
-    setCarrito((prevCarrito) => [...prevCarrito, plato]);
-  };
+    const idPlato = plato._id || plato.id;
 
-  const quitarPlato = (id) => {
     setCarrito((prevCarrito) => {
-      const index = prevCarrito.findIndex(
-        (item) => item._id === id
+      const existe = prevCarrito.find(
+        (item) => (item._id || item.id) === idPlato
       );
 
-      if (index === -1) {
-        return prevCarrito;
+      if (existe) {
+        return prevCarrito.map((item) =>
+          (item._id || item.id) === idPlato
+            ? { ...item, cantidad: item.cantidad + 1 }
+            : item
+        );
       }
 
-      return prevCarrito.filter((_, i) => i !== index);
+      return [...prevCarrito, { ...plato, cantidad: 1 }];
     });
+  };
+
+  // 2. LÓGICA DE QUITAR
+  const quitarPlato = (id) => {
+    setCarrito((prevCarrito) =>
+      prevCarrito.filter((item) => (item._id || item.id) !== id)
+    );
+  };
+
+  // 3. CÁLCULO DEL TOTAL Y LIMPIAR
+  const total = carrito.reduce(
+    (sum, item) => sum + item.precio * item.cantidad,
+    0
+  );
+
+  const limpiarComanda = () => {
+    setCarrito([]);
   };
 
   if (loading) {
@@ -43,24 +63,29 @@ function CarritoPage() {
     <div style={styles.container}>
       <h1 style={styles.title}>🍽️ Menú del Restaurante</h1>
 
+      {/* Lista de Platos Disponibles */}
       <div style={styles.menu}>
-        {platos.map((plato) => (
-          <div style={styles.plato} key={plato._id}>
-            <div>
-              <h3 style={styles.nombre}>{plato.nombre}</h3>
-              <p style={styles.precio}>S/ {plato.precio}</p>
-            </div>
+        {platos.map((plato, index) => {
+          const platoId = plato._id || plato.id || index;
+          return (
+            <div style={styles.plato} key={platoId}>
+              <div>
+                <h3 style={styles.nombre}>{plato.nombre}</h3>
+                <p style={styles.precio}>S/ {plato.precio}</p>
+              </div>
 
-            <button
-              style={styles.agregar}
-              onClick={() => agregarAlCarrito(plato)}
-            >
-              + Agregar
-            </button>
-          </div>
-        ))}
+              <button
+                style={styles.agregar}
+                onClick={() => agregarAlCarrito(plato)}
+              >
+                + Agregar
+              </button>
+            </div>
+          );
+        })}
       </div>
 
+      {/* Carrito / Comanda */}
       <div style={styles.carrito}>
         <h2 style={styles.carritoTitulo}>🛒 Carrito</h2>
 
@@ -68,29 +93,37 @@ function CarritoPage() {
           <p style={styles.vacio}>El carrito está vacío.</p>
         ) : (
           <div>
-            {carrito.map((item, index) => (
-              <div
-                style={styles.itemCarrito}
-                key={`${item._id}-${index}`}
-              >
-                <div>
-                  <span style={styles.itemNombre}>
-                    {item.nombre}
-                  </span>
+            {carrito.map((item, index) => {
+              const itemId = item._id || item.id || index;
+              return (
+                <div style={styles.itemCarrito} key={itemId}>
+                  <div>
+                    <span style={styles.itemNombre}>
+                      {item.nombre} (x{item.cantidad})
+                    </span>
 
-                  <span style={styles.itemPrecio}>
-                    S/ {item.precio}
-                  </span>
+                    <span style={styles.itemPrecio}>
+                      S/ {item.precio * item.cantidad}
+                    </span>
+                  </div>
+
+                  <button
+                    style={styles.quitar}
+                    onClick={() => quitarPlato(itemId)}
+                  >
+                    Quitar
+                  </button>
                 </div>
+              );
+            })}
 
-                <button
-                  style={styles.quitar}
-                  onClick={() => quitarPlato(item._id)}
-                >
-                  Quitar
-                </button>
-              </div>
-            ))}
+            {/* SECCIÓN TOTAL Y BOTÓN LIMPIAR */}
+            <div style={styles.resumen}>
+              <h3 style={styles.totalTexto}>Total: S/ {total}</h3>
+              <button style={styles.limpiar} onClick={limpiarComanda}>
+                Limpiar comanda
+              </button>
+            </div>
           </div>
         )}
       </div>
@@ -108,19 +141,16 @@ const styles = {
     borderRadius: "15px",
     boxShadow: "0 4px 15px rgba(0,0,0,0.1)",
   },
-
   title: {
     textAlign: "center",
     color: "#333",
     marginBottom: "30px",
   },
-
   menu: {
     display: "flex",
     flexDirection: "column",
     gap: "12px",
   },
-
   plato: {
     display: "flex",
     justifyContent: "space-between",
@@ -130,18 +160,15 @@ const styles = {
     borderRadius: "10px",
     border: "1px solid #ddd",
   },
-
   nombre: {
     margin: "0 0 5px 0",
     color: "#333",
   },
-
   precio: {
     margin: 0,
     color: "#777",
     fontWeight: "bold",
   },
-
   agregar: {
     padding: "9px 15px",
     border: "none",
@@ -151,7 +178,6 @@ const styles = {
     cursor: "pointer",
     fontWeight: "bold",
   },
-
   carrito: {
     marginTop: "30px",
     padding: "20px",
@@ -159,12 +185,10 @@ const styles = {
     borderRadius: "12px",
     border: "1px solid #ddd",
   },
-
   carritoTitulo: {
     marginTop: 0,
     color: "#333",
   },
-
   itemCarrito: {
     display: "flex",
     justifyContent: "space-between",
@@ -174,18 +198,15 @@ const styles = {
     backgroundColor: "#f5f5f5",
     borderRadius: "8px",
   },
-
   itemNombre: {
     fontWeight: "bold",
     color: "#333",
     marginRight: "15px",
   },
-
   itemPrecio: {
     color: "#2e7d32",
     fontWeight: "bold",
   },
-
   quitar: {
     padding: "7px 12px",
     border: "none",
@@ -194,17 +215,37 @@ const styles = {
     color: "white",
     cursor: "pointer",
   },
-
   vacio: {
     color: "#777",
     fontStyle: "italic",
   },
-
   loading: {
     textAlign: "center",
     marginTop: "50px",
     fontSize: "20px",
     color: "#555",
+  },
+  resumen: {
+    marginTop: "20px",
+    paddingTop: "15px",
+    borderTop: "2px dashed #eee",
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  totalTexto: {
+    margin: 0,
+    color: "#2e7d32",
+    fontSize: "20px",
+  },
+  limpiar: {
+    padding: "9px 15px",
+    border: "none",
+    borderRadius: "7px",
+    backgroundColor: "#e65100",
+    color: "white",
+    cursor: "pointer",
+    fontWeight: "bold",
   },
 };
 
