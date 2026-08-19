@@ -15,7 +15,7 @@ export const platosMock = [
     precio: 12,
     stock: 5,
     disponible: true
-  },
+  },  
   {
     id: 3,
     nombre: "Sopa de verduras",

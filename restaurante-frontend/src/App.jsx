@@ -1,6 +1,7 @@
 import NavBar from "./components/NavBar.jsx";
 import PlatoCard from "./components/PlatoCard.jsx";
 import MesaCard from "./components/MesaCard.jsx";
+import CarritoPage from "./pages/CarritoPage.jsx";
 
 import { platosMock } from "./data/platos.mock.js";
 import { mesasMock } from "./data/mesas.mock.js";
@@ -17,6 +18,18 @@ function App() {
           padding: "0 10px",
         }}
       >
+        {/* COMANDA */}
+
+        <CarritoPage />
+
+        <hr
+          style={{
+            margin: "40px 0",
+            border: "none",
+            borderTop: "2px dashed #cbd5e0",
+          }}
+        />
+
         {/* CARTA */}
 
         <h1 style={{ textAlign: "center" }}>
