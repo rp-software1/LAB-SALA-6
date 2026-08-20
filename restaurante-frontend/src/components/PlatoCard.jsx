@@ -1,7 +1,31 @@
-// src/components/PlatoCard.jsx
-function PlatoCard({ nombre, categoria, precio, stock, disponible }) {
+function PlatoCard({
+  nombre,
+  categoria,
+  precio,
+  stock,
+  disponible,
+}) {
+  const backgroundColor = disponible
+    ? "#e0f2e1"
+    : "#ffebee";
+
+  const borderColor = disponible
+    ? "#c8e6c9"
+    : "#ffcdd2";
+
   return (
-    <div className={`plato-card ${!disponible ? "agotado" : ""}`}>
+    <div
+      style={{
+        padding: "20px 24px",
+        margin: "16px 0",
+        borderRadius: "12px",
+        fontFamily: "system-ui, sans-serif",
+        color: "#2d3748",
+        boxSizing: "border-box",
+        backgroundColor,
+        border: `1px solid ${borderColor}`,
+      }}
+    >
       <h2>{nombre}</h2>
 
       <p>
@@ -18,8 +42,8 @@ function PlatoCard({ nombre, categoria, precio, stock, disponible }) {
 
       <p>
         {disponible
-          ? "✅ Disponible"
-          : "❌ Agotado"}
+          ? "🟢 Disponible"
+          : "🔴 Agotado"}
       </p>
     </div>
   );

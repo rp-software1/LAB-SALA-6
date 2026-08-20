@@ -1,40 +1,55 @@
-// src/components/MesaCard.jsx
-import PropTypes from 'prop-types';
+function MesaCard({
+  numero,
+  capacidad,
+  estado,
+  comensales,
+}) {
+  let color = "#f5f5f5";
+  let texto = "⚪ Desconocido";
 
-export function MesaCard({ numero, capacidad, estado, comensales }) {
-  const obtenerIconoEstado = (est) => {
-    switch (est) {
-      case "libre":
-        return "🟢 Libre";
-      case "ocupada":
-        return "🔴 Ocupada";
-      case "reservada":
-        return "🟡 Reservada";
-      default:
-        return "⚪ Desconocido";
-    }
-  };
+  if (estado === "libre") {
+    color = "#e0f2e1";
+    texto = "🟢 Libre";
+  }
+
+  if (estado === "ocupada") {
+    color = "#ffebee";
+    texto = "🔴 Ocupada";
+  }
+
+  if (estado === "reservada") {
+    color = "#fff8e1";
+    texto = "🟡 Reservada";
+  }
 
   return (
-    <div className={`mesa-card mesa-${estado}`} style={{
-      border: '1px solid #ccc',
-      padding: '16px',
-      borderRadius: '8px',
-      marginBottom: '10px'
-    }}>
-      <h3>Mesa #{numero}</h3>
-      <p><strong>Capacidad:</strong> {capacidad} personas</p>
-      <p><strong>Comensales actuales:</strong> {comensales}</p>
-      <p><strong>Estado:</strong> {obtenerIconoEstado(estado)}</p>
+    <div
+      style={{
+        padding: "20px 24px",
+        margin: "16px 0",
+        borderRadius: "12px",
+        fontFamily: "system-ui, sans-serif",
+        color: "#2d3748",
+        boxSizing: "border-box",
+        backgroundColor: color,
+      }}
+    >
+      <h2>Mesa #{numero}</h2>
+
+      <p>
+        <strong>Capacidad:</strong> {capacidad} personas
+      </p>
+
+      <p>
+        <strong>Comensales actuales:</strong>{" "}
+        {comensales}
+      </p>
+
+      <p>
+        <strong>{texto}</strong>
+      </p>
     </div>
   );
 }
-
-MesaCard.propTypes = {
-  numero: PropTypes.number.isRequired,
-  capacidad: PropTypes.number.isRequired,
-  estado: PropTypes.oneOf(['libre', 'ocupada', 'reservada']).isRequired,
-  comensales: PropTypes.number.isRequired
-};
 
 export default MesaCard;
