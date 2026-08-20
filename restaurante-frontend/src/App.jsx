@@ -1,9 +1,8 @@
 import NavBar from "./components/NavBar.jsx";
-import PlatoCard from "./components/PlatoCard.jsx";
 import MesaCard from "./components/MesaCard.jsx";
 import CarritoPage from "./pages/CarritoPage.jsx";
+import MenuPage from "./pages/MenuPage.jsx";
 
-import { platosMock } from "./data/platos.mock.js";
 import { mesasMock } from "./data/mesas.mock.js";
 
 function App() {
@@ -19,7 +18,6 @@ function App() {
         }}
       >
         {/* COMANDA */}
-
         <CarritoPage />
 
         <hr
@@ -30,18 +28,8 @@ function App() {
           }}
         />
 
-        {/* CARTA */}
-
-        <h1 style={{ textAlign: "center" }}>
-          Carta del Restaurante
-        </h1>
-
-        {platosMock.map((plato) => (
-          <PlatoCard
-            key={plato.id}
-            {...plato}
-          />
-        ))}
+        {/* CARTA DESDE LA API */}
+        <MenuPage />
 
         <hr
           style={{
@@ -52,7 +40,6 @@ function App() {
         />
 
         {/* MESAS */}
-
         <h1 style={{ textAlign: "center" }}>
           Gestión de Mesas
         </h1>
