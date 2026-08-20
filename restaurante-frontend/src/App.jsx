@@ -1,8 +1,6 @@
 import NavBar from "./components/NavBar.jsx";
 import MesaCard from "./components/MesaCard.jsx";
 import CarritoPage from "./pages/CarritoPage.jsx";
-import MenuPage from "./pages/MenuPage.jsx";
-
 import { mesasMock } from "./data/mesas.mock.js";
 
 function App() {
@@ -12,12 +10,11 @@ function App() {
 
       <main
         style={{
-          maxWidth: "600px",
+          maxWidth: "800px",
           margin: "20px auto",
-          padding: "0 10px",
+          padding: "0 15px",
         }}
       >
-        {/* COMANDA */}
         <CarritoPage />
 
         <hr
@@ -28,28 +25,15 @@ function App() {
           }}
         />
 
-        {/* CARTA DESDE LA API */}
-        <MenuPage />
-
-        <hr
-          style={{
-            margin: "40px 0",
-            border: "none",
-            borderTop: "2px dashed #cbd5e0",
-          }}
-        />
-
-        {/* MESAS */}
-        <h1 style={{ textAlign: "center" }}>
+        <h1 style={{ textAlign: "center", color: "#2d3748" }}>
           Gestión de Mesas
         </h1>
 
-        {mesasMock.map((mesa) => (
-          <MesaCard
-            key={mesa.id}
-            {...mesa}
-          />
-        ))}
+        <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
+          {mesasMock.map((mesa) => (
+            <MesaCard key={mesa.id} {...mesa} />
+          ))}
+        </div>
       </main>
     </div>
   );
