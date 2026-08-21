@@ -1,42 +1,34 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Componentes y Páginas
 import NavBar from "./components/NavBar.jsx";
-import MesaCard from "./components/MesaCard.jsx";
+import MenuPage from "./pages/MenuPage.jsx";
+import MesasPage from "./pages/MesasPage.jsx";
 import CarritoPage from "./pages/CarritoPage.jsx";
-import { mesasMock } from "./data/mesas.mock.js";
 
-function App() {
+export default function App() {
   return (
-    <div>
-      <NavBar nombreRestaurante="Sabor & Tradición" />
+    <BrowserRouter>
+      <div>
+        {/* Tu NavBar global visible en todas las rutas */}
+        <NavBar nombreRestaurante="Sabor & Tradición" />
 
-      <main
-        style={{
-          maxWidth: "800px",
-          margin: "20px auto",
-          padding: "0 15px",
-        }}
-      >
-        <CarritoPage />
-
-        <hr
+        {/* Tu contenedor principal con tus estilos en línea exactos */}
+        <main
           style={{
-            margin: "40px 0",
-            border: "none",
-            borderTop: "2px dashed #cbd5e0",
+            maxWidth: "800px",
+            margin: "20px auto",
+            padding: "0 15px",
           }}
-        />
-
-        <h1 style={{ textAlign: "center", color: "#2d3748" }}>
-          Gestión de Mesas
-        </h1>
-
-        <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-          {mesasMock.map((mesa) => (
-            <MesaCard key={mesa.id} {...mesa} />
-          ))}
-        </div>
-      </main>
-    </div>
+        >
+          <Routes>
+            {/* Cada ruta muestra una sola página en lugar de todo amontonado */}
+            <Route path="/" element={<MenuPage />} />
+            <Route path="/mesas" element={<MesasPage />} />
+            <Route path="/carrito" element={<CarritoPage />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
-
-export default App;
