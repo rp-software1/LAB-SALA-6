@@ -1,71 +1,34 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+// Componentes y Páginas
 import NavBar from "./components/NavBar.jsx";
-import PlatoCard from "./components/PlatoCard.jsx";
-import MesaCard from "./components/MesaCard.jsx";
+import MenuPage from "./pages/MenuPage.jsx";
+import MesasPage from "./pages/MesasPage.jsx";
 import CarritoPage from "./pages/CarritoPage.jsx";
 
-import { platosMock } from "./data/platos.mock.js";
-import { mesasMock } from "./data/mesas.mock.js";
-
-function App() {
+export default function App() {
   return (
-    <div>
-      <NavBar nombreRestaurante="Sabor & Tradición" />
+    <BrowserRouter>
+      <div>
+        {/* Tu NavBar global visible en todas las rutas */}
+        <NavBar nombreRestaurante="Sabor & Tradición" />
 
-      <main
-        style={{
-          maxWidth: "600px",
-          margin: "20px auto",
-          padding: "0 10px",
-        }}
-      >
-        {/* COMANDA */}
-
-        <CarritoPage />
-
-        <hr
+        {/* Tu contenedor principal con tus estilos en línea exactos */}
+        <main
           style={{
-            margin: "40px 0",
-            border: "none",
-            borderTop: "2px dashed #cbd5e0",
+            maxWidth: "800px",
+            margin: "20px auto",
+            padding: "0 15px",
           }}
-        />
-
-        {/* CARTA */}
-
-        <h1 style={{ textAlign: "center" }}>
-          Carta del Restaurante
-        </h1>
-
-        {platosMock.map((plato) => (
-          <PlatoCard
-            key={plato.id}
-            {...plato}
-          />
-        ))}
-
-        <hr
-          style={{
-            margin: "40px 0",
-            border: "none",
-            borderTop: "2px dashed #cbd5e0",
-          }}
-        />
-
-        {/* MESAS */}
-
-        <h1 style={{ textAlign: "center" }}>
-          Gestión de Mesas
-        </h1>
-
-        {mesasMock.map((mesa) => (
-          <MesaCard
-            key={mesa.id}
-            {...mesa}
-          />
-        ))}
-      </main>
-    </div>
+        >
+          <Routes>
+            {/* Cada ruta muestra una sola página en lugar de todo amontonado */}
+            <Route path="/" element={<MenuPage />} />
+            <Route path="/mesas" element={<MesasPage />} />
+            <Route path="/carrito" element={<CarritoPage />} />
+          </Routes>
+        </main>
+      </div>
+    </BrowserRouter>
   );
 }
-
-export default App;

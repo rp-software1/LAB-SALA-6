@@ -1,19 +1,30 @@
 import { useState, useEffect } from "react";
-import { platosMock } from "../data/platos.mock";
+import { getPlatos } from "../services/api";
 
 function CarritoPage() {
   const [platos, setPlatos] = useState([]);
   const [carrito, setCarrito] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setPlatos(platosMock);
-      setLoading(false);
-    }, 800);
+    const fetchPlatos = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await getPlatos();
+        setPlatos(Array.isArray(data) ? data : []);
+      } catch (err) {
+        console.error("Error al obtener platos:", err);
+        setError("No se pudieron cargar los platos");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlatos();
   }, []);
 
-  // 1. LÓGICA DE AGREGAR (Maneja id o _id según exista en la data)
   const agregarAlCarrito = (plato) => {
     const idPlato = plato._id || plato.id;
 
@@ -34,16 +45,14 @@ function CarritoPage() {
     });
   };
 
-  // 2. LÓGICA DE QUITAR
   const quitarPlato = (id) => {
     setCarrito((prevCarrito) =>
       prevCarrito.filter((item) => (item._id || item.id) !== id)
     );
   };
 
-  // 3. CÁLCULO DEL TOTAL Y LIMPIAR
   const total = carrito.reduce(
-    (sum, item) => sum + item.precio * item.cantidad,
+    (sum, item) => sum + (item.precio || 0) * item.cantidad,
     0
   );
 
@@ -55,6 +64,14 @@ function CarritoPage() {
     return (
       <div style={styles.loading}>
         <p>Cargando menú...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={styles.loading}>
+        <p style={{ color: "#d32f2f" }}>{error}</p>
       </div>
     );
   }
@@ -117,7 +134,6 @@ function CarritoPage() {
               );
             })}
 
-            {/* SECCIÓN TOTAL Y BOTÓN LIMPIAR */}
             <div style={styles.resumen}>
               <h3 style={styles.totalTexto}>Total: S/ {total}</h3>
               <button style={styles.limpiar} onClick={limpiarComanda}>
