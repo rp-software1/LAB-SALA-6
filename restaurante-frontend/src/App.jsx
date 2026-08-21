@@ -1,3 +1,4 @@
+// src/App.jsx
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Componentes y Páginas
@@ -13,7 +14,7 @@ export default function App() {
         {/* Tu NavBar global visible en todas las rutas */}
         <NavBar nombreRestaurante="Sabor & Tradición" />
 
-        {/* Tu contenedor principal con tus estilos en línea exactos */}
+        {/* Contenedor principal con estilos de maquetación */}
         <main
           style={{
             maxWidth: "800px",
@@ -22,7 +23,7 @@ export default function App() {
           }}
         >
           <Routes>
-            {/* Cada ruta muestra una sola página en lugar de todo amontonado */}
+            {/* Definición de rutas principales del sistema */}
             <Route path="/" element={<MenuPage />} />
             <Route path="/mesas" element={<MesasPage />} />
             <Route path="/carrito" element={<CarritoPage />} />
