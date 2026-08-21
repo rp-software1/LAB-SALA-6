@@ -1,4 +1,7 @@
+import { Link } from 'react-router-dom';
+
 function MesaCard({
+  id, // 👈 Agregamos el id de la mesa
   numero,
   capacidad,
   estado,
@@ -22,6 +25,9 @@ function MesaCard({
     texto = "🟡 Reservada";
   }
 
+  // Si id no viene, usamos numero como identificador
+  const idMesa = id || numero;
+
   return (
     <div
       style={{
@@ -41,13 +47,27 @@ function MesaCard({
       </p>
 
       <p>
-        <strong>Comensales actuales:</strong>{" "}
-        {comensales}
+        <strong>Comensales actuales:</strong> {comensales}
       </p>
 
       <p>
         <strong>{texto}</strong>
       </p>
+
+      {/* Enlace para navegar a la ruta dinámica del Bloque C */}
+      <div style={{ marginTop: "12px" }}>
+        <Link
+          to={`/mesas/${idMesa}`}
+          style={{
+            display: "inline-block",
+            color: "#3182ce",
+            fontWeight: "bold",
+            textDecoration: "none",
+          }}
+        >
+          Ver detalle →
+        </Link>
+      </div>
     </div>
   );
 }
