@@ -18,6 +18,7 @@ function MesasPage() {
                 {mesasMock.map(mesa => (
                     <MesaCard
                         key={mesa.id}
+                        id={mesa.id} // 👈 Le enviamos el ID para construir el Link a /mesas/:id
                         numero={mesa.numero}
                         capacidad={mesa.capacidad}
                         estado={mesa.estado}

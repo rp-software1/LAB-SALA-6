@@ -1,4 +1,19 @@
+// src/components/NavBar.jsx
+import { NavLink } from "react-router-dom";
+
 function NavBar({ nombreRestaurante = "Mi Restaurante" }) {
+  // Función para manejar el estilo dinámico cuando un enlace está activo
+  const getLinkStyle = ({ isActive }) => ({
+    cursor: "pointer",
+    opacity: isActive ? 1 : 0.7,
+    color: isActive ? "#facc15" : "#ffffff", // Resalta en amarillo si está activo
+    fontWeight: isActive ? "bold" : "normal",
+    textDecoration: "none",
+    borderBottom: isActive ? "2px solid #facc15" : "none",
+    paddingBottom: "2px",
+    transition: "all 0.2s ease",
+  });
+
   return (
     <nav
       style={{
@@ -29,17 +44,17 @@ function NavBar({ nombreRestaurante = "Mi Restaurante" }) {
           fontSize: "16px",
         }}
       >
-        <span style={{ cursor: "pointer", opacity: 0.9 }}>
+        <NavLink to="/" style={getLinkStyle}>
           Carta
-        </span>
+        </NavLink>
 
-        <span style={{ cursor: "pointer", opacity: 0.9 }}>
+        <NavLink to="/mesas" style={getLinkStyle}>
           Mesas
-        </span>
+        </NavLink>
 
-        <span style={{ cursor: "pointer", opacity: 0.9 }}>
+        <NavLink to="/carrito" style={getLinkStyle}>
           Comandas
-        </span>
+        </NavLink>
       </div>
     </nav>
   );

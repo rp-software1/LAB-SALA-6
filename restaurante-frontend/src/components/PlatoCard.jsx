@@ -1,3 +1,4 @@
+// src/components/PlatoCard.jsx
 function PlatoCard({
   nombre,
   categoria,
@@ -5,46 +6,79 @@ function PlatoCard({
   stock,
   disponible,
 }) {
-  const backgroundColor = disponible
-    ? "#e0f2e1"
-    : "#ffebee";
-
-  const borderColor = disponible
-    ? "#c8e6c9"
-    : "#ffcdd2";
+  const backgroundColor = disponible ? "#e0f2e1" : "#ffebee";
+  const borderColor = disponible ? "#c8e6c9" : "#ffcdd2";
+  const badgeBg = disponible ? "#c8e6c9" : "#ffcdd2";
+  const badgeColor = disponible ? "#1b5e20" : "#b71c1c";
 
   return (
     <div
       style={{
         padding: "20px 24px",
         margin: "16px 0",
-        borderRadius: "12px",
-        fontFamily: "system-ui, sans-serif",
+        borderRadius: "16px",
+        fontFamily: "system-ui, -apple-system, sans-serif",
         color: "#2d3748",
         boxSizing: "border-box",
         backgroundColor,
         border: `1px solid ${borderColor}`,
+        boxShadow: "0 4px 15px rgba(0, 0, 0, 0.04)",
+        transition: "transform 0.2s ease, box-shadow 0.2s ease",
       }}
     >
-      <h2>{nombre}</h2>
+      {/* Encabezado con Nombre y Badge de Disponibilidad */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "12px",
+          borderBottom: "1px solid rgba(0,0,0,0.06)",
+          paddingBottom: "10px",
+        }}
+      >
+        <h2 style={{ margin: 0, fontSize: "22px", color: "#1a202c", fontWeight: "700" }}>
+          {nombre}
+        </h2>
+        <span
+          style={{
+            padding: "4px 12px",
+            borderRadius: "20px",
+            fontSize: "12px",
+            fontWeight: "bold",
+            backgroundColor: badgeBg,
+            color: badgeColor,
+          }}
+        >
+          {disponible ? "🟢 Disponible" : "🔴 Agotado"}
+        </span>
+      </div>
 
-      <p>
-        <strong>Categoría:</strong> {categoria}
-      </p>
+      {/* Información del Plato */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", fontSize: "15px" }}>
+        <p style={{ margin: "4px 0" }}>
+          <strong>Categoría:</strong> {categoria}
+        </p>
+        <p style={{ margin: "4px 0" }}>
+          <strong>Stock:</strong> {stock} unids.
+        </p>
+      </div>
 
-      <p>
-        <strong>Precio:</strong> S/ {precio}
-      </p>
-
-      <p>
-        <strong>Stock:</strong> {stock}
-      </p>
-
-      <p>
-        {disponible
-          ? "🟢 Disponible"
-          : "🔴 Agotado"}
-      </p>
+      {/* Precio destacado */}
+      <div
+        style={{
+          marginTop: "12px",
+          display: "inline-block",
+          backgroundColor: "rgba(255, 255, 255, 0.7)",
+          padding: "6px 14px",
+          borderRadius: "8px",
+          fontWeight: "800",
+          fontSize: "18px",
+          color: "#2b6cb0",
+        }}
+      >
+        S/ {precio}
+      </div>
     </div>
   );
 }
