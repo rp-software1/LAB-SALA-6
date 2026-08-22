@@ -10,7 +10,7 @@ loom:
 ## Secciones
 - [X] A — createContext y PedidoProvider
 - [X] B — useContext en MenuPage y CarritoPage
-- [x] C — Acciones del pedido: agregar, quitar, cambiar tipo
-- [ ] D — Exploración con Claude
-- [ ] E — Evaluación entre pares
+- [X] C — Acciones del pedido: agregar, quitar, cambiar tipo
+- [X] D — Exploración con Claude
+- [X] E — Evaluación entre pares
 - [ ] F — Cierre del día
