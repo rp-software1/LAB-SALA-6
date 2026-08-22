@@ -1,11 +1,15 @@
+// src/pages/CarritoPage.jsx
 import { useState, useEffect } from "react";
 import { getPlatos } from "../services/api";
+import { usePedido } from "../context/PedidoContext.jsx";
 
 function CarritoPage() {
   const [platos, setPlatos] = useState([]);
-  const [carrito, setCarrito] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Consumir el Contexto del Pedido
+  const { pedido, agregarPlato, quitarPlato, limpiarPedido } = usePedido();
 
   useEffect(() => {
     const fetchPlatos = async () => {
@@ -24,41 +28,6 @@ function CarritoPage() {
 
     fetchPlatos();
   }, []);
-
-  const agregarAlCarrito = (plato) => {
-    const idPlato = plato._id || plato.id;
-
-    setCarrito((prevCarrito) => {
-      const existe = prevCarrito.find(
-        (item) => (item._id || item.id) === idPlato
-      );
-
-      if (existe) {
-        return prevCarrito.map((item) =>
-          (item._id || item.id) === idPlato
-            ? { ...item, cantidad: item.cantidad + 1 }
-            : item
-        );
-      }
-
-      return [...prevCarrito, { ...plato, cantidad: 1 }];
-    });
-  };
-
-  const quitarPlato = (id) => {
-    setCarrito((prevCarrito) =>
-      prevCarrito.filter((item) => (item._id || item.id) !== id)
-    );
-  };
-
-  const total = carrito.reduce(
-    (sum, item) => sum + (item.precio || 0) * item.cantidad,
-    0
-  );
-
-  const limpiarComanda = () => {
-    setCarrito([]);
-  };
 
   if (loading) {
     return (
@@ -93,7 +62,7 @@ function CarritoPage() {
 
               <button
                 style={styles.agregar}
-                onClick={() => agregarAlCarrito(plato)}
+                onClick={() => agregarPlato(plato)}
               >
                 + Agregar
               </button>
@@ -102,41 +71,41 @@ function CarritoPage() {
         })}
       </div>
 
-      {/* Carrito / Comanda */}
+      {/* Carrito / Comanda usando el Context global */}
       <div style={styles.carrito}>
-        <h2 style={styles.carritoTitulo}>🛒 Carrito</h2>
+        <h2 style={styles.carritoTitulo}>🛒 Carrito / Comanda Activa</h2>
+        <p style={{ color: "#777", marginBottom: "12px", fontSize: "14px" }}>
+          Tipo: <strong>{pedido.tipo}</strong> · Estado: <strong>{pedido.estado}</strong>
+        </p>
 
-        {carrito.length === 0 ? (
+        {pedido.items.length === 0 ? (
           <p style={styles.vacio}>El carrito está vacío.</p>
         ) : (
           <div>
-            {carrito.map((item, index) => {
-              const itemId = item._id || item.id || index;
-              return (
-                <div style={styles.itemCarrito} key={itemId}>
-                  <div>
-                    <span style={styles.itemNombre}>
-                      {item.nombre} (x{item.cantidad})
-                    </span>
+            {pedido.items.map((item) => (
+              <div style={styles.itemCarrito} key={item.platoId}>
+                <div>
+                  <span style={styles.itemNombre}>
+                    {item.nombre} (x{item.cantidad})
+                  </span>
 
-                    <span style={styles.itemPrecio}>
-                      S/ {item.precio * item.cantidad}
-                    </span>
-                  </div>
-
-                  <button
-                    style={styles.quitar}
-                    onClick={() => quitarPlato(itemId)}
-                  >
-                    Quitar
-                  </button>
+                  <span style={styles.itemPrecio}>
+                    S/ {(item.precioUnitario * item.cantidad).toFixed(2)}
+                  </span>
                 </div>
-              );
-            })}
+
+                <button
+                  style={styles.quitar}
+                  onClick={() => quitarPlato(item.platoId)}
+                >
+                  Quitar
+                </button>
+              </div>
+            ))}
 
             <div style={styles.resumen}>
-              <h3 style={styles.totalTexto}>Total: S/ {total}</h3>
-              <button style={styles.limpiar} onClick={limpiarComanda}>
+              <h3 style={styles.totalTexto}>Total: S/ {pedido.total.toFixed(2)}</h3>
+              <button style={styles.limpiar} onClick={limpiarPedido}>
                 Limpiar comanda
               </button>
             </div>
@@ -204,6 +173,7 @@ const styles = {
   carritoTitulo: {
     marginTop: 0,
     color: "#333",
+    marginBottom: "4px",
   },
   itemCarrito: {
     display: "flex",

@@ -2,11 +2,16 @@
 import { useState, useEffect } from "react";
 import { getPlatos } from "../services/api.js";
 import PlatoCard from "../components/PlatoCard.jsx";
+import { usePedido } from "../context/PedidoContext.jsx";
 
 export default function MenuPage() {
   const [platos, setPlatos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  // Consumir el estado compartido del Pedido
+  const { pedido } = usePedido();
+  const totalItems = pedido.items.reduce((acc, i) => acc + i.cantidad, 0);
 
   useEffect(() => {
     async function cargarMenu() {
@@ -61,7 +66,7 @@ export default function MenuPage() {
   }
 
   return (
-    <section style={{ maxWidth: "650px", margin: "0 auto", fontFamily: "system-ui" }}>
+    <section style={{ maxWidth: "650px", margin: "0 auto", fontFamily: "system-ui", paddingBottom: "80px" }}>
       <h1
         style={{
           textAlign: "center",
@@ -78,6 +83,7 @@ export default function MenuPage() {
         {platos.map((plato) => (
           <PlatoCard
             key={plato._id || plato.id}
+            _id={plato._id || plato.id}
             nombre={plato.nombre}
             categoria={plato.categoria || "Plato Principal"}
             precio={plato.precio}
@@ -86,6 +92,26 @@ export default function MenuPage() {
           />
         ))}
       </div>
+
+      {/* Badge flotante del Bloque B */}
+      {totalItems > 0 && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: "20px",
+            right: "20px",
+            backgroundColor: "#f59e0b",
+            color: "white",
+            padding: "12px 24px",
+            borderRadius: "30px",
+            fontWeight: "bold",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.15)",
+            zIndex: 1000,
+          }}
+        >
+          🛒 Comanda: {totalItems} items
+        </div>
+      )}
     </section>
   );
 }
