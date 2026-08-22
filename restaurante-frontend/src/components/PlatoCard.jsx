@@ -1,15 +1,28 @@
 // src/components/PlatoCard.jsx
+import { usePedido } from "../context/PedidoContext.jsx";
+
 function PlatoCard({
+  _id,
+  id,
   nombre,
   categoria,
   precio,
   stock,
   disponible,
 }) {
+  const { agregarPlato } = usePedido();
+
   const backgroundColor = disponible ? "#e0f2e1" : "#ffebee";
   const borderColor = disponible ? "#c8e6c9" : "#ffcdd2";
   const badgeBg = disponible ? "#c8e6c9" : "#ffcdd2";
   const badgeColor = disponible ? "#1b5e20" : "#b71c1c";
+
+  // Objeto estructurado para el context
+  const platoObj = {
+    _id: _id || id,
+    nombre,
+    precio,
+  };
 
   return (
     <div
@@ -64,20 +77,45 @@ function PlatoCard({
         </p>
       </div>
 
-      {/* Precio destacado */}
+      {/* Precio y Botón de Agregar */}
       <div
         style={{
           marginTop: "12px",
-          display: "inline-block",
-          backgroundColor: "rgba(255, 255, 255, 0.7)",
-          padding: "6px 14px",
-          borderRadius: "8px",
-          fontWeight: "800",
-          fontSize: "18px",
-          color: "#2b6cb0",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        S/ {precio}
+        <div
+          style={{
+            backgroundColor: "rgba(255, 255, 255, 0.7)",
+            padding: "6px 14px",
+            borderRadius: "8px",
+            fontWeight: "800",
+            fontSize: "18px",
+            color: "#2b6cb0",
+          }}
+        >
+          S/ {precio}
+        </div>
+
+        {disponible && (
+          <button
+            onClick={() => agregarPlato(platoObj)}
+            style={{
+              backgroundColor: "#f59e0b",
+              color: "white",
+              border: "none",
+              padding: "8px 16px",
+              borderRadius: "8px",
+              fontWeight: "bold",
+              cursor: "pointer",
+              boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
+            }}
+          >
+            + Agregar a comanda
+          </button>
+        )}
       </div>
     </div>
   );
