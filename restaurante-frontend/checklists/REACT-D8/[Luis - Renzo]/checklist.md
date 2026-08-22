@@ -3,7 +3,7 @@ alumno: [Luis - Renzo]
 sala: I-SALA1
 curso: REACT
 dia: 8
-estado: en_progreso
+estado: completo
 loom: 
 ---
 
