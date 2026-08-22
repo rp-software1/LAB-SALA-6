@@ -109,6 +109,21 @@ function CarritoPage() {
                 Limpiar comanda
               </button>
             </div>
+  <div style={styles.tipoPedido}>
+  <button
+    style={styles.botonTipo}
+    onClick={() => cambiarTipo("mesa")}
+  >
+    🍽️ Mesa
+  </button> 
+
+  <button
+    style={styles.botonTipo}
+    onClick={() => cambiarTipo("para_llevar")}
+  >
+    🛍️ Para llevar
+  </button>
+</div>
           </div>
         )}
       </div>
@@ -233,6 +248,21 @@ const styles = {
     cursor: "pointer",
     fontWeight: "bold",
   },
+  tipoPedido: {
+  display: "flex",
+  gap: "10px",
+  marginBottom: "15px",
+},
+
+botonTipo: {
+  padding: "9px 15px",
+  border: "none",
+  borderRadius: "7px",
+  backgroundColor: "#2b6cb0",
+  color: "white",
+  cursor: "pointer",
+  fontWeight: "bold",
+},
 };
 
 export default CarritoPage;
