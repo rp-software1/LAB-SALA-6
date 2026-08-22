@@ -1,0 +1,14 @@
+1. ¿Por qué PedidoContext tiene la misma forma que el modelo Pedido en NestJS?
+
+Se diseñó igual para que frontend y backend manejen la misma estructura de datos. Así, cuando se conecte con la API real, será más fácil enviar el pedido directamente sin tener que cambiar o convertir muchos campos.
+
+Ventaja: menos código, menos errores y una conexión más sencilla entre React y NestJS.
+
+2. Diferencia entre createContext, Provider y useContext
+createContext: crea el contexto que permitirá compartir información.
+Provider: crea/mantiene el estado y lo comparte con los componentes que están dentro de él.
+useContext: permite que un componente lea y utilice los datos y funciones compartidos.
+
+En corto:
+
+createContext crea → Provider comparte → useContext lee y usa.
