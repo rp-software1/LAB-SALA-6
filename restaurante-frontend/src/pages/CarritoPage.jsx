@@ -47,7 +47,7 @@ function CarritoPage() {
   const handleEnviarComanda = async () => {
     if (pedido.items.length === 0) {
       return;
-    }
+    } 
 
     setEnviando(true);
     setErrorPedido(null);
