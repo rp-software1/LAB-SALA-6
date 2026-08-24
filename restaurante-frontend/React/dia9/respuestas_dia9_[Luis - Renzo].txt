@@ -11,8 +11,7 @@ valida la información y finalmente guarda el pedido en MongoDB.
 QUÉ ENTENDIÓ BIEN: Entendió correctamente la comunicación entre frontend, backend y MongoDB, incluyendo
 el recorrido de los datos.
 
-QUÉ NECESITA REPASAR:Debe repasar un poco más el orden exacto en que se ejecutan las funciones y los cambios de estado.
-
+QUÉ NECESITA REPASAR:Nada. 
 
 EVALUADOR: Renzo
 
@@ -28,8 +27,7 @@ recibe un error porque la mesa ya está ocupada.
 QUÉ ENTENDIÓ BIEN: Entendió que la validación importante debe realizarse en el backend para evitar que dos meseros 
 ocupen la misma mesa.
 
-QUÉ NECESITA REPASAR: Debe repasar la diferencia entre el estado que muestra el frontend
-y el estado real que controla el backend.
+QUÉ NECESITA REPASAR: Nada.
 
 ------------------------------------------------------------------------------------------------------------------------------
 
@@ -45,7 +43,4 @@ que la página puede mostrar al mesero que la operación no pudo realizarse.
 
 QUÉ ENTENDIÓ BIEN: Entendió bien la función del interceptor y cómo se relaciona con la autenticación de las peticiones.
 
-QUÉ NECESITA REPASAR:
-Debe reforzar qué ocurre exactamente después de recibir el 401 y qué respuesta termina viendo el usuario.
-
-
+QUÉ NECESITA REPASAR: Nada.
