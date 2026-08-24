@@ -12,5 +12,5 @@ loom:
 - [X] B — MesasPage conectada con GET /api/mesas
 - [X] C — CarritoPage conectada con POST /api/pedidos
 - [X] D — Exploración con Claude
-- [ ] E — Evaluación entre pares
+- [X] E — Evaluación entre pares
 - [ ] F — Cierre del día
