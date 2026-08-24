@@ -1,0 +1,6 @@
+¿Algo en la instrucción no quedó claro o fue confuso?
+Sí, al inicio fue un poco confuso cómo conectar Axios con el backend y dónde colocar la variable VITE_API_URL.
+¿Hubo contradicción entre lo que decía y lo que encontraron en su máquina?
+Sí. La instrucción asumía que el backend estaba funcionando en localhost:3000, pero en nuestra máquina no estaba disponible, así que tuvimos que usar los mocks como respaldo.
+¿Llegaron al criterio sin bloquearse? Si no, ¿dónde se trabaron?
+No completamente. Nos trabamos al ejecutar Vite porque faltaba el script dev en package.json y después al intentar conectar con el backend en el puerto 3000. Luego pudimos continuar usando los datos mock.
