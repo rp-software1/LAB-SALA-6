@@ -1,59 +1,98 @@
-import axios from 'axios';
+import axios from "axios";
+
 import { platosMock } from "../data/platos.mock";
-import { mesasMock } from "../data/mesas.mock"; // Importamos las mesas mock de respaldo
+import { mesasMock } from "../data/mesas.mock";
 
-const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const BASE_URL =
+  import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-// Crear la instancia base de Axios
+// Crear instancia base de Axios
 const api = axios.create({
   baseURL: BASE_URL,
 });
 
-// ── Platos ───────────────────────────────────────
+// ───────────── PLATOS ─────────────
+
 export async function getPlatos() {
   try {
-    const response = await api.get('/api/platos');
+    const response = await api.get("/api/platos");
+
     return response.data;
   } catch (error) {
-    console.warn("Backend no disponible. Cargando platos mock...", error.message);
+    console.warn(
+      "Backend no disponible. Cargando platos mock...",
+      error.message
+    );
+
     return platosMock;
   }
 }
 
-// ── Mesas ────────────────────────────────────────
+// ───────────── MESAS ─────────────
+
 export async function getMesas() {
   try {
-    const response = await api.get('/api/mesas');
+    const response = await api.get("/api/mesas");
+
     return response.data;
   } catch (error) {
-    console.warn("Backend no disponible. Cargando mesas mock...", error.message);
-    return mesasMock; // Retorna los datos locales si el servidor falla
+    console.warn(
+      "Backend no disponible. Cargando mesas mock...",
+      error.message
+    );
+
+    return mesasMock;
   }
 }
 
 export async function getMesasDisponibles() {
   try {
-    const response = await api.get('/api/mesas?estado=disponible');
+    const response = await api.get(
+      "/api/mesas?estado=disponible"
+    );
+
     return response.data;
   } catch (error) {
-    console.warn("Backend no disponible. Filtrando mesas mock disponibles...", error.message);
-    return mesasMock.filter(m => m.estado === 'disponible' || m.estado === 'libre');
+    console.warn(
+      "Backend no disponible. Filtrando mesas mock disponibles...",
+      error.message
+    );
+
+    return mesasMock.filter(
+      (mesa) =>
+        mesa.estado === "disponible" ||
+        mesa.estado === "libre"
+    );
   }
 }
 
-// ── Pedidos ───────────────────────────────────────
+// ───────────── PEDIDOS ─────────────
+
 export async function crearPedido(pedidoData) {
-  const response = await api.post('/api/pedidos', pedidoData);
+  const response = await api.post(
+    "/api/pedidos",
+    pedidoData
+  );
+
   return response.data;
 }
 
 export async function getPedido(id) {
-  const response = await api.get(`/api/pedidos/${id}`);
+  const response = await api.get(
+    `/api/pedidos/${id}`
+  );
+
   return response.data;
 }
 
 export async function cambiarEstadoPedido(id, estado) {
-  const response = await api.patch(`/api/pedidos/${id}/estado`, { estado });
+  const response = await api.patch(
+    `/api/pedidos/${id}/estado`,
+    {
+      estado: estado,
+    }
+  );
+
   return response.data;
 }
 
