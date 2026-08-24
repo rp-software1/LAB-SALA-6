@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { platosMock } from "../data/platos.mock";
+import { mesasMock } from "../data/mesas.mock"; // Importamos las mesas mock de respaldo
 
-const BASE_URL = import.meta.env.VITE_API_URL;
+const BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
 // Crear la instancia base de Axios
 const api = axios.create({
@@ -11,32 +12,39 @@ const api = axios.create({
 // ── Platos ───────────────────────────────────────
 export async function getPlatos() {
   try {
-    // Intenta hacer la petición real a la API
     const response = await api.get('/api/platos');
     return response.data;
   } catch (error) {
-    // Si el backend no está disponible, usa los datos mock de respaldo
-    console.warn("Backend no disponible. Cargando datos mock...", error.message);
+    console.warn("Backend no disponible. Cargando platos mock...", error.message);
     return platosMock;
   }
 }
 
 // ── Mesas ────────────────────────────────────────
 export async function getMesas() {
-  const response = await api.get('/api/mesas');
-  return response.data;
+  try {
+    const response = await api.get('/api/mesas');
+    return response.data;
+  } catch (error) {
+    console.warn("Backend no disponible. Cargando mesas mock...", error.message);
+    return mesasMock; // Retorna los datos locales si el servidor falla
+  }
 }
 
 export async function getMesasDisponibles() {
-  const response = await api.get('/api/mesas?estado=disponible');
-  return response.data;
+  try {
+    const response = await api.get('/api/mesas?estado=disponible');
+    return response.data;
+  } catch (error) {
+    console.warn("Backend no disponible. Filtrando mesas mock disponibles...", error.message);
+    return mesasMock.filter(m => m.estado === 'disponible' || m.estado === 'libre');
+  }
 }
 
 // ── Pedidos ───────────────────────────────────────
 export async function crearPedido(pedidoData) {
-  // pedidoData: { mesaId, tipo, items[] }
   const response = await api.post('/api/pedidos', pedidoData);
-  return response.data; // pedido creado con _id y estado: pendiente
+  return response.data;
 }
 
 export async function getPedido(id) {
@@ -45,7 +53,6 @@ export async function getPedido(id) {
 }
 
 export async function cambiarEstadoPedido(id, estado) {
-  // estado: 'en_preparacion' | 'lista' | 'entregada' | 'cancelada'
   const response = await api.patch(`/api/pedidos/${id}/estado`, { estado });
   return response.data;
 }
