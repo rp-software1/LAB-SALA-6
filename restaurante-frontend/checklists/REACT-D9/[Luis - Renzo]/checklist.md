@@ -9,7 +9,7 @@ loom:
 ---
 ## Secciones
 - [X] A — APIs de mesas y pedidos en api.js
-- [ ] B — MesasPage conectada con GET /api/mesas
+- [X] B — MesasPage conectada con GET /api/mesas
 - [ ] C — CarritoPage conectada con POST /api/pedidos
 - [ ] D — Exploración con Claude
 - [ ] E — Evaluación entre pares
