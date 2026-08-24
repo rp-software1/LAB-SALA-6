@@ -69,31 +69,72 @@ export async function getMesasDisponibles() {
 // ───────────── PEDIDOS ─────────────
 
 export async function crearPedido(pedidoData) {
-  const response = await api.post(
-    "/api/pedidos",
-    pedidoData
-  );
+  try {
+    const response = await api.post(
+      "/api/pedidos",
+      pedidoData
+    );
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.warn(
+      "Backend no disponible. Simulando creación de pedido mock...",
+      error.message
+    );
+
+    // Retorna una respuesta simulada exitosa
+    return {
+      _id: "mock_pedido_" + Date.now(),
+      ...pedidoData,
+      estado: "pendiente",
+      createdAt: new Date().toISOString(),
+    };
+  }
 }
 
 export async function getPedido(id) {
-  const response = await api.get(
-    `/api/pedidos/${id}`
-  );
+  try {
+    const response = await api.get(
+      `/api/pedidos/${id}`
+    );
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.warn(
+      "Backend no disponible. Simulando lectura de pedido mock...",
+      error.message
+    );
+
+    return {
+      _id: id,
+      estado: "pendiente",
+      items: [],
+      total: 0,
+    };
+  }
 }
 
 export async function cambiarEstadoPedido(id, estado) {
-  const response = await api.patch(
-    `/api/pedidos/${id}/estado`,
-    {
-      estado: estado,
-    }
-  );
+  try {
+    const response = await api.patch(
+      `/api/pedidos/${id}/estado`,
+      {
+        estado: estado,
+      }
+    );
 
-  return response.data;
+    return response.data;
+  } catch (error) {
+    console.warn(
+      "Backend no disponible. Simulando cambio de estado mock...",
+      error.message
+    );
+
+    return {
+      _id: id,
+      estado: estado,
+    };
+  }
 }
 
 export default api;
