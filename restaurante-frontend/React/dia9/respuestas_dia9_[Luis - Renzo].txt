@@ -1,6 +1,51 @@
-¿Algo en la instrucción no quedó claro o fue confuso?
-Sí, al inicio fue un poco confuso cómo conectar Axios con el backend y dónde colocar la variable VITE_API_URL.
-¿Hubo contradicción entre lo que decía y lo que encontraron en su máquina?
-Sí. La instrucción asumía que el backend estaba funcionando en localhost:3000, pero en nuestra máquina no estaba disponible, así que tuvimos que usar los mocks como respaldo.
-¿Llegaron al criterio sin bloquearse? Si no, ¿dónde se trabaron?
-No completamente. Nos trabamos al ejecutar Vite porque faltaba el script dev en package.json y después al intentar conectar con el backend en el puerto 3000. Luego pudimos continuar usando los datos mock.
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO: Escenario 1
+
+RESUMEN: Renzo explicó que primero el mesero selecciona una mesa, luego se actualiza el estado
+correspondiente en el frontend y se realiza la petición HTTP al backend. El backend procesa la solicitud, 
+valida la información y finalmente guarda el pedido en MongoDB.
+
+QUÉ ENTENDIÓ BIEN: Entendió correctamente la comunicación entre frontend, backend y MongoDB, incluyendo
+el recorrido de los datos.
+
+QUÉ NECESITA REPASAR:Debe repasar un poco más el orden exacto en que se ejecutan las funciones y los cambios de estado.
+
+
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO: Escenario 3
+
+RESUMEN: Luis explicó que ambos meseros pueden ver inicialmente la Mesa 5 como disponible 
+porque cargaron la información al mismo tiempo. Cuando los dos intentan seleccionarla, el backend 
+vuelve a validar su disponibilidad. El primero que logra completar la operación la ocupa y el segundo 
+recibe un error porque la mesa ya está ocupada.
+
+QUÉ ENTENDIÓ BIEN: Entendió que la validación importante debe realizarse en el backend para evitar que dos meseros 
+ocupen la misma mesa.
+
+QUÉ NECESITA REPASAR: Debe repasar la diferencia entre el estado que muestra el frontend
+y el estado real que controla el backend.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+EVALUADOR: Luis
+
+EVALUADO: Renzo
+
+ESCENARIO ELEGIDO: Escenario 2
+
+RESUMEN: Renzo explicó que Axios agrega automáticamente el token mediante el interceptor y que, si el token expiró, 
+el backend responde con un error 401. El interceptor detecta este error y se ejecuta el manejo correspondiente, mientras
+que la página puede mostrar al mesero que la operación no pudo realizarse.
+
+QUÉ ENTENDIÓ BIEN: Entendió bien la función del interceptor y cómo se relaciona con la autenticación de las peticiones.
+
+QUÉ NECESITA REPASAR:
+Debe reforzar qué ocurre exactamente después de recibir el 401 y qué respuesta termina viendo el usuario.
+
+
