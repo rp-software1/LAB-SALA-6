@@ -1,3 +1,4 @@
+// src/pages/MesasPage.tsx
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getMesas } from '../services/api.js';
@@ -6,20 +7,36 @@ import MesaCard from '../components/MesaCard.js';
 import type { Mesa } from '../types';
 
 export default function MesasPage() {
+  // Estado tipado — patrón loading/error/data
   const [mesas, setMesas] = useState<Mesa[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
   const { asignarMesa } = usePedido();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getMesas()
-      .then((data) => setMesas(data))
-      .catch(() => setError('No se pudieron cargar las mesas'))
-      .finally(() => setLoading(false));
+    // useEffect no puede ser async directamente — se define la función interna
+    const cargarMesas = async (): Promise<void> => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data: Mesa[] = await getMesas();
+        setMesas(Array.isArray(data) ? data : []);
+      } catch (err: unknown) {
+        // err es unknown: obligatorio verificar tipo antes de usar
+        const mensaje = err instanceof Error ? err.message : 'No se pudieron cargar las mesas';
+        setError(mensaje);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    cargarMesas();
   }, []);
 
-  const handleSeleccionar = (mesaId: string) => {
+  // Handler tipado explícitamente
+  const handleSeleccionar = (mesaId: string): void => {
     asignarMesa(mesaId);
     navigate('/carrito');
   };
