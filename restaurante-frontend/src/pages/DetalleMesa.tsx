@@ -1,9 +1,8 @@
-// src/pages/DetalleMesa.jsx
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { mesasMock } from '../data/mesas.mock.js';
 
 export default function DetalleMesa() {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   const mesa = mesasMock?.find(
@@ -60,9 +59,9 @@ export default function DetalleMesa() {
 
   const estadoLower = mesa.estado?.toLowerCase();
 
-  if (estadoLower === 'libre' || mesa.disponible) {
+  if (estadoLower === 'libre' || mesa.estado === 'disponible') {
     configEstado = {
-      bg: '#e0f2e1',        // Verde suave (mismo tono que la tarjeta del listado)
+      bg: '#e0f2e1',
       border: '#c8e6c9',
       badgeBg: '#c8e6c9',
       badgeText: '#1b5e20',
@@ -70,7 +69,7 @@ export default function DetalleMesa() {
     };
   } else if (estadoLower === 'ocupada') {
     configEstado = {
-      bg: '#ffebee',        // Rojo suave (mismo tono que la tarjeta del listado)
+      bg: '#ffebee',
       border: '#ffcdd2',
       badgeBg: '#ffcdd2',
       badgeText: '#b71c1c',
@@ -78,7 +77,7 @@ export default function DetalleMesa() {
     };
   } else if (estadoLower === 'reservada') {
     configEstado = {
-      bg: '#fff8e1',        // Amarillo suave
+      bg: '#fff8e1',
       border: '#ffe082',
       badgeBg: '#ffe082',
       badgeText: '#f57f17',
@@ -114,7 +113,7 @@ export default function DetalleMesa() {
         ← Volver al listado de mesas
       </Link>
 
-      {/* Tarjeta principal con fondo dinámico suave */}
+      {/* Tarjeta principal */}
       <div
         style={{
           backgroundColor: configEstado.bg,
@@ -191,7 +190,7 @@ export default function DetalleMesa() {
               COMENSALES
             </span>
             <p style={{ margin: '4px 0 0 0', fontSize: '18px', fontWeight: '700', color: '#2d3748' }}>
-              🍽️ {mesa.comensales || 0} actuales
+              🍽️ {(mesa as unknown as { comensales?: number }).comensales || 0} actuales
             </p>
           </div>
         </div>
