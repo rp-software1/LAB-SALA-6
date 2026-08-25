@@ -1,0 +1,87 @@
+1.- Tengo este código en TypeScript:       
+const estado: EstadoMesa = "disponible";    
+¿Qué pasa si escribo estado = "cerrado"? 
+¿Por qué TypeScript lo rechaza?
+
+TypeScript rechaza el valor “cerrado” porque no está incluido dentro de las opciones permitidas por el tipo EstadoMesa. 
+Un union type funciona como una lista de valores válidos, por ejemplo: disponible, ocupada, reservada o fuera de servicio. 
+Esto ayuda a evitar errores de escritura y garantiza que el estado de una mesa siempre tenga un valor correcto.
+Además, si la variable fue declarada con const, tampoco se puede cambiar su valor después de crearla.
+
+2.- En nuestro PedidoContext.tsx usamos:       
+createContext<PedidoContextType | undefined>(undefined)    
+¿Por qué no simplemente createContext<PedidoContextType>({} as PedidoContextType)?    
+¿Qué riesgo real tiene la segunda versión en una app de restaurante?
+
+Se utiliza createContext<PedidoContextType | undefined>(undefined) porque permite detectar 
+si el contexto se está usando fuera de PedidoProvider. 
+En ese caso, se puede mostrar un error claro.
+En cambio, {} as PedidoContextType engaña a TypeScript haciéndole creer que el objeto vacío contiene todas las propiedades y funciones del contexto. 
+El riesgo real es que funciones como agregarPlato, quitarPlato o crearPedido sean undefined. 
+Cuando el usuario intente agregar un plato o enviar una comanda, la aplicación podría fallar y perder la información del pedido.
+
+3.- ¿Cuál es la diferencia entre type e interface en TypeScript?
+   Dame un ejemplo con nuestros tipos: Mesa, Pedido, EstadoMesa.
+   ¿En qué casos no podríamos usar interface?"
+
+La diferencia es que interface se utiliza principalmente para definir la estructura de objetos, por ejemplo 
+las propiedades que deben tener una Mesa o un Pedido. 
+En cambio, type es más flexible porque también permite crear uniones de valores, combinaciones y alias de otros tipos.
+
+Por ejemplo, podemos usar interface para definir una mesa:
+interface Mesa {
+  numero: number;
+  capacidad: number;
+  estado: EstadoMesa;
+}
+También para un pedido:
+interface Pedido {
+  mesaId: string | null;
+  total: number;
+}
+En cambio, usamos type para limitar los estados posibles:
+type EstadoMesa =
+  | "disponible"
+  | "ocupada"
+  | "reservada"
+  | "fuera_servicio";
+  No podríamos usar interface directamente para crear una unión de valores como EstadoMesa. Para esos casos debemos utilizar type.
+
+  4.- ¿Qué es un Intersection Type en TypeScript? Muéstrame cómo usarlo
+   para combinar Mesa con un campo extra { estaSeleccionada: boolean }
+   sin modificar la interface Mesa original.
+
+Un Intersection Type permite combinar dos o más tipos en uno solo utilizando el símbolo &. 
+En este caso, podemos combinar la interface Mesa con el campo estaSeleccionada sin modificar la interface original.
+
+type MesaSeleccionable = Mesa & {
+  estaSeleccionada: boolean;
+};
+
+De esta forma, MesaSeleccionable tendrá todas las propiedades de Mesa y también estaSeleccionada. 
+Esto es útil para agregar información temporal de la interfaz, como saber qué mesa seleccionó el usuario, sin alterar el tipo original recibido del backend.
+
+
+5. "Tengo esta función en nuestro PedidoContext:
+      function agregarPlato(plato: Plato): void { ... }
+   Si el backend cambia y Plato ahora tiene un campo opcional foto?: string,
+   ¿qué cambio necesito hacer en types/index.ts y qué otros archivos
+   me va a señalar TypeScript automáticamente?"
+
+Debemos agregar foto?: string a la interfaz Plato dentro de types/index.ts. El signo ? indica que la foto es opcional, por lo que 
+un plato puede tenerla o no.
+
+interface Plato {
+  _id: string;
+  nombre: string;
+  precio: number;
+  stock: number;
+  disponible: boolean;
+  foto?: string;
+}
+
+La función agregarPlato no necesita cambiar, porque continúa recibiendo un objeto de tipo Plato. 
+TypeScript puede señalar los archivos donde se utiliza este tipo, como PlatoCard.tsx, MenuPage.tsx, PedidoContext.tsx, api.ts y los datos mock.
+
+Como foto es opcional, antes de mostrarla se debe comprobar que exista. Así evitamos intentar utilizar un valor undefined.
+
