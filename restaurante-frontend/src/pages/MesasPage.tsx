@@ -1,25 +1,39 @@
+// src/pages/MesasPage.tsx
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getMesas } from '../services/api.js';
-import { usePedido } from '../context/PedidoContext.js';
-import MesaCard from '../components/MesaCard.js';
+import { getMesas } from '../services/api';
+import { usePedido } from '../context/PedidoContext';
+import MesaCard from '../components/MesaCard';
 import type { Mesa } from '../types';
 
 export default function MesasPage() {
+  // Estado tipado explícitamente como Mesa[] para evitar que TypeScript infiera 'never[]'
   const [mesas, setMesas] = useState<Mesa[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+
   const { asignarMesa } = usePedido();
   const navigate = useNavigate();
 
   useEffect(() => {
-    getMesas()
-      .then((data) => setMesas(data))
-      .catch(() => setError('No se pudieron cargar las mesas'))
-      .finally(() => setLoading(false));
+    const cargarMesas = async (): Promise<void> => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data: Mesa[] = await getMesas();
+        setMesas(Array.isArray(data) ? data : []);
+      } catch (err: unknown) {
+        const mensaje = err instanceof Error ? err.message : 'No se pudieron cargar las mesas';
+        setError(mensaje);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    cargarMesas();
   }, []);
 
-  const handleSeleccionar = (mesaId: string) => {
+  const handleSeleccionar = (mesaId: string): void => {
     asignarMesa(mesaId);
     navigate('/carrito');
   };

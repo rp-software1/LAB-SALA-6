@@ -1,3 +1,4 @@
+// src/pages/MenuPage.tsx
 import { useState, useEffect } from "react";
 import { getPlatos } from "../services/api";
 import PlatoCard from "../components/PlatoCard";
@@ -9,17 +10,16 @@ export default function MenuPage() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Consumir el estado compartido del Pedido
-  const { pedido } = usePedido();
+  const { pedido, agregarPlato } = usePedido();
   const totalItems = pedido.items.reduce((acc, i) => acc + i.cantidad, 0);
 
   useEffect(() => {
-    async function cargarMenu() {
+    async function cargarMenu(): Promise<void> {
       try {
         setLoading(true);
         setError(null);
 
-        const data = await getPlatos();
+        const data: Plato[] = await getPlatos();
         setPlatos(Array.isArray(data) ? data : []);
       } catch (err: unknown) {
         const mensaje = err instanceof Error ? err.message : "Error al cargar los platos";
@@ -94,12 +94,12 @@ export default function MenuPage() {
               precio={plato.precio}
               stock={platoConStock.stock ?? 10}
               disponible={plato.disponible ?? true}
+              onAgregar={() => agregarPlato(plato)}
             />
           );
         })}
       </div>
 
-      {/* Badge flotante de la comanda */}
       {totalItems > 0 && (
         <div
           style={{
