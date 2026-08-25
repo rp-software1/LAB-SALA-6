@@ -1,12 +1,23 @@
-// src/components/NavBar.jsx
+// src/components/NavBar.tsx
+
+import type { CSSProperties } from "react";
 import { NavLink } from "react-router-dom";
 
-function NavBar({ nombreRestaurante = "Mi Restaurante" }) {
-  // Función para manejar el estilo dinámico cuando un enlace está activo
-  const getLinkStyle = ({ isActive }) => ({
+interface NavBarProps {
+  nombreRestaurante?: string;
+}
+
+function NavBar({
+  nombreRestaurante = "Mi Restaurante",
+}: NavBarProps) {
+  const getLinkStyle = ({
+    isActive,
+  }: {
+    isActive: boolean;
+  }): CSSProperties => ({
     cursor: "pointer",
     opacity: isActive ? 1 : 0.7,
-    color: isActive ? "#facc15" : "#ffffff", // Resalta en amarillo si está activo
+    color: isActive ? "#facc15" : "#ffffff",
     fontWeight: isActive ? "bold" : "normal",
     textDecoration: "none",
     borderBottom: isActive ? "2px solid #facc15" : "none",
@@ -61,3 +72,4 @@ function NavBar({ nombreRestaurante = "Mi Restaurante" }) {
 }
 
 export default NavBar;
+export type { NavBarProps };

@@ -3,7 +3,7 @@ export const mesasMock = [
     id: 1,
     numero: 1,
     capacidad: 4,
-    estado: "libre",
+    estado: "fuera_servicio",
     comensales: 0,
   },
   {

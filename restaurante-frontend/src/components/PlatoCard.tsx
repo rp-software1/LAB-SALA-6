@@ -1,6 +1,18 @@
-// src/components/PlatoCard.jsx
-import { usePedido } from "../context/PedidoContext.jsx";
+// src/components/PlatoCard.tsx
 
+// 1. Declara la interface de las props
+interface PlatoCardProps {
+  _id?: string;
+  id?: string;
+  nombre: string;
+  categoria: string;
+  precio: number;
+  stock?: number;
+  disponible: boolean;
+  onAgregar?: (plato: { _id?: string; nombre: string; precio: number }) => void;
+}
+
+// 2. Tipea las props del componente
 function PlatoCard({
   _id,
   id,
@@ -9,15 +21,14 @@ function PlatoCard({
   precio,
   stock,
   disponible,
-}) {
-  const { agregarPlato } = usePedido();
-
+  onAgregar,
+}: PlatoCardProps) {
   const backgroundColor = disponible ? "#e0f2e1" : "#ffebee";
   const borderColor = disponible ? "#c8e6c9" : "#ffcdd2";
   const badgeBg = disponible ? "#c8e6c9" : "#ffcdd2";
   const badgeColor = disponible ? "#1b5e20" : "#b71c1c";
 
-  // Objeto estructurado para el context
+  // Objeto estructurado para el plato
   const platoObj = {
     _id: _id || id,
     nombre,
@@ -72,9 +83,11 @@ function PlatoCard({
         <p style={{ margin: "4px 0" }}>
           <strong>Categoría:</strong> {categoria}
         </p>
-        <p style={{ margin: "4px 0" }}>
-          <strong>Stock:</strong> {stock} unids.
-        </p>
+        {stock !== undefined && (
+          <p style={{ margin: "4px 0" }}>
+            <strong>Stock:</strong> {stock} unids.
+          </p>
+        )}
       </div>
 
       {/* Precio y Botón de Agregar */}
@@ -99,9 +112,9 @@ function PlatoCard({
           S/ {precio}
         </div>
 
-        {disponible && (
+        {disponible && onAgregar && (
           <button
-            onClick={() => agregarPlato(platoObj)}
+            onClick={() => onAgregar(platoObj)}
             style={{
               backgroundColor: "#f59e0b",
               color: "white",

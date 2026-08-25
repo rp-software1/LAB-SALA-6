@@ -1,4 +1,21 @@
-import { Link } from 'react-router-dom';
+// src/components/MesaCard.tsx
+
+import { Link } from "react-router-dom";
+
+type EstadoMesa =
+  | "disponible"
+  | "ocupada"
+  | "reservada"
+  | "fuera_servicio";
+
+interface MesaCardProps {
+  id: string | number;
+  numero: number;
+  capacidad: number;
+  estado: EstadoMesa;
+  comensales?: number;
+  onSeleccionar?: () => void;
+}
 
 function MesaCard({
   id,
@@ -7,14 +24,14 @@ function MesaCard({
   estado,
   comensales = 0,
   onSeleccionar,
-}) {
+}: MesaCardProps) {
   let bgColor = "#f9fafb";
   let borderColor = "#e5e7eb";
   let badgeBg = "#e5e7eb";
   let badgeColor = "#374151";
-  let texto = "⚪ Desconocido";
+  let texto = "⚪ Fuera de servicio";
 
-  const esDisponible = estado === "disponible" || estado === "libre";
+  const esDisponible = estado === "disponible";
 
   if (esDisponible) {
     bgColor = "#edf7ed";
@@ -50,11 +67,26 @@ function MesaCard({
         boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
       }}
     >
-      {/* Encabezado con título y estado a la derecha */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px" }}>
-        <h2 style={{ fontSize: "20px", fontWeight: "bold", margin: 0, color: "#1a202c" }}>
+      {/* Encabezado */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "16px",
+        }}
+      >
+        <h2
+          style={{
+            fontSize: "20px",
+            fontWeight: "bold",
+            margin: 0,
+            color: "#1a202c",
+          }}
+        >
           Mesa #{numero}
         </h2>
+
         <span
           style={{
             backgroundColor: badgeBg,
@@ -69,16 +101,44 @@ function MesaCard({
         </span>
       </div>
 
-      {/* Información intermedia */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", fontSize: "14px", color: "#4a5568", marginBottom: "16px" }}>
-        <span><strong>Capacidad:</strong> {capacidad} personas</span>
-        {comensales > 0 && <span><strong>Comensales actuales:</strong> {comensales}</span>}
+      {/* Información de la mesa */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          fontSize: "14px",
+          color: "#4a5568",
+          marginBottom: "16px",
+        }}
+      >
+        <span>
+          <strong>Capacidad:</strong> {capacidad} personas
+        </span>
+
+        {comensales > 0 && (
+          <span>
+            <strong>Comensales actuales:</strong> {comensales}
+          </span>
+        )}
       </div>
 
-      <hr style={{ border: "none", borderTop: `1px solid ${borderColor}`, margin: "12px 0 16px 0" }} />
+      <hr
+        style={{
+          border: "none",
+          borderTop: `1px solid ${borderColor}`,
+          margin: "12px 0 16px",
+        }}
+      />
 
-      {/* Botón de acción e ítem Ver detalle */}
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      {/* Acciones */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
         <Link
           to={`/mesas/${idMesa}`}
           style={{
@@ -89,11 +149,11 @@ function MesaCard({
           }}
         >
           Ver detalle →
-          
         </Link>
 
         {esDisponible && onSeleccionar && (
           <button
+            type="button"
             onClick={onSeleccionar}
             style={{
               backgroundColor: "#2f855a",
@@ -116,3 +176,4 @@ function MesaCard({
 }
 
 export default MesaCard;
+export type { EstadoMesa, MesaCardProps };
