@@ -1,0 +1,30 @@
+1. ¿Qué archivo creamos hoy que no existía antes? ¿Para qué sirve?
+
+Hoy creamos el archivo types/index.ts. Sirve para guardar y centralizar los tipos e interfaces de la aplicación, evitando repetirlos en diferentes archivos.
+
+2. Abre el archivo types/index.ts. Sin leerlo, ¿puedes listar de memoria
+   cuántos types y cuántas interfaces hay? ¿Cuál es la diferencia entre ellos?
+
+El archivo contiene 3 types: EstadoMesa, EstadoPedido y TipoPedido; y 5 interfaces: Plato, Mesa, ItemPedido, Pedido y PedidoContextType. 
+Los type permiten crear uniones y combinaciones,
+
+3. ¿Por qué PedidoContext usa createContext<PedidoContextType | undefined>
+   en lugar de createContext<PedidoContextType>? Explícalo sin código.
+
+Se incluye undefined porque al inicio el contexto podría utilizarse fuera de su Provider. Esto permite detectar 
+el problema y mostrar un error claro, en vez de permitir que la aplicación falle inesperadamente.
+
+4. Si mañana el backend agrega un campo activo: boolean a Mesa,
+   ¿en cuántos archivos tienes que hacer el cambio? ¿Cómo TypeScript
+   te va a avisar dónde falta el campo?
+
+El tipo se modifica principalmente en un solo lugar: types/index.ts. 
+Si activo es obligatorio, TypeScript mostrará errores en los mocks, componentes, funciones o pruebas donde se creen objetos Mesa sin ese campo. 
+Así sabremos exactamente qué archivos debemos actualizar.
+
+5. ¿Qué hace el hook usePedido()? ¿Por qué es mejor que llamar
+   useContext(PedidoContext) directamente en cada componente?
+
+usePedido() es un hook personalizado que permite acceder al pedido y a sus funciones. 
+Es mejor que llamar directamente a useContext porque 
+centraliza la validación, evita repetir código y muestra un error claro si se utiliza fuera de PedidoProvider.
