@@ -1,14 +1,8 @@
 // src/components/MesaCard.tsx
-
 import { Link } from "react-router-dom";
+import type { EstadoMesa } from "../types";
 
-type EstadoMesa =
-  | "disponible"
-  | "ocupada"
-  | "reservada"
-  | "fuera_servicio";
-
-interface MesaCardProps {
+export interface MesaCardProps {
   id: string | number;
   numero: number;
   capacidad: number;
@@ -176,4 +170,3 @@ function MesaCard({
 }
 
 export default MesaCard;
-export type { EstadoMesa, MesaCardProps };

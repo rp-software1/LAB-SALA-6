@@ -1,13 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";
+import App from "./App";
+// @ts-ignore
 import "./index.css";
-import { PedidoProvider } from "./context/PedidoContext.jsx";
+import { PedidoProvider } from "./context/PedidoContext";
 
-ReactDOM.createRoot(document.getElementById("root")).render(
-  <React.StrictMode>
-    <PedidoProvider>
-      <App />
-    </PedidoProvider>
-  </React.StrictMode>
-);
+const rootElement = document.getElementById("root");
+
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <PedidoProvider>
+        <App />
+      </PedidoProvider>
+    </React.StrictMode>
+  );
+}

@@ -1,11 +1,15 @@
-// restaurante-frontend/src/context/PedidoContext.jsx
-import { createContext, useContext, useState } from 'react';
+// src/context/PedidoContext.tsx
+import React, { createContext, useContext, useState } from 'react';
+import type {
+  Plato,
+  TipoPedido,
+  EstadoPedidoContext,
+  PedidoContextType,
+  ItemPedido,
+} from '../types';
 
-// 1. Crear el contexto
-const PedidoContext = createContext(null);
-
-// 2. Estado inicial
-const estadoInicial = {
+// 1. Estado inicial tipado explícitamente
+const initialState: EstadoPedidoContext = {
   mesaId: null,
   tipo: 'mesa',
   estado: 'pendiente',
@@ -13,77 +17,105 @@ const estadoInicial = {
   total: 0,
 };
 
-// 3. Provider con estado y acciones (Bloque A + Bloque C)
-export function PedidoProvider({ children }) {
-  const [pedido, setPedido] = useState(estadoInicial);
+// 2. createContext con tipo genérico — undefined como valor por defecto
+const PedidoContext = createContext<PedidoContextType | undefined>(undefined);
 
-  const calcularTotal = (items) =>
+// Props del Provider
+interface PedidoProviderProps {
+  children: React.ReactNode;
+}
+
+// 3. Provider con estado y acciones tipadas
+export function PedidoProvider({ children }: PedidoProviderProps) {
+  const [pedido, setPedido] = useState<EstadoPedidoContext>(initialState);
+
+  // Función auxiliar para calcular el total
+  const calcularTotal = (items: ItemPedido[]): number =>
     items.reduce((acc, item) => acc + item.precioUnitario * item.cantidad, 0);
 
-  const agregarPlato = (plato) => {
+  function agregarPlato(plato: Plato): void {
     setPedido((prev) => {
-      const existe = prev.items.find((i) => i.platoId === (plato._id || plato.id));
-      const nuevosItems = existe
+      const platoId = plato._id || (plato as unknown as { id: string }).id;
+      const existe = prev.items.find((i) => i.platoId === platoId);
+
+      const nuevosItems: ItemPedido[] = existe
         ? prev.items.map((i) =>
-            i.platoId === (plato._id || plato.id)
-              ? { ...i, cantidad: i.cantidad + 1 }
-              : i
+            i.platoId === platoId ? { ...i, cantidad: i.cantidad + 1 } : i
           )
         : [
             ...prev.items,
             {
-              platoId: plato._id || plato.id,
+              platoId: platoId,
               nombre: plato.nombre,
               cantidad: 1,
               precioUnitario: plato.precio,
             },
           ];
-      return { ...prev, items: nuevosItems, total: calcularTotal(nuevosItems) };
-    });
-  };
 
-  const quitarPlato = (platoId) => {
+      return {
+        ...prev,
+        items: nuevosItems,
+        total: calcularTotal(nuevosItems),
+      };
+    });
+  }
+
+  function quitarPlato(platoId: string): void {
     setPedido((prev) => {
       const nuevosItems = prev.items
-        .map((i) => (i.platoId === platoId ? { ...i, cantidad: i.cantidad - 1 } : i))
+        .map((i) =>
+          i.platoId === platoId ? { ...i, cantidad: i.cantidad - 1 } : i
+        )
         .filter((i) => i.cantidad > 0);
-      return { ...prev, items: nuevosItems, total: calcularTotal(nuevosItems) };
-    });
-  };
 
-  const cambiarTipo = (tipo) => {
+      return {
+        ...prev,
+        items: nuevosItems,
+        total: calcularTotal(nuevosItems),
+      };
+    });
+  }
+
+  function cambiarTipo(tipo: TipoPedido): void {
     setPedido((prev) => ({
       ...prev,
       tipo,
       mesaId: tipo === 'para_llevar' ? null : prev.mesaId,
     }));
-  };
+  }
 
-  const asignarMesa = (mesaId) => {
+  function asignarMesa(mesaId: string): void {
     setPedido((prev) => ({ ...prev, mesaId, tipo: 'mesa' }));
-  };
+  }
 
-  const limpiarPedido = () => setPedido(estadoInicial);
+  function limpiarPedido(): void {
+    setPedido(initialState);
+  }
+
+  const value: PedidoContextType = {
+    pedido,
+    agregarPlato,
+    quitarPlato,
+    cambiarTipo,
+    asignarMesa,
+    limpiarPedido,
+  };
 
   return (
-    <PedidoContext.Provider
-      value={{
-        pedido,
-        agregarPlato,
-        quitarPlato,
-        cambiarTipo,
-        asignarMesa,
-        limpiarPedido,
-      }}
-    >
+    <PedidoContext.Provider value={value}>
       {children}
     </PedidoContext.Provider>
   );
 }
 
-// 4. Custom Hook
-export function usePedido() {
+// 4. Hook personalizado — lanza error si se usa fuera del Provider
+export function usePedido(): PedidoContextType {
   const context = useContext(PedidoContext);
-  if (!context) throw new Error('usePedido debe usarse dentro de PedidoProvider');
+  if (!context) {
+    throw new Error('usePedido debe usarse dentro de un PedidoProvider');
+  }
   return context;
 }
+
+// Exportación del contexto
+export default PedidoContext;

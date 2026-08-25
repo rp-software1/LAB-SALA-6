@@ -1,13 +1,13 @@
-// src/pages/MenuPage.jsx
 import { useState, useEffect } from "react";
-import { getPlatos } from "../services/api.js";
-import PlatoCard from "../components/PlatoCard.jsx";
-import { usePedido } from "../context/PedidoContext.jsx";
+import { getPlatos } from "../services/api";
+import PlatoCard from "../components/PlatoCard";
+import { usePedido } from "../context/PedidoContext";
+import type { Plato } from "../types";
 
 export default function MenuPage() {
-  const [platos, setPlatos] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [platos, setPlatos] = useState<Plato[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   // Consumir el estado compartido del Pedido
   const { pedido } = usePedido();
@@ -20,9 +20,10 @@ export default function MenuPage() {
         setError(null);
 
         const data = await getPlatos();
-        setPlatos(data);
-      } catch (err) {
-        setError(err.message);
+        setPlatos(Array.isArray(data) ? data : []);
+      } catch (err: unknown) {
+        const mensaje = err instanceof Error ? err.message : "Error al cargar los platos";
+        setError(mensaje);
       } finally {
         setLoading(false);
       }
@@ -80,20 +81,25 @@ export default function MenuPage() {
       </h1>
 
       <div>
-        {platos.map((plato) => (
-          <PlatoCard
-            key={plato._id || plato.id}
-            _id={plato._id || plato.id}
-            nombre={plato.nombre}
-            categoria={plato.categoria || "Plato Principal"}
-            precio={plato.precio}
-            stock={plato.stock ?? 10}
-            disponible={plato.disponible ?? true}
-          />
-        ))}
+        {platos.map((plato, index) => {
+          const platoConStock = plato as Plato & { id?: string; stock?: number };
+          const platoId = plato._id || platoConStock.id || String(index);
+
+          return (
+            <PlatoCard
+              key={platoId}
+              _id={platoId}
+              nombre={plato.nombre}
+              categoria={plato.categoria || "Plato Principal"}
+              precio={plato.precio}
+              stock={platoConStock.stock ?? 10}
+              disponible={plato.disponible ?? true}
+            />
+          );
+        })}
       </div>
 
-      {/* Badge flotante del Bloque B */}
+      {/* Badge flotante de la comanda */}
       {totalItems > 0 && (
         <div
           style={{
