@@ -2,7 +2,6 @@
 import axios from "axios";
 import { platosMock } from "../data/platos.mock";
 import { mesasMock } from "../data/mesas.mock";
-// ─── Importar tipos globales desde types/ ─────────────────────────────
 import type { 
   Mesa, 
   Plato, 

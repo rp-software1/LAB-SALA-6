@@ -1,20 +1,18 @@
+// src/pages/CarritoPage.tsx
 import React, { useState, useEffect } from "react";
-import { getPlatos, crearPedido, CrearPedidoData } from "../services/api";
+import { getPlatos, crearPedido, type CrearPedidoData } from "../services/api";
 import { usePedido } from "../context/PedidoContext";
 import type { Plato, Pedido } from "../types";
 
 export default function CarritoPage() {
-  // 1. Tipado explícito de estados para evitar el error 'never'
   const [platos, setPlatos] = useState<Plato[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [errorMenu, setErrorMenu] = useState<string | null>(null);
 
-  // Estados para enviar la comanda
   const [enviando, setEnviando] = useState<boolean>(false);
   const [errorPedido, setErrorPedido] = useState<string | null>(null);
   const [pedidoCreado, setPedidoCreado] = useState<Pedido | null>(null);
 
-  // Consumir PedidoContext
   const {
     pedido,
     agregarPlato,
@@ -23,18 +21,18 @@ export default function CarritoPage() {
     cambiarTipo,
   } = usePedido();
 
-  // Cargar platos
   useEffect(() => {
-    const fetchPlatos = async () => {
+    const fetchPlatos = async (): Promise<void> => {
       try {
         setLoading(true);
         setErrorMenu(null);
 
-        const data = await getPlatos();
+        const data: Plato[] = await getPlatos();
         setPlatos(Array.isArray(data) ? data : []);
-      } catch (err) {
+      } catch (err: unknown) {
         console.error("Error al obtener platos:", err);
-        setErrorMenu("No se pudieron cargar los platos");
+        const mensaje = err instanceof Error ? err.message : "No se pudieron cargar los platos";
+        setErrorMenu(mensaje);
       } finally {
         setLoading(false);
       }
@@ -43,9 +41,13 @@ export default function CarritoPage() {
     fetchPlatos();
   }, []);
 
-  // Enviar pedido al backend
-  const handleEnviarComanda = async () => {
+  const handleEnviarComanda = async (): Promise<void> => {
     if (pedido.items.length === 0) {
+      return;
+    }
+
+    if (pedido.tipo === 'mesa' && !pedido.mesaId) {
+      setErrorPedido("Selecciona una mesa antes de enviar");
       return;
     }
 
@@ -60,24 +62,19 @@ export default function CarritoPage() {
       total: pedido.total,
     };
 
-    console.log("Pedido enviado al backend:", body);
-
     try {
-      const nuevoPedido = await crearPedido(body);
-      console.log("Pedido creado:", nuevoPedido);
+      const nuevoPedido: Pedido = await crearPedido(body);
       setPedidoCreado(nuevoPedido);
-
-      // Solo limpiar si el POST fue exitoso
       limpiarPedido();
-    } catch (err) {
+    } catch (err: unknown) {
       console.error("Error al crear pedido:", err);
-      setErrorPedido("No se pudo crear el pedido. Intenta nuevamente.");
+      const mensaje = err instanceof Error ? err.message : "No se pudo crear el pedido. Intenta nuevamente.";
+      setErrorPedido(mensaje);
     } finally {
       setEnviando(false);
     }
   };
 
-  // Objetos de estilo con 'as const' para tipado literal exacto en TypeScript
   const styles = {
     container: {
       maxWidth: "750px",
@@ -268,7 +265,6 @@ export default function CarritoPage() {
     );
   }
 
-  // Confirmación después de crear el pedido
   if (pedidoCreado) {
     return (
       <div style={styles.confirmacion}>
