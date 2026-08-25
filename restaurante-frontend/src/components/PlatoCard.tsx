@@ -1,6 +1,7 @@
 // src/components/PlatoCard.tsx
+import type { Plato } from "../types";
 
-// 1. Declara la interface de las props
+// Reutiliza Plato importado desde types/
 interface PlatoCardProps {
   _id?: string;
   id?: string;
@@ -9,10 +10,9 @@ interface PlatoCardProps {
   precio: number;
   stock?: number;
   disponible: boolean;
-  onAgregar?: (plato: { _id?: string; nombre: string; precio: number }) => void;
+  onAgregar?: (plato: Plato) => void;
 }
 
-// 2. Tipea las props del componente
 function PlatoCard({
   _id,
   id,
@@ -28,11 +28,14 @@ function PlatoCard({
   const badgeBg = disponible ? "#c8e6c9" : "#ffcdd2";
   const badgeColor = disponible ? "#1b5e20" : "#b71c1c";
 
-  // Objeto estructurado para el plato
-  const platoObj = {
-    _id: _id || id,
+  // Objeto estructurado alineado a la interface Plato
+  const platoObj: Plato = {
+    _id: _id || id || "",
     nombre,
+    descripcion: "",
     precio,
+    categoria,
+    disponible,
   };
 
   return (
