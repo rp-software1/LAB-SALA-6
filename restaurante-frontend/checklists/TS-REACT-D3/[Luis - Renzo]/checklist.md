@@ -1,4 +1,4 @@
-# TS-REACT-D3 — Checklist
+# TS-REACT-D3 — Checklist 
 Nombre: Luis Renzo        Fecha: 25/08/2026
 Sala: I-SALA1              Rol inicio: Driver / Navigator
 
