@@ -8,8 +8,8 @@ loom: (agregar link al terminar)
 
 ## Bloques
 - [X] A — Videos + crear proyecto + limpiar + entender estructura
-- [ ] B — Layout raíz + migrar NavBar
-- [ ] C — Mapear rutas del restaurante como carpetas
+- [X] B — Layout raíz + migrar NavBar
+- [X] C — Mapear rutas del restaurante como carpetas
 - [ ] D — Ruta dinámica /mesa/[mesaId] + Link en NavBar
 - [ ] E — not-found.tsx + verificación TypeScript
 - [ ] F — Evaluación entre pares + Loom + PR
