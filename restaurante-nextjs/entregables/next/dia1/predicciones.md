@@ -56,3 +56,33 @@ El componente recibe mesaId como: prop
 ¿Es string o puede ser number?
 
 Es string (Next.js siempre lo pasa como string)
+
+Prediccion F   
+
+1.¿Cuál es la diferencia entre la carpeta /mesas (sin corchetes) y la carpeta /[mesaId] (con corchetes)?
+
+La carpeta sin corchetes es una ruta estática — solo responde a /mesas exactamente. Con corchetes es
+dinámica — responde a /mesa/cualquier-valor y ese valor llega como params.mesaId.
+
+2.¿Qué pasa si usas <a href="/menu"> en lugar de <Link href="/menu">?
+ 
+Respuesta esperada: <a> hace una recarga completa del browser — se pierde el estado
+de React y el beneficio del prefetching de Next.js. Link hace navegación del lado del
+cliente sin recargar.
+
+3. ¿Para qué sirve layout.tsx y qué NO debería ir ahí?
+
+Respuesta esperada: Es el componente que envuelve todas las páginas — va el NavBar, 
+body, html. NO va lógica específica de una página ni fetch de datos de una sola sección.
+
+4. ¿Por qué NavBar necesita 'use client' y page.tsx de MesasPage no necesita esa directiva?
+
+Respuesta esperada: NavBar usa usePathname() que es un hook — 
+necesita el browser. MesasPage del Día 1 solo retorna JSX estático — puede 
+correr en el servidor sin ningún problema.
+
+5. Si el backend cambia el modelo de Mesa y agrega un campo nuevo, ¿en cuántos 
+archivos de restaurante-nextjs hay que actualizar tipos hoy?
+
+Hoy ninguno — las páginas todavía no llaman al backend. En los 
+días siguientes, solo en types/index.ts y donde se consuma el dato.
