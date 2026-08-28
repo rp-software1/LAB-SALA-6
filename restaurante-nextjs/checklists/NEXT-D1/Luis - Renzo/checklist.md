@@ -13,7 +13,7 @@ loom: (agregar link al terminar)
 - [X] D — Ruta dinámica /mesa/[mesaId] + Link en NavBar
 - [X] E — not-found.tsx + verificación TypeScript
 - [X] F — Evaluación entre pares + Loom + PR
-
+  
 ## Verificación final
 - [ ] npm run dev → localhost:3000 carga
 - [ ] Todas las rutas responden sin 404
