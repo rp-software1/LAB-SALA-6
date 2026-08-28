@@ -1,4 +1,4 @@
-export type EstadoMesa = 'libre' | 'ocupada' | 'reservada';
+export type EstadoMesa = 'disponible' | 'ocupada' | 'reservada' | 'fuera_servicio';
 
 export interface Mesa {
   _id: string;
@@ -6,7 +6,7 @@ export interface Mesa {
   capacidad: number;
   estado: EstadoMesa;
   ubicacion?: string;
-}
+} 
 
 export type CategoriaPlato = 'entradas' | 'fondos' | 'bebidas' | 'postres';
 
