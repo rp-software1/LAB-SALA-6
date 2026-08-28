@@ -12,10 +12,14 @@ loom: (agregar link al terminar)
 - [X] C — Mapear rutas del restaurante como carpetas
 - [X] D — Ruta dinámica /mesa/[mesaId] + Link en NavBar
 - [X] E — not-found.tsx + verificación TypeScript
-- [ ] F — Evaluación entre pares + Loom + PR
+- [X] F — Evaluación entre pares + Loom + PR
 
 ## Verificación final
 - [ ] npm run dev → localhost:3000 carga
 - [ ] Todas las rutas responden sin 404
 - [ ] npx tsc --noEmit → 0 errores
 - [ ] PR aprobado por sala par
+
+# Actualizar checklist.md:
+# estado: en_progreso → estado: completado
+# loom: https://loom.com/...
