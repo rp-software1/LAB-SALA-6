@@ -13,12 +13,12 @@ loom: (agregar link al terminar)
 - [X] D — Ruta dinámica /mesa/[mesaId] + Link en NavBar
 - [X] E — not-found.tsx + verificación TypeScript
 - [X] F — Evaluación entre pares + Loom + PR
-  
+      
 ## Verificación final
-- [ ] npm run dev → localhost:3000 carga
-- [ ] Todas las rutas responden sin 404
-- [ ] npx tsc --noEmit → 0 errores
-- [ ] PR aprobado por sala par
+- [X] npm run dev → localhost:3000 carga
+- [X] Todas las rutas responden sin 404
+- [X] npx tsc --noEmit → 0 errores
+- [X] PR aprobado por sala par
 
 # Actualizar checklist.md:
 # estado: en_progreso → estado: completado
