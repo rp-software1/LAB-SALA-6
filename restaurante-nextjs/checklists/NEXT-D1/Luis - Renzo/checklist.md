@@ -11,7 +11,7 @@ loom: (agregar link al terminar)
 - [X] B — Layout raíz + migrar NavBar
 - [X] C — Mapear rutas del restaurante como carpetas
 - [X] D — Ruta dinámica /mesa/[mesaId] + Link en NavBar
-- [ ] E — not-found.tsx + verificación TypeScript
+- [X] E — not-found.tsx + verificación TypeScript
 - [ ] F — Evaluación entre pares + Loom + PR
 
 ## Verificación final
