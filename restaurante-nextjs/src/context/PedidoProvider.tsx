@@ -84,7 +84,7 @@ export default function PedidoProvider({ children }: { children: ReactNode }) {
       if (!item) return prev;
       if (item.cantidad === 1) {
         return { ...prev, items: prev.items.filter((i: ItemPedido) => i.platoId !== platoId), total: prev.total - item.precioUnitario };
-      }
+      } 
       return {
         ...prev,
         items: prev.items.map((i: ItemPedido) => i.platoId === platoId ? { ...i, cantidad: i.cantidad - 1 } : i),

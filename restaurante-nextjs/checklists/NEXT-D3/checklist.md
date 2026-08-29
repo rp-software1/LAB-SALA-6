@@ -4,7 +4,7 @@ curso: Next.js
 dia: 3
 estado: en_progreso
 loom: 
----
+--- 
 
 ## Bloques
 - [X] A — PedidoProvider + integrar en layout.tsx
