@@ -22,4 +22,4 @@ loom: (agregar link al terminar)
 
 # Actualizar checklist.md:
 # estado: en_progreso → estado: completado
-# loom: https://loom.com/...
+# loom:(https://drive.google.com/file/d/1z4PxHE_lGPFKq3r8WxNOfNsED0XpRfXl/view?usp=sharing)

@@ -1,14 +1,27 @@
+// app/mesas/page.tsx
+// Server Component — SIN "use client", SIN useState, SIN useEffect
 import type { Metadata } from 'next';
+import type { Mesa } from '../../src/types';
+import { getMesas } from '../../src/services/api';
+import MesaCard from './MesaCard';
 
 export const metadata: Metadata = {
   title: 'Mesas — Restaurante',
 };
 
-export default function MesasPage() {
+// La función es async — puede hacer await directamente
+export default async function MesasPage() {
+  // fetch ocurre en el servidor — el browser nunca ve esta llamada
+  const mesas: Mesa[] = await getMesas();
+
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">Mesas</h1>
-      <p className="text-gray-500">Aquí irá la lista de mesas — conectar en Día 4</p>
+      <h1 className="text-2xl font-bold mb-6">Mesas del Restaurante</h1>
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+        {mesas.map((mesa: Mesa) => (
+          <MesaCard key={mesa._id} mesa={mesa} />
+        ))}
+      </div>
     </div>
   );
 }
