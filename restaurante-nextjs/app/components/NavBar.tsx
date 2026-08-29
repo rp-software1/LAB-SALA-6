@@ -7,7 +7,7 @@ import { usePedido } from '../../src/context/PedidoProvider';
 
 export default function NavBar() {
   const pathname = usePathname();
-  const { pedido } = usePedido();  
+  const { pedido } = usePedido();    
 
   // Total de unidades en el carrito (suma de cantidades)
   const totalItems = pedido.items.reduce((acc, item) => acc + item.cantidad, 0);

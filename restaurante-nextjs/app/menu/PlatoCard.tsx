@@ -31,7 +31,7 @@ export default function PlatoCard({
     <div className="rounded-lg border bg-white p-4 shadow-sm">
       <h3 className="mb-1 text-lg font-bold">
         {plato.nombre}
-      </h3>
+      </h3>   
 
       <p className="mb-2 text-sm text-gray-500">
         {plato.descripcion}
