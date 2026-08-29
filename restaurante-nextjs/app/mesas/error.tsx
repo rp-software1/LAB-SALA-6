@@ -1,6 +1,6 @@
 // app/mesas/error.tsx
 'use client';
-
+ 
 import { useEffect } from 'react';
 
 interface ErrorProps {

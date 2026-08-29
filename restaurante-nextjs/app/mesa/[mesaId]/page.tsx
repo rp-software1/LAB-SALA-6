@@ -3,7 +3,7 @@ interface MesaDetailProps {
     mesaId: string; // siempre string en Next.js
   };
 }
-
+ 
 export default function MesaDetailPage({ params }: MesaDetailProps) {
   return (
     <div>

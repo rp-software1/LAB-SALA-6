@@ -1,7 +1,7 @@
 // app/mesas/loading.tsx
 export default function MesasLoading() {
   return (
-    <div>
+    <div> 
       <h1 className="text-2xl font-bold mb-6">Mesas del Restaurante</h1>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
         {Array.from({ length: 8 }).map((_, i) => (
