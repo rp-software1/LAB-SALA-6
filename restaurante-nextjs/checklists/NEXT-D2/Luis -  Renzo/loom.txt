@@ -16,3 +16,5 @@ Para mesas, pedidos o platos que cambian frecuentemente, normalmente se utiliza 
 5. Si el backend devuelve Mesa con un campo nuevo activo: boolean que no está en types/index.ts, ¿TypeScript lo detecta? ¿Dónde exactamente?
 Si el backend agrega activo: boolean y no está en la interface Mesa, ¿TypeScript lo detecta?
 TypeScript mostrará un error cuando intentemos acceder a mesa.activo, porque esa propiedad no está declarada en la interface Mesa. Debemos agregarla en src/types/index.ts:
+
+link del video: https://drive.google.com/file/d/10HDalCH5zCDrfrxG3ccJxA0cuJz2v32O/view?usp=sharing
