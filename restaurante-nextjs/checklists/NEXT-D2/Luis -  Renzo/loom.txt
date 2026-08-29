@@ -1,0 +1,18 @@
+1. ¿Por qué MesasPage no tiene useState ni useEffect?
+Porque es un Server Component que se ejecuta en el servidor. Puede obtener las mesas directamente utilizando await getMesas(), por lo que 
+no necesita guardar los datos con useState ni cargarlos mediante useEffect.
+
+2.¿Por qué MesaCard necesita 'use client' pero MesasPage no?
+Porque MesaCard utiliza interacciones del navegador, como onClick y useRouter(). En cambio, MesasPage solamente obtiene los datos y genera el JSX desde el servidor.
+
+3. ¿Qué hace loading.tsx? ¿Quién lo activa?
+loading.tsx muestra un contenido temporal, como un skeleton, mientras la página espera sus datos. Next.js lo 
+detecta y activa automáticamente mediante Suspense; no necesitamos importarlo ni activarlo manualmente.
+
+4. ¿Qué diferencia hay entre cache: no-store y cache: force-cache en el fetch?
+no-store realiza una nueva petición para obtener información actualizada. force-cache guarda la respuesta y puede reutilizarla. 
+Para mesas, pedidos o platos que cambian frecuentemente, normalmente se utiliza no-store.
+
+5. Si el backend devuelve Mesa con un campo nuevo activo: boolean que no está en types/index.ts, ¿TypeScript lo detecta? ¿Dónde exactamente?
+Si el backend agrega activo: boolean y no está en la interface Mesa, ¿TypeScript lo detecta?
+TypeScript mostrará un error cuando intentemos acceder a mesa.activo, porque esa propiedad no está declarada en la interface Mesa. Debemos agregarla en src/types/index.ts:
