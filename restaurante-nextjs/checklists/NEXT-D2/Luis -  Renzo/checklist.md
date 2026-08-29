@@ -5,7 +5,7 @@ dia: 2
 estado: en_progreso
 loom: (agregar link al terminar)
 ---
-    
+     
 ## Bloques
 - [X] A — Videos + types/index.ts + variables de entorno
 - [X] B — MesasPage Server Component + MesaCard Client Component
