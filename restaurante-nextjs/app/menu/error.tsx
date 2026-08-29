@@ -7,12 +7,15 @@ interface ErrorProps {
   reset: () => void;
 }
 
-export default function MesasError({
+export default function MenuError({
   error,
   reset,
 }: ErrorProps) {
   useEffect(() => {
-    console.error("Error en /mesas:", error.message);
+    console.error(
+      "Error en /menu:",
+      error.message
+    );
   }, [error]);
 
   return (
@@ -20,7 +23,7 @@ export default function MesasError({
       <p className="mb-4 text-4xl">⚠️</p>
 
       <h2 className="mb-2 text-xl font-bold">
-        No se pudieron cargar las mesas
+        No se pudo cargar el menú
       </h2>
 
       <p className="mb-6 text-sm text-gray-500">
