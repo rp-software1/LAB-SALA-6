@@ -22,3 +22,18 @@ setAgregado(true)
 ¿El estado local agregado sigue sirviendo?
 Sí, se mantiene para gestionar el feedback visual temporal del botón 
 (cambiar a color verde y mostrar "✓ Agregado").
+
+Prediccion C
+
+¿CarritoPage puede exportar metadata de Next.js? ¿Por qué?
+
+No, porque es un Client Component y la metadata solo es compatible
+con Server Components.
+
+¿metadata funciona en Client Components?
+
+No.
+
+Si no funciona, ¿cómo se cambia el title de la pestaña en una página Client?
+
+Usando el hook de efectos de navegador (como useEffect) modificando directamente document.title.
