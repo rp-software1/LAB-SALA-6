@@ -7,7 +7,7 @@ loom:
 ---
 
 ## Bloques
-- [ ] A — PedidoProvider + integrar en layout.tsx
+- [X] A — PedidoProvider + integrar en layout.tsx
 - [ ] B — Conectar PlatoCard al Context + contador en NavBar
 - [ ] C — CarritoPage Client Component con Context
 - [ ] D — Server Action: enviarComanda()
