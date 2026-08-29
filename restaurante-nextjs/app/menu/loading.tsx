@@ -1,6 +1,6 @@
 // app/carrito/loading.tsx
 export default function CarritoLoading() {
-  return (
+  return ( 
     <div className="max-w-2xl mx-auto">
       <div className="h-8 bg-gray-200 rounded mb-6 w-1/3 animate-pulse" />
       {Array.from({ length: 3 }).map((_, i) => (

@@ -1,6 +1,6 @@
 // app/carrito/error.tsx
 // 'use client' — siempre obligatorio en error.tsx
-'use client';
+'use client';  
 
 import { useEffect } from 'react';
 

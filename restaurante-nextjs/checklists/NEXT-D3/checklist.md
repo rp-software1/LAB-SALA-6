@@ -1,7 +1,7 @@
 ---
 sala: I-SALA1
 curso: Next.js
-dia: 3
+dia: 3 
 estado: en_progreso
 loom: 
 --- 
