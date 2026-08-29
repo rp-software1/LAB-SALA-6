@@ -18,3 +18,10 @@ El usuario ve durante el fetch: El layout con NavBar y el contenido de loading.t
 
 loading.tsx
 
+Prediccion C
+
+error.tsx captura: Ambos (errores de JavaScript en tiempo de ejecución y errores del fetch/backend).
+
+¿Qué pasa si getMesas() lanza un Error con mensaje "503"? Se activa el componente error.tsx,
+interceptando el error y mostrando la interfaz de error personalizada en lugar de la página normal.
+
