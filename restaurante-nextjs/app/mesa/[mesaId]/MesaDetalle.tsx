@@ -27,7 +27,7 @@ export default function MesaDetalle({ mesa: initialMesa }: { mesa: Mesa }) {
         </div>
         <div>
           <span className="font-semibold">Capacidad:</span> {mesa.capacidad} personas
-        </div>
+        </div> 
         <div>
           <span className="font-semibold">Ubicación:</span> {mesa.ubicacion}
         </div>
