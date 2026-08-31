@@ -10,13 +10,13 @@ loom:
 - [X] A — PedidoProvider + integrar en layout.tsx
 - [X] B — Conectar PlatoCard al Context + contador en NavBar
 - [X] C — CarritoPage Client Component con Context
-- [ ] D — Server Action: enviarComanda()
-- [ ] E — Verificación TypeScript completa
-- [ ] F — Evaluación entre pares + Loom + PR
+- [x] D — Server Action: enviarComanda()
+- [x] E — Verificación TypeScript completa
+- [x] F — Evaluación entre pares + Loom + PR
 
 ## Verificación final
 - [X] Agregar plato en /menu → aparece en /carrito
 - [X] Enviar comanda desde /carrito → POST real al backend
-- [ ] npx tsc --noEmit → 0 errores
-- [ ] PR aprobado por sala par
+- [x] npx tsc --noEmit → 0 errores
+- [x] PR aprobado por sala par
 
