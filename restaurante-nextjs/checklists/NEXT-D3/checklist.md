@@ -3,7 +3,7 @@ sala: I-SALA1
 curso: Next.js
 dia: 3 
 estado: en_progreso
-loom: 
+loom: https://drive.google.com/file/d/1jXP88pqdKs8xZFYTkadt558ljW1iE5tQ/view?usp=sharing
 --- 
 
 ## Bloques
