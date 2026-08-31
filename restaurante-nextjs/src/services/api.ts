@@ -1,5 +1,3 @@
-// src/services/api.ts
-
 import type {
   Mesa,
   Plato,
@@ -80,6 +78,26 @@ export async function getMesas(): Promise<Mesa[]> {
   }
 
   return mesasMock;
+}
+
+// Obtener una mesa por ID simulada
+export async function getMesaById(id: string): Promise<Mesa> {
+  await new Promise<void>((resolve) => {
+    setTimeout(resolve, 500);
+  });
+
+  if (SIMULAR_ERROR_MESAS) {
+    throw new Error(
+      "Error simulado al cargar la mesa"
+    );
+  }
+
+  const mesa = mesasMock.find((m) => m._id === id);
+  if (!mesa) {
+    throw new Error(`Mesa con ID ${id} no encontrada`);
+  }
+
+  return mesa;
 }
 
 // Obtener platos simulados
