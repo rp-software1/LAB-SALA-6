@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     return {
       title: `Mesa no encontrada — Restaurante`,
     };
-  }
+  } 
 }
 
 export default async function MesaDetailPage({ params }: PageProps) {

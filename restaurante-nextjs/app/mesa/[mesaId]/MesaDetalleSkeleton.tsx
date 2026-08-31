@@ -2,7 +2,7 @@ export default function MesaDetalleSkeleton() {
   return (
     <div className="bg-white shadow rounded-lg p-6 space-y-4 animate-pulse">
       <div className="h-4 bg-gray-200 rounded w-1/3" />
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4"> 
         <div className="h-4 bg-gray-200 rounded" />
         <div className="h-4 bg-gray-200 rounded" />
       </div> 

@@ -51,7 +51,7 @@ export default function MesaDetalle({ mesa: initialMesa }: MesaDetalleProps) {
         <div>
           <span className="font-semibold">Estado actual:</span>{" "}
           <span className="uppercase font-bold text-blue-600">{mesa.estado}</span>
-        </div>
+        </div> 
       </div>
 
       <div className="pt-4 border-t">
