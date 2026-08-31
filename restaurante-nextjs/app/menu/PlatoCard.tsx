@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Plato } from "../../src/types";
+import { usePedido } from "../../src/context/PedidoProvider";
 
 interface PlatoCardProps {
   plato: Plato;
@@ -10,10 +11,11 @@ interface PlatoCardProps {
 export default function PlatoCard({
   plato,
 }: PlatoCardProps) {
-  const [agregado, setAgregado] =
-    useState<boolean>(false);
+  const { agregarPlato } = usePedido();
+  const [agregado, setAgregado] = useState<boolean>(false);
 
   const handleAgregar = (): void => {
+    agregarPlato(plato); // Agrega el plato al estado global del contexto
     setAgregado(true);
 
     setTimeout(() => {
@@ -29,7 +31,7 @@ export default function PlatoCard({
     <div className="rounded-lg border bg-white p-4 shadow-sm">
       <h3 className="mb-1 text-lg font-bold">
         {plato.nombre}
-      </h3>
+      </h3>   
 
       <p className="mb-2 text-sm text-gray-500">
         {plato.descripcion}

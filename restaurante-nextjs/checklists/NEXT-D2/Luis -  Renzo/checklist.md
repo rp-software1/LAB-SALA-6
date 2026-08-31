@@ -3,7 +3,7 @@ sala: I-SALA1
 curso: Next.js
 dia: 2
 estado: en_progreso
-loom: (agregar link al terminar)
+loom: https://drive.google.com/file/d/10HDalCH5zCDrfrxG3ccJxA0cuJz2v32O/view?usp=sharing
 ---
      
 ## Bloques
@@ -20,4 +20,3 @@ loom: (agregar link al terminar)
 - [x] /menu muestra platos reales del backend
 - [x] npx tsc --noEmit → 0 errores
 - [x] PR aprobado por sala par
-

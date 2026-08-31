@@ -1,0 +1,23 @@
+1. ¿Por qué PedidoProvider.tsx tiene "use client" pero layout.tsx no necesita "use client" para importarlo?
+
+Porque un Server Component puede importar y renderizar un Client Component. "use client" marca el punto desde donde 
+comienza la parte que se ejecuta en el cliente, pero no impide que layout.tsx utilice el Provider.
+
+2. ¿Qué diferencia hay entre un Server Action y un API Route de Next.js?
+Un API Route crea una URL que puede recibir peticiones mediante fetch, por ejemplo /api/pedidos. Un Server Action es una 
+función que se ejecuta en el servidor, pero el Client Component puede llamarla como una función normal, sin configurar una URL ni headers.
+
+3. ¿Por qué enviarComanda() retorna un objeto { ok: boolean } en lugar de lanzar un Error?
+
+Porque así el cliente puede comprobar directamente si la operación 
+funcionó y mostrar el mensaje correspondiente. La función mantiene un resultado predecible sin depender únicamente de try/catch.
+
+4. ¿Qué pasa con el carrito si el usuario recarga la página?
+
+Se pierde porque el Context utiliza useState, cuyo contenido vive solamente en memoria. 
+Para conservarlo después de una recarga se podría utilizar localStorage, cookies o una base de datos.
+
+5. Si quisieras que /carrito también mostrara el estado de la mesa asignada, ¿qué cambio harías? ¿Dónde está ese dato?
+
+El identificador está guardado en pedido.mesaId y CarritoPage ya puede acceder a él mediante usePedido(). Se puede mostrar directamente:
+<p>Mesa asignada: {pedido.mesaId ?? "Sin mesa"}</p>

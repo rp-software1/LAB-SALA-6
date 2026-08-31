@@ -10,7 +10,7 @@ import type {
 // true muestra error.tsx.
 // false muestra los datos simulados.
 const SIMULAR_ERROR_MESAS = false;
-const SIMULAR_ERROR_MENU = true;
+const SIMULAR_ERROR_MENU = false;
 
 const mesaMock: Mesa = {
   _id: "1",
