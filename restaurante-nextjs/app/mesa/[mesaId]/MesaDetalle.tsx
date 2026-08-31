@@ -1,24 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { getMesaById } from "../../../src/services/api"; // Ruta relativa
-import { Mesa, EstadoMesa } from "../../../src/types"; // Ruta relativa
+import { useState } from "react";
+import type { Mesa, EstadoMesa } from "../../../src/types";
 import { cambiarEstadoMesa } from "./actions";
 
-export default function MesaDetalle({ mesaId }: { mesaId: string }) {
-  const [mesa, setMesa] = useState<Mesa | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    getMesaById(mesaId)
-      .then((data: Mesa) => setMesa(data))
-      .catch((err: Error) => setError(err.message))
-      .finally(() => setLoading(false));
-  }, [mesaId]);
+export default function MesaDetalle({ mesa: initialMesa }: { mesa: Mesa }) {
+  const [mesa, setMesa] = useState<Mesa>(initialMesa);
 
   const handleCambiarEstado = async (nuevoEstado: EstadoMesa) => {
-    if (!mesa) return;
     try {
       await cambiarEstadoMesa(mesa._id, nuevoEstado);
       setMesa({ ...mesa, estado: nuevoEstado });
@@ -26,10 +15,6 @@ export default function MesaDetalle({ mesaId }: { mesaId: string }) {
       console.error(err);
     }
   };
-
-  if (loading) return <p className="text-gray-500">Cargando detalles de la mesa...</p>;
-  if (error) return <p className="text-red-500">Error: {error}</p>;
-  if (!mesa) return <p className="text-gray-500">Mesa no encontrada.</p>;
 
   return (
     <div className="bg-white shadow rounded-lg p-6 space-y-4">
