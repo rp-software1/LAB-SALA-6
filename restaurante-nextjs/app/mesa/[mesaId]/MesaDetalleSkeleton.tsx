@@ -10,6 +10,6 @@ export default function MesaDetalleSkeleton() {
         <div className="h-9 bg-gray-200 rounded w-32" />
         <div className="h-9 bg-gray-200 rounded w-32" />
       </div>
-    </div>
+    </div>  
   );
-}
+}  
