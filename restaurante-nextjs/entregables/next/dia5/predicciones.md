@@ -1,5 +1,5 @@
 Prediccion A
-
+  
 ¿El backend tiene GET /pedidos?estado=pendiente para filtrar? Verificarlo con Postman antes 
 de escribir código.
 

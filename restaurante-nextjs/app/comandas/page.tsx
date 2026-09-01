@@ -1,4 +1,4 @@
-// app/comandas/page.tsx
+// app/comandas/page.tsx 
 import type { Metadata } from 'next';
 import type { Pedido } from "../../src/types";
 import { getPedidos } from '../../src/services/api';

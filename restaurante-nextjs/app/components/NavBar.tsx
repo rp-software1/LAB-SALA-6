@@ -1,6 +1,6 @@
 // app/components/NavBar.tsx
 'use client'; // NavBar usa usePathname y usePedido (hooks) → necesita ser Client Component
-
+ 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { usePedido } from '../../src/context/PedidoProvider';

@@ -1,6 +1,6 @@
 // app/comandas/ComandaCard.tsx
 import type { Pedido } from "../../src/types";
-
+ 
 export default function ComandaCard({ pedido }: { pedido: Pedido }) {
   return (
     <div className="border rounded-lg p-4 shadow-sm bg-white">

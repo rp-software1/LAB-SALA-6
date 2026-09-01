@@ -19,7 +19,7 @@ type ResultadoEnvio =
 export async function enviarComanda(
   pedido: EstadoPedidoContext
 ): Promise<ResultadoEnvio> {
-  try {
+  try { 
     if (pedido.items.length === 0) {
       return {
         ok: false,
