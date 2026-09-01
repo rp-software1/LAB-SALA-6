@@ -108,7 +108,7 @@ export default function CarritoPage() {
             </div>
           );
         })}
-      </div>
+      </div> 
 
       <div className="mb-6 rounded-lg bg-white p-4 shadow-sm">
         <div className="flex justify-between text-lg font-bold">

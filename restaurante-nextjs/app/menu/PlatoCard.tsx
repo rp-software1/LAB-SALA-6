@@ -5,7 +5,7 @@ import type { Plato } from "../../src/types";
 import { usePedido } from "../../src/context/PedidoProvider";
 
 interface PlatoCardProps {
-  plato: Plato;
+  plato: Plato; 
 }
 
 export default function PlatoCard({
