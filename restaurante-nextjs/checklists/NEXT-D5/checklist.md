@@ -9,7 +9,7 @@ loom:
 ## Bloques
 - [X] A — getPedidos en api.ts + verificar endpoints con Postman
 - [X] B — ComandasPage Server Component + metadata estática
-- [ ] C — ComandaCard Client Component + flujo de estados
+- [X] C — ComandaCard Client Component + flujo de estados
 - [ ] D — avanzarEstadoPedido Server Action + revalidatePath
 - [ ] E — NavBar actualizado + loading + error + verificación TypeScript
 - [ ] F — Evaluación entre pares + Loom + PR
@@ -17,6 +17,6 @@ loom:
 ## Verificación final
 - [X] /comandas muestra pedidos reales del backend
 - [X] Avanzar estado → lista actualizada automáticamente
-- [ ] Flujo pendiente→en_preparacion→lista→entregada funciona
-- [ ] npx tsc --noEmit → 0 errores
+- [X] Flujo pendiente→en_preparacion→lista→entregada funciona
+- [X] npx tsc --noEmit → 0 errores
 - [ ] PR aprobado por sala par
