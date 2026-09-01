@@ -1,7 +1,7 @@
 import type {
-  Mesa,
+  Mesa,   
   Plato,
-  Pedido,
+  Pedido,  
   EstadoPedido,
 } from "../types";
 
@@ -10,9 +10,10 @@ import type {
 const SIMULAR_ERROR_MESAS = false;
 const SIMULAR_ERROR_MENU = false;
 
-// Declaración global para mantener la persistencia real de las mesas entre Server Actions y la API
+// Declaraciones globales para mantener la persistencia en memoria (100% Frontend)
 declare global {
   var _mesasMemoryStore: Mesa[] | undefined;
+  var _pedidosMemoryStore: Pedido[] | undefined;
 }
 
 if (!global._mesasMemoryStore) {
@@ -48,6 +49,10 @@ if (!global._mesasMemoryStore) {
   ];
 }
 
+if (!global._pedidosMemoryStore) {
+  global._pedidosMemoryStore = [];
+}
+
 const platosMock: Plato[] = [
   {
     _id: "p1",
@@ -72,7 +77,7 @@ const platosMock: Plato[] = [
 // Obtener mesas simuladas desde el store global compartido
 export async function getMesas(): Promise<Mesa[]> {
   await new Promise<void>((resolve) => {
-    setTimeout(resolve, 500); // Reducido ligeramente para agilizar pruebas
+    setTimeout(resolve, 500);
   });
 
   if (SIMULAR_ERROR_MESAS) {
@@ -119,7 +124,16 @@ export async function getPlatos(): Promise<Plato[]> {
   return platosMock;
 }
 
-// Crear un pedido simulado
+// Obtener pedidos desde el store global en memoria (100% Frontend)
+export async function getPedidos(): Promise<Pedido[]> {
+  await new Promise<void>((resolve) => {
+    setTimeout(resolve, 300);
+  });
+
+  return global._pedidosMemoryStore!;
+}
+
+// Crear un pedido simulado y guardarlo en memoria
 export async function crearPedido(
   datos: Omit<
     Pedido,
@@ -137,15 +151,26 @@ export async function crearPedido(
     actualizadoEn: fechaActual,
   };
 
-  return Promise.resolve(nuevoPedido);
+  global._pedidosMemoryStore!.push(nuevoPedido);
+  return nuevoPedido;
 }
 
-// Cambiar el estado de un pedido simulado
+// Cambiar el estado de un pedido simulado en memoria
 export async function cambiarEstadoPedido(
   pedidoId: string,
   estado: EstadoPedido
 ): Promise<Pedido> {
   const fechaActual = new Date().toISOString();
+
+  const pedidoExistente = global._pedidosMemoryStore!.find(
+    (p) => String(p._id) === String(pedidoId)
+  );
+
+  if (pedidoExistente) {
+    pedidoExistente.estado = estado;
+    pedidoExistente.actualizadoEn = fechaActual;
+    return pedidoExistente;
+  }
 
   const pedidoMock: Pedido = {
     _id: pedidoId,
@@ -157,5 +182,6 @@ export async function cambiarEstadoPedido(
     actualizadoEn: fechaActual,
   };
 
-  return Promise.resolve(pedidoMock);
+  global._pedidosMemoryStore!.push(pedidoMock);
+  return pedidoMock;
 }

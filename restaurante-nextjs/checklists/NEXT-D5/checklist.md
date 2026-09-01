@@ -15,7 +15,7 @@ loom:
 - [ ] F — Evaluación entre pares + Loom + PR
 
 ## Verificación final
-- [ ] /comandas muestra pedidos reales del backend
+- [X] /comandas muestra pedidos reales del backend
 - [ ] Avanzar estado → lista actualizada automáticamente
 - [ ] Flujo pendiente→en_preparacion→lista→entregada funciona
 - [ ] npx tsc --noEmit → 0 errores
