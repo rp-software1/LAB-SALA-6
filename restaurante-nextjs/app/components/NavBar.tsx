@@ -23,6 +23,7 @@ export default function NavBar() {
       <span className='font-bold text-lg mr-4'>🍽 Restaurante</span>
       <Link href='/mesas'   className={esActiva('/mesas')}>Mesas</Link>
       <Link href='/menu'    className={esActiva('/menu')}>Menú</Link>
+      <Link href='/comandas' className={esActiva('/comandas')}>Comandas</Link>
       <Link href='/carrito' className={`${esActiva('/carrito')} relative`}>
         Carrito
         {totalItems > 0 && (

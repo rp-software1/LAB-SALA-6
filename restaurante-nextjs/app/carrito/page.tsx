@@ -1,17 +1,28 @@
+// app/carrito/page.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { usePedido } from '../../src/context/PedidoProvider';
 import { enviarComanda } from './actions';
+import { getMesas } from '../../src/services/api';
+import type { Mesa } from '../../src/types';
 
 export default function CarritoPage() {
   const { pedido, quitarPlato, limpiarPedido } = usePedido();
   const router = useRouter();
 
+  const [mesas, setMesas] = useState<Mesa[]>([]);
+  const [mesaSeleccionada, setMesaSeleccionada] = useState<string>(pedido.mesaId ?? '');
   const [enviando, setEnviando] = useState<boolean>(false);
   const [confirmacion, setConfirmacion] = useState<string | null>(null);
   const [errorEnvio, setErrorEnvio] = useState<string | null>(null);
+
+  useEffect(() => {
+    getMesas()
+      .then((data) => setMesas(data))
+      .catch(() => {});
+  }, []);
 
   const totalVisual = pedido.items.reduce((acc: number, item: any) => {
     const precio = item.precioUnitario ?? item.precio ?? item.plato?.precio ?? 0;
@@ -23,8 +34,12 @@ export default function CarritoPage() {
     setErrorEnvio(null);
 
     try {
-      // Hacemos un casting a 'any' para evitar el conflicto de tipos del estado del pedido
-      const resultado = await enviarComanda(pedido as any);
+      const pedidoConMesa = {
+        ...pedido,
+        mesaId: mesaSeleccionada || undefined,
+      };
+
+      const resultado = await enviarComanda(pedidoConMesa as any);
 
       if (resultado.ok) {
         setConfirmacion(resultado.pedidoId);
@@ -108,7 +123,23 @@ export default function CarritoPage() {
             </div>
           );
         })}
-      </div> 
+      </div>
+
+      <div className="mb-6 rounded-lg bg-white p-4 shadow-sm space-y-3">
+        <label className="block text-sm font-semibold text-gray-700">Asignar Mesa:</label>
+        <select
+          value={mesaSeleccionada}
+          onChange={(e) => setMesaSeleccionada(e.target.value)}
+          className="w-full border border-gray-300 rounded p-2 text-sm bg-white"
+        >
+          <option value="">-- Seleccionar mesa (Opcional) --</option>
+          {mesas.map((m) => (
+            <option key={m._id} value={m._id}>
+              Mesa {m.numero} ({m.ubicacion})
+            </option>
+          ))}
+        </select>
+      </div>
 
       <div className="mb-6 rounded-lg bg-white p-4 shadow-sm">
         <div className="flex justify-between text-lg font-bold">

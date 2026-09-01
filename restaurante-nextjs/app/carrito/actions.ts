@@ -1,8 +1,10 @@
+// app/carrito/actions.ts
 "use server";
 
 import type {
   EstadoPedidoContext,
 } from "../../src/types";
+import { crearPedido } from "../../src/services/api";
 
 type ResultadoEnvio =
   | {
@@ -18,12 +20,6 @@ export async function enviarComanda(
   pedido: EstadoPedidoContext
 ): Promise<ResultadoEnvio> {
   try {
-    // Simula una espera del servidor
-    await new Promise<void>((resolve) => {
-      setTimeout(resolve, 2000);
-    });
-
-    // Validar que el pedido tenga platos
     if (pedido.items.length === 0) {
       return {
         ok: false,
@@ -31,24 +27,15 @@ export async function enviarComanda(
       };
     }
 
-    // Generar un ID simulado
-    const pedidoId = `pedido-${Math.random()
-      .toString(36)
-      .substring(2, 9)}`;
-
-    console.log("Comanda simulada:", {
-      _id: pedidoId,
-      mesaId: pedido.mesaId,
-      tipo: pedido.tipo,
-      estado: "pendiente",
+    const nuevoPedido = await crearPedido({
+      mesa: pedido.mesaId ? (pedido.mesaId as unknown as import("../../src/types").Mesa) : (undefined as unknown as import("../../src/types").Mesa),
       items: pedido.items,
       total: pedido.total,
-      creadoEn: new Date().toISOString(),
-    });
+    } as any);
 
     return {
       ok: true,
-      pedidoId,
+      pedidoId: nuevoPedido._id,
     };
   } catch (error: unknown) {
     const mensaje =

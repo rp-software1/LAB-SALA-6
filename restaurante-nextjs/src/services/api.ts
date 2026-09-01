@@ -1,3 +1,4 @@
+// src/services/api.ts
 import type {
   Mesa,   
   Plato,
@@ -133,17 +134,29 @@ export async function getPedidos(): Promise<Pedido[]> {
   return global._pedidosMemoryStore!;
 }
 
-// Crear un pedido simulado y guardarlo en memoria
+// Crear un pedido simulado y guardarlo en memoria resolviendo la relación de la mesa
 export async function crearPedido(
-  datos: Omit<
-    Pedido,
-    "_id" | "creadoEn" | "actualizadoEn"
-  >
+  datos: any
 ): Promise<Pedido> {
   const fechaActual = new Date().toISOString();
 
+  // Buscar el objeto Mesa completo si se proporciona un ID o mesaId
+  let mesaObjeto = datos.mesa;
+  const targetMesaId = datos.mesaId ?? datos.mesa;
+
+  if (targetMesaId && typeof targetMesaId === 'string') {
+    const encontrada = global._mesasMemoryStore?.find(
+      (m) => String(m._id) === String(targetMesaId) || String(m.numero) === String(targetMesaId)
+    );
+    if (encontrada) {
+      mesaObjeto = encontrada;
+    }
+  }
+
   const nuevoPedido: Pedido = {
     ...datos,
+    mesa: mesaObjeto,
+    estado: datos.estado ?? "pendiente",
     _id: Math.random()
       .toString(36)
       .substring(2, 9),
