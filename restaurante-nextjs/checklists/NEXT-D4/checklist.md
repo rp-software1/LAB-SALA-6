@@ -10,7 +10,7 @@ loom:
 - [X] A — getMesaById en api.ts + verificar con Postman
 - [X] B — page.tsx con fetch real + generateMetadata + notFound()
 - [X] C — MesaDetalle Client Component + Suspense manual
-- [ ] D — Server Action cambiarEstadoMesa + revalidatePath
+- [x] D — Server Action cambiarEstadoMesa + revalidatePath
 - [ ] E — Verificación TypeScript + flujo completo
 - [ ] F — Evaluación entre pares + Loom + PRs
 
