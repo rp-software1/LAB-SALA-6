@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useTransition } from 'react';
+import { useRouter } from 'next/navigation';
 import type { Mesa, EstadoMesa } from '../../../src/types';
 import { cambiarEstadoMesa } from './actions';
 
@@ -18,17 +19,19 @@ const ESTADOS: { valor: EstadoMesa; etiqueta: string; color: string }[] = [
 export default function MesaDetalle({ mesa: initialMesa }: MesaDetalleProps) {
   const [mesa, setMesa] = useState<Mesa>(initialMesa);
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const handleCambiarEstado = (nuevoEstado: EstadoMesa): void => {
     if (nuevoEstado === mesa.estado) return;
 
     startTransition(async () => {
-      try {
-        await cambiarEstadoMesa(mesa._id, nuevoEstado);
-        setMesa({ ...mesa, estado: nuevoEstado });
-      } catch (err: any) {
-        console.error("Error al cambiar estado:", err);
-        alert(`Error: ${err.message || "No se pudo cambiar el estado"}`);
+      const resultado = await cambiarEstadoMesa(mesa._id, nuevoEstado);
+      
+      if (resultado.ok) {
+        setMesa(resultado.mesa);
+        router.refresh(); // Sincroniza el caché del servidor
+      } else {
+        alert(`Error: ${resultado.error}`);
       }
     });
   };
@@ -51,7 +54,7 @@ export default function MesaDetalle({ mesa: initialMesa }: MesaDetalleProps) {
         <div>
           <span className="font-semibold">Estado actual:</span>{" "}
           <span className="uppercase font-bold text-blue-600">{mesa.estado}</span>
-        </div> 
+        </div>
       </div>
 
       <div className="pt-4 border-t">

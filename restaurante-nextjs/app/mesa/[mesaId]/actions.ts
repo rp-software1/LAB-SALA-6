@@ -1,15 +1,35 @@
-"use server";  
+'use server';
 
-import { revalidatePath } from "next/cache";
+import { revalidatePath } from 'next/cache';
+import type { EstadoMesa, Mesa } from '../../../src/types';
 
-export async function cambiarEstadoMesa(mesaId: string, nuevoEstado: string) {
-  // Aquí puedes integrar tu llamada al backend real o simular la mutación
-  // Ejemplo: await fetch(`${BASE_URL}/mesas/${mesaId}`, { method: 'PATCH', body: JSON.stringify({ estado: nuevoEstado }) });
-  
-  // Simulamos un retraso de red
-  await new Promise((resolve) => setTimeout(resolve, 500));
+export async function cambiarEstadoMesa( 
+  mesaId: string,
+  nuevoEstado: EstadoMesa
+): Promise<{ ok: true; mesa: Mesa } | { ok: false; error: string }> {
+  try {
+    const mesas = global._mesasMemoryStore;
+    if (!mesas) {
+      return { ok: false, error: 'Store de mesas no inicializado' };  
+    }
 
-  // Revalida la ruta para reflejar los cambios instantáneamente
-  revalidatePath(`/mesa/${mesaId}`);
-  revalidatePath(`/mesas`);
+    const mesaEncontrada = mesas.find(
+      (m) => String(m._id) === String(mesaId) || String(m.numero) === String(mesaId)
+    );
+
+    if (!mesaEncontrada) {
+      return { ok: false, error: 'Mesa no encontrada' };
+    }
+
+    // Actualizamos el valor en memoria de forma real
+    mesaEncontrada.estado = nuevoEstado;
+
+    revalidatePath('/mesas');
+    revalidatePath(`/mesa/${mesaId}`);
+
+    return { ok: true, mesa: { ...mesaEncontrada } };
+  } catch (err: unknown) {
+    const mensaje = err instanceof Error ? err.message : "Error desconocido";
+    return { ok: false, error: mensaje };
+  }
 }

@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { getMesaById } from "../../../src/services/api";
+import { mesasStore } from "../../../src/data/mesasStore";
 import MesaDetalle from "./MesaDetalle";
 import MesaDetalleSkeleton from "./MesaDetalleSkeleton";
 
@@ -12,7 +12,8 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   try {
     const { mesaId } = await params;
-    const mesa = await getMesaById(mesaId);
+    const mesa = mesasStore.find((m) => m._id === mesaId);
+    if (!mesa) throw new Error("No encontrada");
     return {
       title: `Mesa ${mesa.numero} — Restaurante`,
       description: `Estado: ${mesa.estado} | Capacidad: ${mesa.capacidad} personas`,
@@ -27,10 +28,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function MesaDetailPage({ params }: PageProps) {
   const { mesaId } = await params;
 
-  let mesa;
-  try {
-    mesa = await getMesaById(mesaId);
-  } catch {
+  const mesa = mesasStore.find((m) => m._id === mesaId);
+  if (!mesa) {
     notFound();
   }
 

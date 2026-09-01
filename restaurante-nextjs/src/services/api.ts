@@ -10,38 +10,43 @@ import type {
 const SIMULAR_ERROR_MESAS = false;
 const SIMULAR_ERROR_MENU = false;
 
-const mesaMock: Mesa = {
-  _id: "1",
-  numero: 1,
-  capacidad: 4,
-  estado: "disponible",
-  ubicacion: "Salón Principal",
-};
+// Declaración global para mantener la persistencia real de las mesas entre Server Actions y la API
+declare global {
+  var _mesasMemoryStore: Mesa[] | undefined;
+}
 
-const mesasMock: Mesa[] = [
-  mesaMock,
-  {
-    _id: "2",
-    numero: 2,
-    capacidad: 2,
-    estado: "ocupada",
-    ubicacion: "Salón Principal",
-  },
-  {
-    _id: "3",
-    numero: 3,
-    capacidad: 6,
-    estado: "reservada",
-    ubicacion: "Terraza",
-  },
-  {
-    _id: "4",
-    numero: 4,
-    capacidad: 4,
-    estado: "fuera_servicio",
-    ubicacion: "Terraza",
-  },
-];
+if (!global._mesasMemoryStore) {
+  global._mesasMemoryStore = [
+    {
+      _id: "1",
+      numero: 1,
+      capacidad: 4,
+      estado: "disponible",
+      ubicacion: "Salón Principal",
+    },
+    {
+      _id: "2",
+      numero: 2,
+      capacidad: 2,
+      estado: "ocupada",
+      ubicacion: "Salón Principal",
+    },
+    {
+      _id: "3",
+      numero: 3,
+      capacidad: 6,
+      estado: "reservada",
+      ubicacion: "Terraza",
+    },
+    {
+      _id: "4",
+      numero: 4,
+      capacidad: 4,
+      estado: "fuera_servicio",
+      ubicacion: "Terraza",
+    },
+  ];
+}
 
 const platosMock: Plato[] = [
   {
@@ -64,11 +69,10 @@ const platosMock: Plato[] = [
   },
 ];
 
-// Obtener mesas simuladas
+// Obtener mesas simuladas desde el store global compartido
 export async function getMesas(): Promise<Mesa[]> {
-  // Esperar 3 segundos para mostrar loading.tsx
   await new Promise<void>((resolve) => {
-    setTimeout(resolve, 3000);
+    setTimeout(resolve, 500); // Reducido ligeramente para agilizar pruebas
   });
 
   if (SIMULAR_ERROR_MESAS) {
@@ -77,13 +81,13 @@ export async function getMesas(): Promise<Mesa[]> {
     );
   }
 
-  return mesasMock;
+  return global._mesasMemoryStore!;
 }
 
 // Obtener una mesa por ID simulada
 export async function getMesaById(id: string): Promise<Mesa> {
   await new Promise<void>((resolve) => {
-    setTimeout(resolve, 500);
+    setTimeout(resolve, 200);
   });
 
   if (SIMULAR_ERROR_MESAS) {
@@ -92,7 +96,7 @@ export async function getMesaById(id: string): Promise<Mesa> {
     );
   }
 
-  const mesa = mesasMock.find((m) => m._id === id);
+  const mesa = global._mesasMemoryStore!.find((m) => String(m._id) === String(id));
   if (!mesa) {
     throw new Error(`Mesa con ID ${id} no encontrada`);
   }
@@ -102,9 +106,8 @@ export async function getMesaById(id: string): Promise<Mesa> {
 
 // Obtener platos simulados
 export async function getPlatos(): Promise<Plato[]> {
-  // Esperar 3 segundos para mostrar loading.tsx
   await new Promise<void>((resolve) => {
-    setTimeout(resolve, 3000);
+    setTimeout(resolve, 1000);
   });
 
   if (SIMULAR_ERROR_MENU) {
@@ -146,7 +149,7 @@ export async function cambiarEstadoPedido(
 
   const pedidoMock: Pedido = {
     _id: pedidoId,
-    mesa: mesaMock,
+    mesa: global._mesasMemoryStore![0],
     items: [],
     estado,
     total: 0,

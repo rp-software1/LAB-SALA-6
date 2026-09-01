@@ -18,5 +18,5 @@ loom:
 - [X] Clic en mesa → /mesa/[id] muestra datos reales
 - [X] Pestaña del browser muestra "Mesa N — Restaurante"
 - [X] Cambiar estado → la mesa en /mesas se actualiza
-- [ ] npx tsc --noEmit → 0 errores 
+- [X] npx tsc --noEmit → 0 errores 
 - [ ] PR aprobado por sala par
