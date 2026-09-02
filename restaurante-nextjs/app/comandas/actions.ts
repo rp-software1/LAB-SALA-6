@@ -1,19 +1,92 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { cambiarEstadoPedido } from '../../src/services/api';
-import type { EstadoPedido } from '../../src/types';
+import type { EstadoPedido, Pedido } from '../../src/types';
 
-export async function avanzarEstadoPedido(pedidoId: string, nuevoEstado: EstadoPedido) {
+declare global {
+  var _pedidosMemoryStore: Pedido[] | undefined;
+}
+
+// Inicializar store si todavía no existe
+if (!global._pedidosMemoryStore) {
+  global._pedidosMemoryStore = [];
+}
+
+// Estados permitidos
+const TRANSICIONES: Record<EstadoPedido, EstadoPedido | null> = {
+  pendiente: 'en_preparacion',
+  en_preparacion: 'lista',
+  lista: 'entregada',
+  entregada: null,
+};
+
+export async function avanzarEstadoPedido(
+  pedidoId: string,
+  nuevoEstado: EstadoPedido
+): Promise<
+  { ok: true; pedido: Pedido } |
+  { ok: false; error: string }
+> {
   try {
-    await cambiarEstadoPedido(pedidoId, nuevoEstado);
+    const pedidos = global._pedidosMemoryStore;
 
-    // Revalida tanto las comandas como la vista de mesas
+    if (!pedidos) {
+      return {
+        ok: false,
+        error: 'Store de pedidos no inicializado',
+      };
+    }
+
+    const pedidoEncontrado = pedidos.find(
+      (pedido) =>
+        String(pedido._id) === String(pedidoId)
+    );
+
+    if (!pedidoEncontrado) {
+      return {
+        ok: false,
+        error: 'Pedido no encontrado',
+      };
+    }
+
+    const siguienteEstado =
+      TRANSICIONES[pedidoEncontrado.estado];
+
+    if (!siguienteEstado) {
+      return {
+        ok: false,
+        error: 'El pedido ya está entregado',
+      };
+    }
+
+    if (nuevoEstado !== siguienteEstado) {
+      return {
+        ok: false,
+        error: `No se puede pasar de ${pedidoEncontrado.estado} a ${nuevoEstado}`,
+      };
+    }
+
+    // Actualizar estado en memoria
+    pedidoEncontrado.estado = nuevoEstado;
+
+    // Revalidar las páginas afectadas
     revalidatePath('/comandas');
     revalidatePath('/mesas');
 
-    return { ok: true };
-  } catch (error: any) {
-    return { ok: false, error: error.message || 'Error desconocido al actualizar pedido' };
+    return {
+      ok: true,
+      pedido: { ...pedidoEncontrado },
+    };
+
+  } catch (error: unknown) {
+    const mensaje =
+      error instanceof Error
+        ? error.message
+        : 'Error desconocido al actualizar pedido';
+
+    return {
+      ok: false,
+      error: mensaje,
+    };
   }
 }
