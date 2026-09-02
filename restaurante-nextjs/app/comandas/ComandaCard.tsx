@@ -1,4 +1,4 @@
-'use client';
+'use client';  
 
 import { useTransition } from 'react';
 import type { Pedido, EstadoPedido } from '../../src/types';
