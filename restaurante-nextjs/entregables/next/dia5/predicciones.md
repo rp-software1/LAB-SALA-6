@@ -29,3 +29,11 @@ Porque se define directamente como un objeto estático (export const metadata), 
 más simple y limpia cuando el título de la página no requiere consultas a bases de datos o servicios externos.
 
 Prediccion  C
+
+¿Qué muestra ComandaCard para un pedido tipo "para_llevar" donde mesaId es null?
+
+Para un pedido "para_llevar" muestra: "Para Llevar" (o "Para llevar" / el identificador
+de tipo, ya que al ser mesaId null no muestra el número de mesa).
+
+Para un pedido "mesa" muestra: "Mesa X" (donde X representa el número o identificador asignado a 
+la mesa, por ejemplo "Mesa 1"). 
