@@ -1,4 +1,3 @@
-// app/mesas/page.tsx
 import type { Metadata } from 'next';
 import type { Mesa } from '../../src/types';
 import { getMesas } from '../../src/services/api';
@@ -8,7 +7,8 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: 'Mesas — Restaurante',
+  title: 'Mesas',
+  description: 'Gestiona las mesas del restaurante — ve su estado y asigna comandas.',
 };
 
 export default async function MesasPage() {

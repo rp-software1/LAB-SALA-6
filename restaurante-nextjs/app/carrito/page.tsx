@@ -1,4 +1,3 @@
-// app/carrito/page.tsx
 'use client';
    
 import { useState, useEffect } from 'react';
@@ -19,12 +18,23 @@ export default function CarritoPage() {
   const [errorEnvio, setErrorEnvio] = useState<string | null>(null);
 
   useEffect(() => {
+    if (confirmacion) {
+      document.title = 'Comanda Enviada — Sistema de Restaurante';
+    } else {
+      const cantidadItems = pedido?.items?.length ?? 0;
+      document.title = cantidadItems > 0
+        ? `Carrito (${cantidadItems}) — Sistema de Restaurante`
+        : 'Carrito — Sistema de Restaurante';
+    }
+  }, [pedido?.items?.length, confirmacion]);
+
+  useEffect(() => {
     getMesas()
       .then((data) => setMesas(data))
       .catch(() => {});
   }, []);
 
-  const totalVisual = pedido.items.reduce((acc: number, item: any) => {
+  const totalVisual = (pedido?.items || []).reduce((acc: number, item: any) => {
     const precio = item.precioUnitario ?? item.precio ?? item.plato?.precio ?? 0;
     return acc + precio * item.cantidad;
   }, 0);

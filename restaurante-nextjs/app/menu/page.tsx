@@ -1,13 +1,11 @@
-// app/menu/page.tsx
-// Server Component: no necesita "use client"
-
 import type { Metadata } from "next";
 import type { Plato } from "../../src/types";
 import { getPlatos } from "../../src/services/api";
 import PlatoCard from "../../app/menu/PlatoCard";
 
 export const metadata: Metadata = {
-  title: "Menú — Restaurante",
+  title: 'Menú',
+  description: 'Menú completo del restaurante con platos disponibles y precios.',
 };
 
 export default async function MenuPage() {

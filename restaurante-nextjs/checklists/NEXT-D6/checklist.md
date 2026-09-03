@@ -7,7 +7,7 @@ loom: (agregar link al terminar)
 ---
 
 ## Bloques
-- [ ] A — Metadata completa en /mesas /menu /carrito
+- [X] A — Metadata completa en /mesas /menu /carrito
 - [ ] B — Open Graph en layout.tsx + next.config.ts
 - [ ] C — Auditoría del proyecto (TODO, console.log, imports)
 - [ ] D — npm run build sin errores + .env.production.local
@@ -15,7 +15,7 @@ loom: (agregar link al terminar)
 - [ ] F — Evaluación entre pares + Loom + PR
 
 ## Verificación final
-- [ ] Cada página tiene título único en la pestaña del browser
+- [X] Cada página tiene título único en la pestaña del browser
 - [ ] npm run build completa sin errores
 - [ ] npx tsc --noEmit → 0 errores en restaurante-nextjs/
 - [ ] .env.production.local creado con valores correctos

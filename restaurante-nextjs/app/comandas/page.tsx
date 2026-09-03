@@ -7,7 +7,8 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: 'Comandas — Restaurante',
+  title: 'Comandas',
+  description: 'Gestiona las comandas activas y consulta el historial del restaurante.',
 };
 
 const ORDEN: Record<string, number> = {
