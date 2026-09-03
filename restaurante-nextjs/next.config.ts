@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   // Configuración de dominios permitidos para imágenes externas
   images: {
-    remotePatterns: [
+    remotePatterns: [ 
       {
         protocol: 'https',
         hostname: '**.cloudinary.com',

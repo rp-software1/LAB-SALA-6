@@ -3,7 +3,7 @@ sala: I-SALA1
 curso: Next.js
 dia: 6
 estado: en_progreso
-loom: (agregar link al terminar)
+loom: 
 ---
 
 ## Bloques

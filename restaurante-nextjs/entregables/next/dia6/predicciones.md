@@ -1,3 +1,5 @@
+Prediccion A
+
 ¿CarritoPage puede exportar metadata?
   
 No.
@@ -12,3 +14,18 @@ las exportaciones de metadata solo están soportadas en Server Components.
 La directiva 'use client', la cual le indica a Next.js que el componente se ejecuta en el navegador 
 del usuario y no en el servidor durante la fase de renderizado preliminar (donde se procesa e inyecta 
 la metadata en las etiquetas <head>).
+
+Prediccion B
+
+Si el restaurante usa imágenes de platos almacenadas en un servicio externo (como Cloudinary o AWS S3), 
+¿qué hay que configurar en next.config.ts para que <Image> de Next.js las muestre?
+
+¿Dónde se configura para imágenes externas? 
+
+En el objeto images dentro del archivo de configuración next.config.ts.
+
+¿Qué campo de next.config.ts controla eso? 
+
+El campo remotePatterns (o domains en versiones anteriores).
+
+Prediccion C 
