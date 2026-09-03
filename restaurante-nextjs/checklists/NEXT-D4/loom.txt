@@ -1,0 +1,17 @@
+🔄  Evaluación entre pares — preguntas con respuesta esperada
+El que escucha hace estas preguntas. El que responde NO puede leer el documento.
+1. ¿Qué hace notFound() y cuándo se llama en este proyecto?
+notFound() detiene el renderizado del Server Component y muestra not-found.tsx. En este proyecto se usa cuando no se encuentra una mesa con el ID recibido.
+
+2. ¿Por qué MesaDetalle usa useTransition y no un simple useState<boolean> para el loading?
+ useTransition permite marcar la actualización como no urgente, por eso la interfaz sigue respondiendo mientras cambia el estado. Con 
+ useState<boolean> tendrías que controlar manualmente el loading y los botones.
+
+3. ¿revalidatePath actualiza la página en tiempo real o al próximo request?
+ revalidatePath no actualiza en tiempo real. Invalida el caché para que en el próximo request o navegación Next.js vuelva a obtener los datos actualizados.
+
+4. ¿generateMetadata puede fallar (por ejemplo si el backend está caído)? ¿Qué pasa con la página si generateMetadata falla?
+ Sí, generateMetadata puede fallar. Por eso conviene usar try/catch y devolver un título genérico como respaldo para evitar que el error afecte el metadata de la página.
+
+5. Si quisieras que el badge del NavBar se actualice inmediatamente cuando cambias el estado de una mesa (sin navegar a /mesas), ¿cómo lo harías?
+ Para actualizar inmediatamente el NavBar podrías usar router.refresh() si necesitas refrescar datos del App Router. Si quieres cambios realmente en tiempo real entre usuarios, necesitarías WebSocket o polling.
