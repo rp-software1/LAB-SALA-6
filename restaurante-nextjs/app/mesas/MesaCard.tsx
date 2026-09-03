@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 import type { Mesa } from '../../src/types';
+import { usePedido } from '../../src/context/PedidoProvider';
 
 interface MesaCardProps {
   mesa: Mesa;
@@ -17,11 +18,16 @@ const colorPorEstado: Record<string, string> = {
 
 export default function MesaCard({ mesa }: MesaCardProps) {
   const router = useRouter();
+  const { asignarMesa } = usePedido();
 
-  // Asegurar conversión estricta a string del id o número para la ruta
-  const idMesa = String(mesa._id ?? mesa.numero);
+  // Obtener el ID real de la mesa (prioriza _id, luego id, y finalmente numero)
+  const idMesa = String(mesa._id ?? (mesa as any).id ?? mesa.numero);
 
   const handleClick = (): void => {
+    // 1. Guarda en el contexto la mesa seleccionada dinámicamente
+    asignarMesa(idMesa);
+
+    // 2. Redirige a la ruta individual de la mesa
     router.push(`/mesa/${idMesa}`);
   };
 

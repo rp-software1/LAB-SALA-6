@@ -155,7 +155,7 @@ export default function CarritoPage() {
         <div className="flex justify-between text-lg font-bold">
           <span>Total</span>
           <span>S/ {totalVisual.toFixed(2)}</span>
-        </div>
+        </div> 
       </div>
 
       {errorEnvio && <p className="mb-3 text-sm text-red-500 text-center">{errorEnvio}</p>}

@@ -1,5 +1,5 @@
 ¿CarritoPage puede exportar metadata?
-
+  
 No.
 
 ¿Por qué sí o por qué no?

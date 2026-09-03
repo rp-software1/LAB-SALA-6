@@ -14,7 +14,7 @@ export default async function MenuPage() {
   const platosDisponibles = platos.filter(
     (plato) => plato.disponible
   );
-
+ 
   return (
     <div>
       <h1 className="mb-6 text-2xl font-bold">

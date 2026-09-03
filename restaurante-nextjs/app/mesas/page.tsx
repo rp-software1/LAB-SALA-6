@@ -5,8 +5,8 @@ import MesaCard from './MesaCard';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
-
-export const metadata: Metadata = {
+ 
+export const metadata: Metadata = { 
   title: 'Mesas',
   description: 'Gestiona las mesas del restaurante — ve su estado y asigna comandas.',
 };
