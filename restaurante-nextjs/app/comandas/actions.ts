@@ -13,19 +13,18 @@ if (!global._pedidosMemoryStore) {
 }
 
 // Estados permitidos
-const TRANSICIONES: Record<EstadoPedido, EstadoPedido | null> = {
+const TRANSICIONES: Partial<Record<EstadoPedido, EstadoPedido>> = {
   pendiente: 'en_preparacion',
   en_preparacion: 'lista',
   lista: 'entregada',
-  entregada: null,
 };
 
 export async function avanzarEstadoPedido(
   pedidoId: string,
   nuevoEstado: EstadoPedido
 ): Promise<
-  { ok: true; pedido: Pedido } |
-  { ok: false; error: string }
+  | { ok: true; pedido: Pedido }
+  | { ok: false; error: string }
 > {
   try {
     const pedidos = global._pedidosMemoryStore;
@@ -38,8 +37,7 @@ export async function avanzarEstadoPedido(
     }
 
     const pedidoEncontrado = pedidos.find(
-      (pedido) =>
-        String(pedido._id) === String(pedidoId)
+      (pedido) => String(pedido._id) === String(pedidoId)
     );
 
     if (!pedidoEncontrado) {
@@ -52,13 +50,15 @@ export async function avanzarEstadoPedido(
     const siguienteEstado =
       TRANSICIONES[pedidoEncontrado.estado];
 
+    // Si no tiene siguiente estado, ya terminó su flujo
     if (!siguienteEstado) {
       return {
         ok: false,
-        error: 'El pedido ya está entregado',
+        error: 'El pedido ya no puede avanzar de estado',
       };
     }
 
+    // Evita saltar estados
     if (nuevoEstado !== siguienteEstado) {
       return {
         ok: false,
@@ -69,7 +69,7 @@ export async function avanzarEstadoPedido(
     // Actualizar estado en memoria
     pedidoEncontrado.estado = nuevoEstado;
 
-    // Revalidar las páginas afectadas
+    // Revalidar páginas afectadas
     revalidatePath('/comandas');
     revalidatePath('/mesas');
 
@@ -77,7 +77,6 @@ export async function avanzarEstadoPedido(
       ok: true,
       pedido: { ...pedidoEncontrado },
     };
-
   } catch (error: unknown) {
     const mensaje =
       error instanceof Error
