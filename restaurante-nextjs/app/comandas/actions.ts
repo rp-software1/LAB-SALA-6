@@ -12,11 +12,11 @@ if (!global._pedidosMemoryStore) {
   global._pedidosMemoryStore = [];
 }
 
-// Estados permitidos
-const TRANSICIONES: Partial<Record<EstadoPedido, EstadoPedido>> = {
+// Mapa de transiciones con tipado estricto
+const TRANSICIONES: Record<string, EstadoPedido> = {
   pendiente: 'en_preparacion',
-  en_preparacion: 'lista',
-  lista: 'entregada',
+  en_preparacion: 'listo',
+  listo: 'entregado',
 };
 
 export async function avanzarEstadoPedido(
@@ -47,8 +47,7 @@ export async function avanzarEstadoPedido(
       };
     }
 
-    const siguienteEstado =
-      TRANSICIONES[pedidoEncontrado.estado];
+    const siguienteEstado = TRANSICIONES[pedidoEncontrado.estado] as EstadoPedido | undefined;
 
     // Si no tiene siguiente estado, ya terminó su flujo
     if (!siguienteEstado) {
