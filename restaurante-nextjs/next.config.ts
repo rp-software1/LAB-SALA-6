@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Configuración de dominios permitidos para imágenes externas
-  images: {
+  images: { 
     remotePatterns: [ 
       {
         protocol: 'https',

@@ -63,7 +63,7 @@ export async function avanzarEstadoPedido(
         ok: false,
         error: `No se puede pasar de ${pedidoEncontrado.estado} a ${nuevoEstado}`,
       };
-    }
+    }  
 
     // Actualizar estado en memoria
     pedidoEncontrado.estado = nuevoEstado;

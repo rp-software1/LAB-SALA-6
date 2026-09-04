@@ -37,7 +37,7 @@ export type EstadoPedido =
   | "entregado"
   | "servido"
   | "pagado";
-
+ 
 export type TipoPedido =
   | "mesa"
   | "para_llevar";

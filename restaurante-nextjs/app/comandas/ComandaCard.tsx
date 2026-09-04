@@ -79,7 +79,7 @@ export default function ComandaCard({ pedido }: ComandaCardProps) {
                 <span>{item.cantidad}x {nombre}</span>
                 <span>S/ {(precio * item.cantidad).toFixed(2)}</span>
               </li>
-            );
+            ); 
           })
         ) : (
           <li className="text-xs opacity-60 italic">Sin items registrados</li>
