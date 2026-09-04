@@ -88,7 +88,7 @@ export default function PedidoProvider({ children }: { children: ReactNode }) {
         items: prev.items.map((i: ItemPedido) => i.platoId === platoId ? { ...i, cantidad: i.cantidad - 1 } : i),
         total: prev.total - item.precioUnitario,
       };
-    });
+    }); 
   }
 
   function cambiarTipo(tipo: TipoPedido): void {
