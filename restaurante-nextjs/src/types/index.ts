@@ -33,9 +33,11 @@ export interface Plato {
 export type EstadoPedido =
   | "pendiente"
   | "en_preparacion"
-  | "servido"
+  | "listo"
+  | "entregado"
+  | "servido" 
   | "pagado";
-
+ 
 export type TipoPedido =
   | "mesa"
   | "para_llevar";

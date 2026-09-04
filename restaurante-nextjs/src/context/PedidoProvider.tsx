@@ -1,9 +1,7 @@
-// src/context/PedidoProvider.tsx
 'use client';
 
 import { createContext, useContext, useState, ReactNode } from 'react';
 
-// Tipos definidos localmente o asegúrate de que existan en ../types
 export type TipoPedido = 'mesa' | 'para_llevar';
 
 export interface Plato {
@@ -90,15 +88,19 @@ export default function PedidoProvider({ children }: { children: ReactNode }) {
         items: prev.items.map((i: ItemPedido) => i.platoId === platoId ? { ...i, cantidad: i.cantidad - 1 } : i),
         total: prev.total - item.precioUnitario,
       };
-    });
+    }); 
   }
 
   function cambiarTipo(tipo: TipoPedido): void {
     setPedido((prev: EstadoPedidoContext) => ({ ...prev, tipo }));
   }
 
-  function asignarMesa(mesaId: string): void {
-    setPedido((prev: EstadoPedidoContext) => ({ ...prev, mesaId, tipo: 'mesa' }));
+  function asignarMesa(id: string): void {
+    setPedido((prev: EstadoPedidoContext) => ({
+      ...prev,
+      mesaId: String(id),
+      tipo: 'mesa',
+    }));
   }
 
   function limpiarPedido(): void {

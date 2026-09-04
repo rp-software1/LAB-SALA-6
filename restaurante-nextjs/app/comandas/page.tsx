@@ -7,7 +7,8 @@ export const dynamic = 'force-dynamic';
 export const revalidate = 0;
 
 export const metadata: Metadata = {
-  title: 'Comandas — Restaurante',
+  title: 'Comandas',
+  description: 'Gestiona las comandas activas y consulta el historial del restaurante.',
 };
 
 const ORDEN: Record<string, number> = {
@@ -41,7 +42,7 @@ export default async function ComandasPage() {
   });
 
   return (
-    <div className="p-6">
+    <div className="p-6">  
       <h1 className="text-2xl font-bold mb-6">Panel de Comandas</h1>
       
       <section className="mb-8">

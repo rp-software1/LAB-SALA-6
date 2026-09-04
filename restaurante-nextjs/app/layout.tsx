@@ -1,4 +1,3 @@
-// app/layout.tsx
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -8,19 +7,37 @@ import PedidoProvider from "../src/context/PedidoProvider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
-});    
+});     
   
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
-  subsets: ["latin"],
+  subsets: ["latin"], 
 });
 
 export const metadata: Metadata = {
-  title: "Sistema de Restaurante",
-  description: "Gestión de mesas, menú y comandas",
+  title: {
+    default: "Sistema de Restaurante",
+    template: "%s — Sistema de Restaurante",
+  },
+  description: "Panel de gestión de mesas, menú y comandas del restaurante.",
+  robots: {
+    index: false,   // App interna — no indexar en motores de búsqueda
+    follow: false,
+  },
+  openGraph: {
+    title: 'Sistema de Restaurante',
+    description: 'Panel de gestión de mesas, menú y comandas del restaurante.',
+    type: 'website',
+    locale: 'es_PE',
+  }, 
+  twitter: { 
+    card: 'summary',
+    title: 'Sistema de Restaurante',
+    description: 'Panel de gestión de mesas, menú y comandas del restaurante.',
+  },
 };
 
-export default function RootLayout({
+export default function RootLayout({ 
   children,
 }: {
   children: React.ReactNode;

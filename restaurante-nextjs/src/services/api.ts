@@ -1,6 +1,6 @@
 // src/services/api.ts
 import type {
-  Mesa,   
+  Mesa,    
   Plato,
   Pedido,  
   EstadoPedido,

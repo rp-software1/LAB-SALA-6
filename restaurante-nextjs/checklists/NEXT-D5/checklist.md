@@ -5,7 +5,7 @@ dia: 5
 estado: en_progreso
 loom: https://drive.google.com/file/d/1qJqNg_ygNdVJss5BoB-vtUT21yDTmvCU/view?usp=sharing
 ---
- g
+
 ## Bloques
 - [X] A — getPedidos en api.ts + verificar endpoints con Postman
 - [X] B — ComandasPage Server Component + metadata estática

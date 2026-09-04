@@ -1,30 +1,32 @@
-'use client';  
+'use client';
 
 import { useTransition } from 'react';
 import type { Pedido, EstadoPedido } from '../../src/types';
 import { avanzarEstadoPedido } from './actions';
 
-interface ComandaCardProps {
+interface ComandaCardProps {  
   pedido: Pedido;
 }
 
-const SIGUIENTE: Record<string, EstadoPedido> = {
+const SIGUIENTE: Partial<Record<string, EstadoPedido>> = {
   pendiente: 'en_preparacion' as EstadoPedido,
-  en_preparacion: 'lista' as unknown as EstadoPedido,
-  preparacion: 'lista' as unknown as EstadoPedido,
-  lista: 'entregada' as EstadoPedido,
-  listo: 'entregada' as EstadoPedido,
+  en_preparacion: 'listo' as EstadoPedido,
+  preparacion: 'listo' as EstadoPedido,
+  listo: 'entregado' as EstadoPedido,
+  lista: 'entregado' as EstadoPedido,
+  entregado: 'pagado' as EstadoPedido,
 };
 
 const CONFIG: Record<string, { color: string; label: string }> = {
   pendiente:      { color: 'bg-orange-100 border-orange-400 text-orange-800', label: 'Pendiente' },
-  en_preparacion: { color: 'bg-blue-100 border-blue-400 text-blue-800',     label: 'En preparación' },
-  preparacion:    { color: 'bg-blue-100 border-blue-400 text-blue-800',     label: 'En preparación' },
-  lista:          { color: 'bg-purple-100 border-purple-400 text-purple-800', label: 'Lista' },
+  en_preparacion: { color: 'bg-blue-100 border-blue-400 text-blue-800',   label: 'En preparación' },
+  preparacion:    { color: 'bg-blue-100 border-blue-400 text-blue-800',   label: 'En preparación' },
   listo:          { color: 'bg-purple-100 border-purple-400 text-purple-800', label: 'Lista' },
-  entregada:      { color: 'bg-green-100 border-green-400 text-green-800',   label: 'Entregada' },
-  cancelada:      { color: 'bg-gray-100 border-gray-400 text-gray-600',     label: 'Cancelada' },
-  cerrada:        { color: 'bg-gray-100 border-gray-400 text-gray-600',     label: 'Cerrada' },
+  lista:          { color: 'bg-purple-100 border-purple-400 text-purple-800', label: 'Lista' },
+  entregado:      { color: 'bg-green-100 border-green-400 text-green-800',  label: 'Entregada' },
+  pagado:         { color: 'bg-teal-100 border-teal-400 text-teal-800',      label: 'Pagado' },
+  cancelada:      { color: 'bg-gray-100 border-gray-400 text-gray-600',    label: 'Cancelada' },
+  cerrada:        { color: 'bg-gray-100 border-gray-400 text-gray-600',    label: 'Cerrada' },
 };
 
 export default function ComandaCard({ pedido }: ComandaCardProps) {
@@ -33,7 +35,9 @@ export default function ComandaCard({ pedido }: ComandaCardProps) {
   const pedAny = pedido as any;
   const estadoActual = (pedido.estado ?? 'pendiente').toString().toLowerCase().trim();
   const config = CONFIG[estadoActual] ?? CONFIG.pendiente;
-  const siguiente = SIGUIENTE[estadoActual];
+  
+  // Evitamos que 'pagado' o estados finales intenten buscar un siguiente estado y rompan la lógica
+  const siguiente = estadoActual === 'pagado' ? undefined : SIGUIENTE[estadoActual];
 
   const pedidoId = pedido._id ?? pedAny.id;
   const hora = pedido.creadoEn 
@@ -77,7 +81,7 @@ export default function ComandaCard({ pedido }: ComandaCardProps) {
                 <span>{item.cantidad}x {nombre}</span>
                 <span>S/ {(precio * item.cantidad).toFixed(2)}</span>
               </li>
-            );
+            ); 
           })
         ) : (
           <li className="text-xs opacity-60 italic">Sin items registrados</li>
