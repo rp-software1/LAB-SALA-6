@@ -42,3 +42,4 @@ Porque durante el proceso de compilación (npm run build), Next.js ejecuta las f
 Components (como generateMetadata) que intentan realizar solicitudes fetch al servidor configurado. Si el backend
 no está activo, la conexión es rechazada (ECONNREFUSED), lo que provoca que falle la compilación.
 
+
