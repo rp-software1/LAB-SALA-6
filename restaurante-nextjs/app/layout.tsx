@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     description: 'Panel de gestión de mesas, menú y comandas del restaurante.',
     type: 'website',
     locale: 'es_PE',
-  },
+  }, 
   twitter: { 
     card: 'summary',
     title: 'Sistema de Restaurante',

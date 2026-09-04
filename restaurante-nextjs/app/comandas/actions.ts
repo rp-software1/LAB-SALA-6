@@ -38,7 +38,7 @@ export async function avanzarEstadoPedido(
     const pedidoEncontrado = pedidos.find(
       (pedido) => String(pedido._id ?? (pedido as any).id) === String(pedidoId)
     );
-
+  
     if (!pedidoEncontrado) {
       return { ok: false, error: 'Pedido no encontrado' };
     }

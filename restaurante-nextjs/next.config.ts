@@ -9,7 +9,7 @@ const nextConfig: NextConfig = {
         hostname: '**.cloudinary.com',
       },
     ],
-  },
+  }, 
   // Cabeceras de seguridad básicas
   async headers() {
     return [

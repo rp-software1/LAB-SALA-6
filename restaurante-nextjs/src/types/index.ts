@@ -35,7 +35,7 @@ export type EstadoPedido =
   | "en_preparacion"
   | "listo"
   | "entregado"
-  | "servido"
+  | "servido" 
   | "pagado";
  
 export type TipoPedido =

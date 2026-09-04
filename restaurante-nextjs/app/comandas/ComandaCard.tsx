@@ -4,7 +4,7 @@ import { useTransition } from 'react';
 import type { Pedido, EstadoPedido } from '../../src/types';
 import { avanzarEstadoPedido } from './actions';
 
-interface ComandaCardProps {
+interface ComandaCardProps {  
   pedido: Pedido;
 }
 

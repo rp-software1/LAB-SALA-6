@@ -30,7 +30,7 @@ El campo remotePatterns (o domains en versiones anteriores).
 
 Prediccion D
 
-Si el backend no está corriendo cuando ejecutas npm run build, ¿el build va a fallar para las páginas con generateMetadata async que hacen fetch?
+Si el backend no está corriendo cuando ejecutas npm run build, ¿el build va a fallar para las páginas con generateMetadata async que hacen fetch? 
 
 ¿El build falla si el backend está caído? 
 
