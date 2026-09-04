@@ -28,4 +28,17 @@ En el objeto images dentro del archivo de configuración next.config.ts.
 
 El campo remotePatterns (o domains en versiones anteriores).
 
-Prediccion C 
+Prediccion D
+
+Si el backend no está corriendo cuando ejecutas npm run build, ¿el build va a fallar para las páginas con generateMetadata async que hacen fetch?
+
+¿El build falla si el backend está caído? 
+
+Sí.
+
+¿Por qué?
+
+Porque durante el proceso de compilación (npm run build), Next.js ejecuta las funciones de prerenderizado y Server 
+Components (como generateMetadata) que intentan realizar solicitudes fetch al servidor configurado. Si el backend
+no está activo, la conexión es rechazada (ECONNREFUSED), lo que provoca que falle la compilación.
+

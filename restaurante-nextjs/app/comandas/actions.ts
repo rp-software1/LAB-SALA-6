@@ -7,16 +7,18 @@ declare global {
   var _pedidosMemoryStore: Pedido[] | undefined;
 }
 
-// Inicializar store si todavía no existe
 if (!global._pedidosMemoryStore) {
   global._pedidosMemoryStore = [];
 }
 
-// Mapa de transiciones con tipado estricto
 const TRANSICIONES: Record<string, EstadoPedido> = {
-  pendiente: 'en_preparacion',
-  en_preparacion: 'listo',
-  listo: 'entregado',
+  pendiente: 'en_preparacion' as EstadoPedido,
+  en_preparacion: 'listo' as EstadoPedido,
+  preparacion: 'listo' as EstadoPedido,
+  listo: 'entregado' as EstadoPedido,
+  lista: 'entregado' as EstadoPedido,
+  entregado: 'pagado' as EstadoPedido,
+  entregada: 'pagado' as EstadoPedido,
 };
 
 export async function avanzarEstadoPedido(
@@ -30,45 +32,27 @@ export async function avanzarEstadoPedido(
     const pedidos = global._pedidosMemoryStore;
 
     if (!pedidos) {
-      return {
-        ok: false,
-        error: 'Store de pedidos no inicializado',
-      };
+      return { ok: false, error: 'Store de pedidos no inicializado' };
     }
 
     const pedidoEncontrado = pedidos.find(
-      (pedido) => String(pedido._id) === String(pedidoId)
+      (pedido) => String(pedido._id ?? (pedido as any).id) === String(pedidoId)
     );
 
     if (!pedidoEncontrado) {
-      return {
-        ok: false,
-        error: 'Pedido no encontrado',
-      };
+      return { ok: false, error: 'Pedido no encontrado' };
     }
 
-    const siguienteEstado = TRANSICIONES[pedidoEncontrado.estado] as EstadoPedido | undefined;
+    const estadoActual = (pedidoEncontrado.estado ?? 'pendiente').toString().toLowerCase().trim();
+    const siguienteEstado = TRANSICIONES[estadoActual];
 
-    // Si no tiene siguiente estado, ya terminó su flujo
     if (!siguienteEstado) {
-      return {
-        ok: false,
-        error: 'El pedido ya no puede avanzar de estado',
-      };
+      return { ok: false, error: 'El pedido ya no puede avanzar de estado' };
     }
 
-    // Evita saltar estados
-    if (nuevoEstado !== siguienteEstado) {
-      return {
-        ok: false,
-        error: `No se puede pasar de ${pedidoEncontrado.estado} a ${nuevoEstado}`,
-      };
-    }  
-
-    // Actualizar estado en memoria
+    // Actualizar estado en memoria de forma flexible
     pedidoEncontrado.estado = nuevoEstado;
 
-    // Revalidar páginas afectadas
     revalidatePath('/comandas');
     revalidatePath('/mesas');
 
@@ -77,14 +61,7 @@ export async function avanzarEstadoPedido(
       pedido: { ...pedidoEncontrado },
     };
   } catch (error: unknown) {
-    const mensaje =
-      error instanceof Error
-        ? error.message
-        : 'Error desconocido al actualizar pedido';
-
-    return {
-      ok: false,
-      error: mensaje,
-    };
+    const mensaje = error instanceof Error ? error.message : 'Error desconocido al actualizar pedido';
+    return { ok: false, error: mensaje };
   }
 }

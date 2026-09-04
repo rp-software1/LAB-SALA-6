@@ -35,7 +35,9 @@ export default function ComandaCard({ pedido }: ComandaCardProps) {
   const pedAny = pedido as any;
   const estadoActual = (pedido.estado ?? 'pendiente').toString().toLowerCase().trim();
   const config = CONFIG[estadoActual] ?? CONFIG.pendiente;
-  const siguiente = SIGUIENTE[estadoActual];
+  
+  // Evitamos que 'pagado' o estados finales intenten buscar un siguiente estado y rompan la lógica
+  const siguiente = estadoActual === 'pagado' ? undefined : SIGUIENTE[estadoActual];
 
   const pedidoId = pedido._id ?? pedAny.id;
   const hora = pedido.creadoEn 

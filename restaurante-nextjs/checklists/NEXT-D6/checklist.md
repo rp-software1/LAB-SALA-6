@@ -10,7 +10,7 @@ loom:
 - [X] A — Metadata completa en /mesas /menu /carrito
 - [X] B — Open Graph en layout.tsx + next.config.ts
 - [X] C — Auditoría del proyecto (TODO, console.log, imports)
-- [ ] D — npm run build sin errores + .env.production.local
+- [X] D — npm run build sin errores + .env.production.local
 - [ ] E — Verificación TypeScript final en ambos proyectos
 - [ ] F — Evaluación entre pares + Loom + PR
 
@@ -18,5 +18,5 @@ loom:
 - [X] Cada página tiene título único en la pestaña del browser
 - [X] npm run build completa sin errores
 - [X] npx tsc --noEmit → 0 errores en restaurante-nextjs/
-- [ ] .env.production.local creado con valores correctos
-- [ ] PR aprobado por sala par
+- [X] .env.production.local creado con valores correctos
+- [X] PR aprobado por sala par
