@@ -14,6 +14,7 @@ loom:
 - [X] E — Verificación TypeScript final en ambos proyectos
 - [X] F — Evaluación entre pares + Loom + PR
 
+
 ## Verificación final
 - [X] Cada página tiene título único en la pestaña del browser
 - [X] npm run build completa sin errores
