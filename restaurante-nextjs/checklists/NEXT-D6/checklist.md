@@ -12,7 +12,7 @@ loom:
 - [X] C — Auditoría del proyecto (TODO, console.log, imports)
 - [X] D — npm run build sin errores + .env.production.local
 - [X] E — Verificación TypeScript final en ambos proyectos
-- [X] F — Evaluación entre pares + Loom + PR
+- [X] F — Evaluación entre pares + Loom +  PR
 
 
 ## Verificación final
