@@ -1,0 +1,21 @@
+¿Cuál es el componente o concepto de Next.js que más va a usar en el futuro?¿Por qué?
+Los Server Components y el App Router, porque optimizan el rendimiento renderizando directamente
+ en el servidor y permiten una organización nativa de las rutas.
+
+Demostración en vivo en la URL de producción de Vercel del flujo completo: desde /mesas seleccionando una mesa
+hacia /mesa/[id] para cambiar su estado, navegando al /menu agregando platos, pasando al /carrito para enviar 
+la comanda, y finalmente gestionando en /comandas hasta avanzar el estado del pedido hasta entregada.
+
+Durante la demostración en vivo en la URL de producción de Vercel, iniciamos en /mesas seleccionando una mesa 
+específica para dirigirnos a /mesa/[id] y cambiar su estado, luego navegamos al /menu para agregar platos y pasar al 
+/carrito a fin de enviar la comanda, y finalmente gestionamos en /comandas avanzando el pedido de forma secuencial hasta 
+completarlo en el estado de entregada.
+
+¿Qué construyeron en 7 días? Nombrar los archivos más importantes que crearon. 
+Una aplicación web de gestión para restaurante; destacando los archivos principales como app/page.tsx 
+para la vista de inicio, app/layout.tsx para la estructura y metadatos globales, y los componentes de las 
+rutas dinámicas y de vistas funcionales.
+
+Mostrar el estado "Ready" en Vercel. La URL. Los 7 deploys del sprint.
+Visualización del dashboard de Vercel confirmando el estado "Ready" del proyecto, la URL definitiva de producción 
+y el registro de los 7 deploys realizados a lo largo del sprint.

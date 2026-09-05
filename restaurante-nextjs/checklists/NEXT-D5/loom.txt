@@ -1,18 +1,18 @@
-¿Por qué ComandasPage puede usar export const metadata = {} sin async, pero DetalleMesa necesita export async function generateMetadata()?
+1.¿Por qué ComandasPage puede usar export const metadata = {} sin async, pero DetalleMesa necesita export async function generateMetadata()?
 Porque en Comandas el título es fijo y no depende de ningún dato externo. En cambio, DetalleMesa necesita obtener información 
 de la mesa, como su número, antes de crear el título. Por eso, si el título es estático se usa metadata; si depende de datos, se usa generateMetadata() con async.
 
-¿Qué hace Partial<Record<EstadoPedido, EstadoPedido>> y por qué es necesario?
+2.¿Qué hace Partial<Record<EstadoPedido, EstadoPedido>> y por qué es necesario?
 Record crea una relación entre cada estado y su siguiente estado. Partial hace que esas claves
  sean opcionales, porque estados finales como entregada o cerrada ya no tienen un siguiente estado. Así, siguiente puede 
  ser undefined y el botón simplemente no se muestra.
 
-¿revalidatePath actualiza en tiempo real o al próximo request?
+3.¿revalidatePath actualiza en tiempo real o al próximo request?
 revalidatePath no trabaja en tiempo real como un WebSocket. Lo que hace es invalidar la caché de una ruta para 
 que la próxima carga o solicitud obtenga datos actualizados. Si la pantalla actual no refleja el cambio inmediatamente, se puede 
 usar router.refresh().
 
-¿Cuáles son los 3 Server Actions del proyecto y qué hace cada uno?
+4.¿Cuáles son los 3 Server Actions del proyecto y qué hace cada uno?
 Son enviarComanda(), que crea o registra un pedido; cambiarEstadoMesa(), que cambia el estado de una mesa; y 
 avanzarEstadoPedido(), que cambia el estado de una comanda, por ejemplo de pendiente a en preparación. En nuestro proyecto sin 
 backend, esas operaciones se simulan usando datos en memoria.
