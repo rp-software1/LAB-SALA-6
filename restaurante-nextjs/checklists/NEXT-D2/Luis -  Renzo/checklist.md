@@ -2,7 +2,7 @@
 sala: I-SALA1
 curso: Next.js
 dia: 2
-estado: en_progreso
+estado: Completado.
 loom: https://drive.google.com/file/d/10HDalCH5zCDrfrxG3ccJxA0cuJz2v32O/view?usp=sharing
 ---
      
