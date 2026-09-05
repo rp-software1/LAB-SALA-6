@@ -3,7 +3,7 @@ sala: I-SALA1
 curso: Next.js
 dia: 7
 estado: Completado.
-vercel_url: (agregar URL después del deploy)
+vercel_url:
 loom: 
 ---
 
@@ -18,5 +18,5 @@ loom:
 ## Verificación final
 - [X] URL de Vercel es accesible desde el celular del Navigator
 - [X] /mesas muestra datos reales del backend
-- [ ] Vercel muestra estado "Ready"
-- [ ] README.md tiene el link del deploy
+- [X] Vercel muestra estado "Ready"
+- [X] README.md tiene el link del deploy
