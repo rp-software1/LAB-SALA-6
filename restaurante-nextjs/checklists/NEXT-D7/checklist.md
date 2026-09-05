@@ -4,7 +4,7 @@ curso: Next.js
 dia: 7
 estado: Completado.
 vercel_url:
-loom: 
+loom: https://drive.google.com/file/d/1UOviViR3WM3uijiVUiWArtwaG4NnLZEV/view?usp=sharing
 ---
 
 ## Bloques
