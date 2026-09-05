@@ -1,0 +1,2 @@
+Día 5: 
+El desarrollo avanzó hacia las vistas funcionales de alta interacción para el usuario, abarcando la visualización del menú y la lógica del carrito de compras. Se garantizó que la navegación entre estas secciones críticas se realizara de forma instantánea y fluida utilizando el componente Link de Next.js, evitando las recargas completas de la página y mejorando drásticamente la experiencia de usuario en comparación con el comportamiento tradicional de los enlaces HTML convencionales.

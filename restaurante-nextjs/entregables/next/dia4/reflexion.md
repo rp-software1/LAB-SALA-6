@@ -1,0 +1,2 @@
+Día 4:
+La implementación de rutas dinámicas complejas, específicamente el manejo de la ruta /mesa/[id], representó un punto de inflexión al comprender que los parámetros de la URL ya no se capturan mediante un hook en tiempo de ejecución en el cliente, sino que se reciben directamente como propiedades gracias al sistema del App Router. Esto exigió adaptar la lógica de los componentes para gestionar adecuadamente los identificadores de las mesas y preparar el terreno para la interacción dinámica con el backend.

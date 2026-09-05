@@ -1,0 +1,2 @@
+Día 6:
+La jornada se orientó a completar el flujo operativo del restaurante mediante la gestión integral de las comandas, desde su envío inicial desde el carrito hasta la progresión de estados en la vista de control de pedidos hasta llegar a entregada. Se validó la consistencia en la actualización de los datos y se realizaron pruebas exhaustivas de compilación para garantizar que no existieran advertencias ni errores de tipos que comprometieran la estabilidad del sistema.

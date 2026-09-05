@@ -1,0 +1,16 @@
+1.¿Cuáles páginas pueden exportar metadata y cuáles no? ¿Por qué?
+Las páginas construidas como Server Components sí pueden exportar metadata
+porque Next.js procesa esta información en el servidor, mientras que los Client
+Components (con 'use client') no pueden hacerlo debido a que su ejecución se realiza en el cliente.
+
+2.Lista las rutas del proyecto con su tipo de metadata.
+La ruta principal app/page.tsx y la ruta de error app/not-found.tsx son Server 
+Components y soportan metadata estática o dinámica.
+
+3.¿El proyecto está listo para el deploy de mañana? 
+Está técnicamente preparado tras completar la integración base, pero requiere 
+la validación final de su entorno de producción.
+
+4.¿Qué falta configurar en Vercel?
+Falta configurar y verificar las variables de entorno necesarias en el panel de Vercel para 
+asegurar la correcta comunicación con los servicios del backend.
