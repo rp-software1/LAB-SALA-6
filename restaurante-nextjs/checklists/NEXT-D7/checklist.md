@@ -14,7 +14,7 @@ loom:
 - [x] D — Verificación completa en producción
 - [X] E — Actualizar openGraph y README con URL real
 - [X] F — Evaluación final del sprint Next.js + Loom
-
+ 
 ## Verificación final 
 - [X] URL de Vercel es accesible desde el celular del Navigator
 - [X] /mesas muestra datos reales del backend
