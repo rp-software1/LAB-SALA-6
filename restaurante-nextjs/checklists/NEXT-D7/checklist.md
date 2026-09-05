@@ -13,9 +13,9 @@ loom:
 - [x] C — Configurar variables de entorno en Vercel + redeploy
 - [x] D — Verificación completa en producción
 - [X] E — Actualizar openGraph y README con URL real
-- [ ] F — Evaluación final del sprint Next.js + Loom
+- [X] F — Evaluación final del sprint Next.js + Loom
 
-## Verificación final
+## Verificación final 
 - [X] URL de Vercel es accesible desde el celular del Navigator
 - [X] /mesas muestra datos reales del backend
 - [X] Vercel muestra estado "Ready"

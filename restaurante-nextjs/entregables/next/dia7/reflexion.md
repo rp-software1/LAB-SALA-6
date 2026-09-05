@@ -1,0 +1,2 @@
+Día 7:
+El cierre del sprint consolidó todo el ciclo de desarrollo con la preparación y el despliegue del proyecto en la plataforma de producción de Vercel. Se verificaron rigurosamente las variables de entorno, se realizaron las pruebas de compilación limpia mediante npm run build, y se documentaron los metadatos de producción en el layout global y en el archivo README.md. La verificación final del estado "Ready" en el dashboard de Vercel y la validación del flujo completo en la URL en vivo cerraron con éxito las metas establecidas para el proyecto.

@@ -1,0 +1,2 @@
+Día 3:
+El enfoque principal se centró en la integración de la lógica de datos y la estructuración de formularios y estados compartidos dentro del entorno de Next.js. Se afinaron los mecanismos de comunicación y validación de tipos entre los componentes del cliente y los recursos lógicos, asegurando que el flujo de información del restaurante mantuviera la misma integridad que en la versión previa de React, pero aprovechando las ventajas de compilación y optimización del nuevo framework.
