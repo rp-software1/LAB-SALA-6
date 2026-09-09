@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { PlatosService } from './platos.service';
 import { CreatePlatoDto } from './dto/create-plato.dto';
 import { UpdatePlatoDto } from './dto/update-plato.dto';
@@ -18,17 +27,20 @@ export class PlatosController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.platosService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.platosService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePlatoDto: UpdatePlatoDto) {
-    return this.platosService.update(+id, updatePlatoDto);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatePlatoDto: UpdatePlatoDto,
+  ) {
+    return this.platosService.update(id, updatePlatoDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.platosService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.platosService.remove(id);
   }
 }

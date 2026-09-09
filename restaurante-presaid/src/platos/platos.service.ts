@@ -23,18 +23,26 @@ export class PlatosService {
 
   async findOne(id: number) {
     const plato = await this.platoRepository.findOneBy({ id });
-    if (!plato) throw new NotFoundException(`Plato #${id} no encontrado`);
+    if (!plato) {
+      throw new NotFoundException(`Plato #${id} no encontrado`);
+    }
     return plato;
   }
 
   async update(id: number, updatePlatoDto: UpdatePlatoDto) {
-    const plato = await this.platoRepository.preload({ id, ...updatePlatoDto });
-    if (!plato) throw new NotFoundException(`Plato #${id} no encontrado`);
+    const plato = await this.platoRepository.preload({
+      id,
+      ...updatePlatoDto,
+    });
+    if (!plato) {
+      throw new NotFoundException(`Plato #${id} no encontrado`);
+    }
     return this.platoRepository.save(plato);
   }
 
   async remove(id: number) {
     const plato = await this.findOne(id);
-    return this.platoRepository.remove(plato);
+    await this.platoRepository.remove(plato);
+    return { mensaje: `Plato #${id} eliminado` };
   }
 }

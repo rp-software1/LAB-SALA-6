@@ -1,6 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-@Entity()
+@Entity('platos')
 export class Plato {
   @PrimaryGeneratedColumn()
   id: number;
@@ -8,9 +14,15 @@ export class Plato {
   @Column()
   nombre: string;
 
-  @Column('decimal', { precision: 6, scale: 2 })
+  @Column('decimal', { precision: 8, scale: 2 })
   precio: number;
 
-  @Column({ nullable: true })
-  descripcion: string;
+  @Column({ default: true })
+  disponible: boolean;
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
 }
