@@ -6,11 +6,11 @@ estado: en_progreso
 loom: 
 ---
 ## Bloques
-- [ ] A — Setup Gemini CLI + primera construcción desde terminal
+- [X] A — Setup Gemini CLI + primera construcción desde terminal
 - [ ] B — Setup Cursor + módulo Platos CRUD completo
 - [ ] C — Comparación CLI vs IDE + Loom + PR
 ## Verificación final
-- [ ] Gemini CLI funciona y crea archivos
+- [X] Gemini CLI funciona y crea archivos
 - [ ] Módulo Platos levanta sin errores
 - [ ] GET /platos responde en Postman o navegador
 - [ ] CHANGES.md generado
