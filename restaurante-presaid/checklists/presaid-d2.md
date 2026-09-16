@@ -7,11 +7,11 @@ loom:
 ---
 ## Bloques
 - [X] A — Videos: code review y correcciones con IA
-- [ ] B — Módulo Mesas con Git branch + code review exhaustivo
+- [X] B — Módulo Mesas con Git branch + code review exhaustivo
 - [ ] C — Documentación de hallazgos + Loom + PR
 ## Verificación final
-- [ ] Módulo Mesas funcionando en localhost
-- [ ] GET /mesas responde
+- [X] Módulo Mesas funcionando en localhost
+- [X] GET /mesas responde
 - [ ] Rama feature/mesas mergeada a main
 - [ ] Hallazgos de code review documentados
 - [ ] CHANGES.md actualizado
