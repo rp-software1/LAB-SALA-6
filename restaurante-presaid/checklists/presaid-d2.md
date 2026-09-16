@@ -12,7 +12,7 @@ loom:
 ## Verificación final
 - [X] Módulo Mesas funcionando en localhost
 - [X] GET /mesas responde
-- [ ] Rama feature/mesas mergeada a main
+- [X] Rama feature/mesas mergeada a main
 - [ ] Hallazgos de code review documentados
 - [ ] CHANGES.md actualizado
 - [ ] feedback_dia2_[tunombre].md completado y commiteado
