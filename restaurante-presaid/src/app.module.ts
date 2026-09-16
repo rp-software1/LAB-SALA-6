@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PlatosModule } from './platos/platos.module';
+import { MesasModule } from './mesas/mesas.module';
 
 @Module({
   imports: [
@@ -11,6 +12,7 @@ import { PlatosModule } from './platos/platos.module';
       synchronize: true,
     }),
     PlatosModule,
+    MesasModule,
   ],
 })
 export class AppModule {}
