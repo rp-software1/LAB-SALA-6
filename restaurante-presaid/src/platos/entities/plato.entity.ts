@@ -6,23 +6,17 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-@Entity('platos')
+@Entity()
 export class Plato {
   @PrimaryGeneratedColumn()
   id: number;
-
+  
   @Column()
   nombre: string;
 
-  @Column('decimal', { precision: 8, scale: 2 })
+  @Column('decimal', { precision: 6, scale: 2 })
   precio: number;
 
-  @Column({ default: true })
-  disponible: boolean;
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
+  @Column({ nullable: true })
+  descripcion: string;
 }
