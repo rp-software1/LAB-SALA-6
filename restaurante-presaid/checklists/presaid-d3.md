@@ -6,7 +6,7 @@ estado: en_progreso
 loom: 
 ---
 ## Bloques
-- [ ] A — Videos: errores 500, validaciones, anti-patrón parche sobre parche
+- [X] A — Videos: errores 500, validaciones, anti-patrón parche sobre parche
 - [ ] B — Módulo Pedidos con relaciones (Platos + Mesas)
 - [ ] C — Manejo de errores + Swagger + CHANGES.md + Loom + PR
 ## Verificación final
