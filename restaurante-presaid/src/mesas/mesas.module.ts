@@ -8,6 +8,6 @@ import { MesasService } from './mesas.service';
   imports: [TypeOrmModule.forFeature([Mesa])],
   controllers: [MesasController],
   providers: [MesasService],
-  exports: [MesasService],
+  exports: [TypeOrmModule, MesasService], // ← Requerido para PedidosModule
 })
 export class MesasModule {}
