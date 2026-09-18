@@ -43,7 +43,7 @@
 - Documentación:** Actualización de `CHANGES.md` y creación de `feedback_dia2_david.md`.
 - Git & GitHub:** Integración de la rama `feature/mesas` hacia la rama principal `main`.
 
-# Registro de Cambios - Backend Restaurante Presaid (NestJS)
+# Registro de Cambios — Día 3 ackend Restaurante Presaid (NestJS)
 
 ## [Bloque B] - Módulo Pedidos con Relaciones Reales y Validaciones
 * **Fecha:** Día 3
