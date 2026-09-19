@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PlatosModule } from './platos/platos.module';
 import { MesasModule } from './mesas/mesas.module';
 import { PedidosModule } from './pedidos/pedidos.module';
+import { ComandasModule } from './comandas/comandas.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { PedidosModule } from './pedidos/pedidos.module';
     PlatosModule,
     MesasModule,
     PedidosModule,
+    ComandasModule,
   ],
 })
 export class AppModule {}
