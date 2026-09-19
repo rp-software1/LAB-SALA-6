@@ -7,13 +7,13 @@ loom:
 ---
 ## Bloques
 - [X] A — Videos: errores 500, validaciones, anti-patrón parche sobre parche
-- [ ] B — Módulo Pedidos con relaciones (Platos + Mesas)
-- [ ] C — Manejo de errores + Swagger + CHANGES.md + Loom + PR
+- [X] B — Módulo Pedidos con relaciones (Platos + Mesas)
+- [X] C — Manejo de errores + Swagger + CHANGES.md + Loom + PR
 ## Verificación final
-- [ ] POST /pedidos crea un pedido vinculado a una mesa y platos existentes
-- [ ] GET /pedidos retorna pedidos con relaciones (mesa y platos incluidos)
-- [ ] Errores 400 en vez de 500 cuando faltan datos o IDs no existen
-- [ ] GET /platos y GET /mesas siguen funcionando
-- [ ] CHANGES.md actualizado
-- [ ] feedback_dia3_[tunombre].md completado y commiteado
-- [ ] PR creado y enviado a sala par
+- [X] POST /pedidos crea un pedido vinculado a una mesa y platos existentes
+- [X] GET /pedidos retorna pedidos con relaciones (mesa y platos incluidos)
+- [X] Errores 400 en vez de 500 cuando faltan datos o IDs no existen
+- [X] GET /platos y GET /mesas siguen funcionando
+- [X] CHANGES.md actualizado
+- [X] feedback_dia3_[tunombre].md completado y commiteado
+- [X] PR creado y enviado a sala par
