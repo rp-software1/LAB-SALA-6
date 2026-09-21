@@ -16,3 +16,7 @@ loom: (agregar link al terminar)
 - [ ] CHANGES.md actualizado
 - [ ] feedback_dia4_[tunombre].md completado y commiteado
 - [ ] PR creado y enviado a sala par
+
+
+
+
