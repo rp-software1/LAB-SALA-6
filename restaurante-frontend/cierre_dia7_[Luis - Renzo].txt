@@ -1,0 +1,45 @@
+Estudiante: Luis
+
+1. ¿Qué hace BrowserRouter exactamente? ¿Qué pasa si envuelves solo una parte de la app en lugar de toda? 
+BrowserRouter permite manejar las rutas y cambios de URL de la aplicación. Si solo envuelves una parte, 
+únicamente los componentes dentro de ese BrowserRouter podrán usar herramientas como Routes, Route, Link o NavLink.
+
+2. NavLink recibe className como función. ¿Por qué es función y no string? ¿Qué tiene que devolver esa función? 
+Es una función porque necesita saber si el enlace está activo mediante isActive. La función debe devolver un string
+con la clase CSS que se aplicará, por ejemplo, "activo" cuando la ruta esté seleccionada.
+
+3. El usuario está en /mesas/5 y hace clic en Atrás del navegador. ¿Qué pasa? ¿A dónde va?
+El navegador regresa a la URL anterior del historial. Por ejemplo, si antes estaba en /mesas, al presionar Atrás volverá a /mesas, y
+React Router mostrará nuevamente el componente correspondiente.
+
+4. ¿Por qué path="*" tiene que ir al final de Routes? ¿Qué pasaría si va al principio? 
+Porque * es una ruta comodín que representa cualquier URL que no coincida con las rutas anteriores. 
+Si se coloca primero en un sistema donde el orden de evaluación importa, podría capturar todas las rutas y 
+mostrar siempre la página de error.
+
+5. useParams devuelve string. Si el ID en el mock es número, ¿qué problema aparece al comparar? ¿Cómo lo resuelven? 
+El problema es que "5" y 5 son tipos diferentes, por lo que "5" === 5 devuelve false. Se soluciona convirtiendo el
+parámetro a número con Number(id) antes de compararlo con el ID del mock.
+
+Estudiante: Renzo
+
+1. ¿Qué hace BrowserRouter exactamente? ¿Qué pasa si envuelves solo una parte de la app en lugar de toda? 
+BrowserRouter conecta React con la URL del navegador y permite utilizar el sistema de navegación de React Router. 
+Si se coloca solamente alrededor de una parte, los componentes que estén fuera no tendrán acceso al contexto del router
+ni podrán utilizar correctamente sus componentes y hooks.
+
+2. NavLink recibe className como función. ¿Por qué es función y no string? ¿Qué tiene que devolver esa función?
+Es una función porque NavLink puede determinar si la ruta actual está activa. Recibe isActive y debe devolver el
+nombre de la clase CSS que se quiere aplicar, como "active" cuando el enlace corresponde a la página actual.
+
+3. El usuario está en /mesas/5 y hace clic en Atrás del navegador. ¿Qué pasa? ¿A dónde va?
+Al presionar Atrás, el navegador utiliza su historial y vuelve a la página anterior. Si /mesas/5 se
+abrió desde /mesas, entonces regresará a /mesas y React Router actualizará la vista sin recargar toda la aplicación.
+
+4. ¿Por qué path="*" tiene que ir al final de Routes? ¿Qué pasaría si va al principio? path="*" sirve para capturar
+las rutas que no coinciden con ninguna ruta específica. Por eso debe evaluarse después de las rutas normales; si se 
+coloca primero y el enrutamiento dependiera del orden, podría capturar todas las URLs y evitar que las demás rutas funcionen.
+
+5. useParams devuelve string. Si el ID en el mock es número, ¿qué problema aparece al comparar? ¿Cómo lo resuelven?
+useParams entrega el valor como texto, por ejemplo "5", pero el mock puede tener id: 5 como número. Por eso una 
+comparación con === falla. La solución es convertir el parámetro usando Number(id) y después compararlo con el ID numérico.

@@ -1,0 +1,37 @@
+Estudiante Luis
+
+1. ¿En el Sprint 0 tenías renderMenu() con innerHTML. Hoy construiste PlatoCard. ¿Qué diferencia concreta hay?
+En el Sprint 0, renderMenu() usaba innerHTML y reconstruía la carta cuando había un cambio. En React, PlatoCard 
+usa el Virtual DOM para comparar los cambios y actualizar solo la parte necesaria.
+
+2. ¿Qué es JSX exactamente? ¿Es HTML? ¿Es JavaScript?
+JSX es una extensión de JavaScript que permite escribir una sintaxis parecida a HTML dentro de JavaScript. No
+es HTML puro, y Vite lo transforma en JavaScript para que React pueda ejecutarlo en el navegador.
+
+3. ¿Por qué importa que PlatoCard reciba los mismos campos que GET /api/platos?
+Importa porque frontend y backend tendrán el mismo contrato de datos. Cuando la API esté lista, podremos reemplazar 
+platosMock por los datos reales sin tener que cambiar PlatoCard.
+
+4. ¿Qué problema resuelve Vite que hoy resolvieron con el CDN de React?
+El CDN nos permitió probar React directamente desde el HTML. Vite nos permitirá organizar el proyecto con componentes, 
+archivos JSX, imports y un servidor de desarrollo.
+
+---------------------------------------------------------------------------------------------------------
+
+Estudiante Renzo
+
+1. ¿En el Sprint 0 tenías renderMenu() con innerHTML. Hoy construiste PlatoCard. ¿Qué diferencia concreta hay?
+renderMenu() modificaba directamente el DOM mediante innerHTML y volvía a generar el contenido. PlatoCard trabaja con 
+React, que utiliza el Virtual DOM para detectar qué cambió y actualizar solamente esa parte.
+
+2. ¿Qué es JSX exactamente? ¿Es HTML? ¿Es JavaScript?
+JSX es una extensión de JavaScript que permite escribir elementos parecidos a HTML dentro del código. Vite procesa ese 
+JSX y lo convierte en JavaScript que puede ejecutarse en el navegador.
+
+3. ¿Por qué importa que PlatoCard reciba los mismos campos que GET /api/platos?
+Porque el componente ya está preparado para recibir la misma información que entregará el backend. Cuando tengamos 
+la API, solo cambiaremos el origen de los datos y PlatoCard podrá seguir funcionando.
+
+4. ¿Qué problema resuelve Vite que hoy resolvieron con el CDN de React?
+El CDN permitió cargar React rápidamente sin configurar un proyecto. Vite nos dará una estructura más profesional
+para trabajar con JSX, componentes, módulos y un servidor de desarrollo.

@@ -1,0 +1,46 @@
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO: Escenario 1
+
+RESUMEN: Renzo explicó que primero el mesero selecciona una mesa, luego se actualiza el estado
+correspondiente en el frontend y se realiza la petición HTTP al backend. El backend procesa la solicitud, 
+valida la información y finalmente guarda el pedido en MongoDB.
+
+QUÉ ENTENDIÓ BIEN: Entendió correctamente la comunicación entre frontend, backend y MongoDB, incluyendo
+el recorrido de los datos.
+
+QUÉ NECESITA REPASAR:Nada. 
+
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO: Escenario 3
+
+RESUMEN: Luis explicó que ambos meseros pueden ver inicialmente la Mesa 5 como disponible 
+porque cargaron la información al mismo tiempo. Cuando los dos intentan seleccionarla, el backend 
+vuelve a validar su disponibilidad. El primero que logra completar la operación la ocupa y el segundo 
+recibe un error porque la mesa ya está ocupada.
+
+QUÉ ENTENDIÓ BIEN: Entendió que la validación importante debe realizarse en el backend para evitar que dos meseros 
+ocupen la misma mesa.
+
+QUÉ NECESITA REPASAR: Nada.
+
+------------------------------------------------------------------------------------------------------------------------------
+
+EVALUADOR: Luis
+
+EVALUADO: Renzo
+
+ESCENARIO ELEGIDO: Escenario 2
+
+RESUMEN: Renzo explicó que Axios agrega automáticamente el token mediante el interceptor y que, si el token expiró, 
+el backend responde con un error 401. El interceptor detecta este error y se ejecuta el manejo correspondiente, mientras
+que la página puede mostrar al mesero que la operación no pudo realizarse.
+
+QUÉ ENTENDIÓ BIEN: Entendió bien la función del interceptor y cómo se relaciona con la autenticación de las peticiones.
+
+QUÉ NECESITA REPASAR: Nada.

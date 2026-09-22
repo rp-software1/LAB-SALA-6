@@ -1,0 +1,50 @@
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO: Escenario 1
+
+RESUMEN DE LA RESPUESTA: Luis identificó que el estado del carrito se encuentra dentro del componente `CarritoPage.jsx`,
+mediante `useState`. Explicó que el carrito cambia cuando se utiliza el setter, por ejemplo `setCarrito(...)`, y que el estado
+se utiliza posteriormente en el JSX para mostrar los productos agregados. También explicó que `setCarrito([...carrito, plato])` 
+crea un nuevo arreglo copiando los elementos anteriores y agregando el nuevo plato. En cambio, `carrito.push(plato)` modifica 
+directamente el arreglo existente y React puede no detectar ese cambio de referencia correctamente para provocar una 
+actualización del componente.
+
+QUÉ ENTENDIÓ BIEN: Entendió correctamente dónde se encuentra el estado, cómo se actualiza y por qué en React es importante
+trabajar con un nuevo arreglo en lugar de mutar directamente el estado.
+
+QUÉ NECESITA REPASAR: Nada.
+
+
+ESCENARIO ELEGIDO: Escenario 2
+
+RESUMEN DE LA RESPUESTA: Luis explicó que si se quitan los [] del useEffect que carga el menú, el efecto ya no se ejecutaría 
+solamente una vez al montar el componente, sino que se ejecutaría después de cada renderizado. Como dentro del efecto se actualiza
+el estado del menú, esto provocaría nuevos renderizados y el efecto volvería a ejecutarse, pudiendo generar un ciclo de 
+renderizados repetidos. En la práctica, la aplicación podría quedarse cargando, generar muchas actualizaciones o incluso 
+producir un error por demasiados renders.
+
+QUÉ ENTENDIÓ BIEN: Entendió que el arreglo vacío [] controla cuándo se ejecuta el useEffect y que quitarlo puede provocar 
+que el efecto se ejecute nuevamente después de cada renderizado.
+
+QUÉ NECESITA REPASAR: Nada.
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+EVALUADOR: Luis
+
+EVALUADO: Renzo
+
+ESCENARIO ELEGIDO: Escenario 3
+
+RESUMEN DE LA RESPUESTA: Luis identificó que el estado del carrito se encuentra dentro del componente `CarritoPage.jsx`, mediante
+`useState`. Explicó que el carrito cambia cuando se utiliza el setter, por ejemplo `setCarrito(...)`, y que el estado se utiliza
+posteriormente en el JSX para mostrar los productos agregados. También explicó que `setCarrito([...carrito, plato])` crea un nuevo
+arreglo copiando los elementos anteriores y agregando el nuevo plato. En cambio, `carrito.push(plato)` modifica directamente 
+el arreglo existente y React puede no detectar ese cambio de referencia correctamente para provocar una actualización del componente.
+
+QUÉ ENTENDIÓ BIEN: Entendió correctamente dónde se encuentra el estado, cómo se actualiza y por qué en React es importante
+trabajar con un nuevo arreglo en lugar de mutar directamente el estado.
+
+QUÉ NECESITA REPASAR: Nada.

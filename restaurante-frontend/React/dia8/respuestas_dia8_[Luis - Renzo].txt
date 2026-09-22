@@ -1,0 +1,49 @@
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO: Escenario 1 
+
+RESUMEN DE LA RESPUESTA: Renzo explicó que al hacer clic en “+ Agregar” se ejecuta la función 
+correspondiente de PlatoCard, se actualiza el estado del pedido mediante una función del Context 
+y React vuelve a renderizar los componentes que dependen de ese estado. Finalmente, el badge recibe 
+el nuevo valor y muestra la cantidad actualizada de productos.
+
+QUÉ ENTENDIÓ BIEN: Entendió correctamente la relación entre el evento, el cambio de estado
+y el re-renderizado de React.
+
+QUÉ NECESITA REPASAR:	Debe repasar con mayor precisión qué función interviene en cada paso del flujo.
+
+
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO: Escenario 2
+
+RESUMEN DE LA RESPUESTA: Renzo explicó que modificar directamente pedido.items cambia el array existente
+y no proporciona una nueva referencia al estado. En React se debe crear una nueva estructura y actualizarla 
+mediante el setter para que React detecte el cambio y pueda volver a renderizar el componente.
+
+QUÉ ENTENDIÓ BIEN: Comprendió que no se debe mutar directamente el estado.
+
+QUÉ NECESITA REPASAR: Debe reforzar cómo React compara las referencias para detectar cambios.
+
+------------------------------------------------------------------------------------------------------------------
+
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO:	Escenario 3 
+
+RESUMEN DE LA RESPUESTA: Luis explicó que useState permite manejar un estado dentro de un componente, 
+mientras que Context permite compartir un estado entre diferentes componentes sin tener que pasar las props 
+manualmente por cada nivel. En el restaurante, esto permite compartir el pedido y su información entre componentes
+como PlatoCard, el carrito y el badge.
+
+QUÉ ENTENDIÓ BIEN: Identificó correctamente que Context facilita compartir información entre componentes alejados.
+
+QUÉ NECESITA REPASAR: Debe diferenciar mejor entre Context como mecanismo de distribución y el estado que realmente
+almacena el valor.
+

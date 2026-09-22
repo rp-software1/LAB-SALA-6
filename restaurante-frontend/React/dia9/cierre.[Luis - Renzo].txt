@@ -1,0 +1,27 @@
+1. Al empezar el Día 1 de React construyeron un componente estático con props. Hoy conectaron un sistema completo 
+con APIs reales. Describe en una sola oración qué aprendiste en cada fase — componentes, estado, efectos, consumo
+de API, navegación, estado global, conexión real.
+
+Aprendí que React empieza con componentes y props, luego incorpora estado y efectos, después permite consumir 
+APIs, navegar entre páginas y manejar un estado global hasta conectar todo con un backend real.
+
+2. El Grupo Node construyó el backend que tú consumiste hoy. ¿Qué parte del sistema del restaurante te sorprendió 
+más al ver cómo funciona de punta a punta? ¿Qué cambiarías si pudieras volver a diseñarlo?.
+
+Lo que más me sorprendió fue ver cómo una acción sencilla como seleccionar una mesa termina involucrando al 
+frontend, la API, el backend y la base de datos; si pudiera rediseñarlo, mejoraría el manejo de errores y la 
+sincronización del estado para evitar inconsistencias.
+
+1. Al empezar el Día 1 de React construyeron un componente estático con props. Hoy conectaron un sistema completo 
+con APIs reales. Describe en una sola oración qué aprendiste en cada fase — componentes, estado, efectos, consumo de 
+API, navegación, estado global, conexión real.
+
+Aprendí a pasar de componentes estáticos con props a una aplicación completa usando estado, efectos, APIs, 
+navegación y estado global conectado con un backend real.
+
+2. El Grupo Node construyó el backend que tú consumiste hoy. ¿Qué parte del sistema del restaurante te sorprendió 
+más al ver cómo funciona de punta a punta? ¿Qué cambiarías si pudieras volver a diseñarlo?.
+
+Me sorprendió que todo el sistema esté conectado y que una acción del mesero genere varias operaciones hasta 
+llegar a MongoDB; si pudiera cambiar algo, haría más robusta la comunicación entre frontend y backend para 
+manejar mejor los errores y estados de las mesas.

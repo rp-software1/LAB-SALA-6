@@ -1,0 +1,53 @@
+Estudiante Luis
+
+1. ¿Qué diferencia hay entre props y estado? Explícalo con el ejemplo de MesaCard 
+— ¿cuál de sus datos es una prop y cuál podría ser estado en el futuro?
+Las props son datos que MesaCard recibe de su componente padre, por ejemplo numero y estado. El
+estado es información interna que puede cambiar dentro del componente, por ejemplo, en el futuro 
+podría tener un estado para controlar si se muestra el detalle de la mesa.
+
+2. ¿Por qué las props son de solo lectura dentro del componente hijo? ¿Qué
+pasaría si MesaCard pudiera modificar la prop estado directamente?
+Las props son de solo lectura porque los datos pertenecen al componente padre. Si MesaCard modificara 
+directamente estado, rompería el flujo de datos de React y el padre podría seguir teniendo un valor diferente 
+al que muestra el hijo.
+
+3. Hoy NavBar muestra "Carta", "Mesas" y "Comandas" como texto. En el Día 7 se convierte en navegación real. ¿Qué
+tendrás que cambiar en NavBar ese día y qué NO tendrás que tocar?
+Tendría que cambiar los textos por enlaces o elementos de navegación que apunten a las diferentes 
+páginas o rutas. No tendría que cambiar la estructura de los demás componentes, como MesaCard o PlatoCard, 
+porque la navegación pertenece a NavBar.
+
+4. En DevTools viste el árbol de componentes. ¿Cómo sabes si un componente recibió las props correctas sin tener 
+que leer el código del padre?
+Selecciono el componente en React DevTools y reviso el panel de props. Allí puedo comprobar 
+directamente los valores que recibió, por ejemplo numero y estado, sin necesidad de revisar el código del 
+componente padre.
+
+---------------------------------------------------------------------------------------------------------------------
+
+Estudiante Renzo
+
+1. ¿Qué diferencia hay entre props y estado? Explícalo con el ejemplo de MesaCard — ¿cuál de
+sus datos es una prop y cuál podría ser estado en el futuro?
+Las props son información que MesaCard recibe desde afuera, como el numero y estado de una mesa. El estado 
+pertenece al propio componente y puede cambiar, por ejemplo, podría usarse para controlar si los detalles de una
+mesa están abiertos o cerrados.
+
+2. ¿Por qué las props son de solo lectura dentro del componente hijo? ¿Qué pasaría si MesaCard 
+pudiera modificar la prop estado directamente?
+Las props son de solo lectura para mantener un flujo de datos controlado desde el padre hacia el hijo. 
+Si MesaCard cambiara directamente estado, podría generar inconsistencias porque el componente padre seguiría 
+teniendo el valor original.
+
+3. Hoy NavBar muestra "Carta", "Mesas" y "Comandas" como texto. En el Día 7 se convierte en navegación real. ¿Qué 
+tendrás que cambiar en NavBar ese día y qué NO tendrás que tocar?
+En NavBar tendría que convertir esos textos en enlaces o rutas reales para navegar 
+entre las páginas. No tendría que modificar MesaCard, PlatoCard ni los mocks, porque el cambio corresponde solamente 
+a la navegación.
+
+4. En DevTools viste el árbol de componentes. ¿Cómo sabes si un componente recibió las props correctas sin tener 
+que leer el código del padre?
+Selecciono el componente en React DevTools y observo sus props en el panel derecho. Así puedo verificar 
+directamente si recibió los valores esperados, como el número y estado de la mesa.
+

@@ -1,0 +1,40 @@
+1. "Después de tipar 3 días el proyecto restaurante-frontend,
+   ¿qué tipo de errores de runtime previene TypeScript y cuáles NO?
+   Dame un ejemplo concreto de cada uno usando nuestro código."
+
+TypeScript previene errores relacionados con tipos, como asignar el estado “cerrada” cuando EstadoMesa
+solo acepta “disponible”, “ocupada” o “reservada”. También detecta si colocamos texto en una propiedad numérica como precio. Sin embargo, no evita errores de
+ejecución como un backend apagado, una petición 404, pérdida de conexión o datos incorrectos enviados por el servidor.
+
+2. "En DetalleMesa.tsx usamos useParams<{ mesaId: string }>() pero
+   mesaId sigue siendo string | undefined. ¿Por qué el genérico no
+   garantiza que es string? ¿Es un bug de TypeScript o una decisión intencional?"
+
+Aunque indiquemos que mesaId debe ser string, el parámetro todavía puede ser undefined porque depende de la URL que se abra. 
+Si la ruta no contiene ese segmento, no existirá ningún valor. 
+No es un error de TypeScript, sino una decisión intencional para obligarnos a comprobar el parámetro antes de utilizarlo.
+
+3. "Tengo Omit<Pedido, "_id" | "creadoEn" | "actualizadoEn"> en CarritoPage.
+   ¿Qué otros utility types de TypeScript existen que podrían servirme en
+   este mismo proyecto? Por ejemplo: ¿para qué sirven Pick, Partial y Required?
+   Muéstrame con un ejemplo concreto de Mesa o Plato."
+
+Pick permite crear un tipo seleccionando solamente algunas propiedades, por ejemplo numero y estado de Mesa. 
+Partial convierte todas las propiedades en opcionales y serviría para actualizar únicamente el precio o stock de un Plato. 
+Required hace lo contrario: convierte todas las propiedades opcionales en obligatorias.
+
+4. "¿Qué es el type narrowing que usamos en useParams y en el guard del Context?
+   ¿Cuántos tipos de narrowing existen en TypeScript? Dame un ejemplo de
+   cada uno con código del proyecto restaurante."
+
+Type narrowing es el proceso mediante el cual TypeScript reduce un tipo amplio a uno más específico después de comprobar una condición. 
+Lo usamos al verificar que mesaId existe, al comprobar que el Context no es undefined y al confirmar que un error pertenece a la clase Error. 
+También puede realizarse mediante typeof, instanceof, el operador in, comparaciones, uniones discriminadas y funciones personalizadas de validación.
+
+5. "¿Cuál es la diferencia entre TypeScript en React y TypeScript en Next.js?
+   ¿Qué tipos nuevos voy a necesitar aprender cuando empecemos Next.js?
+   Muéstrame un ejemplo de un componente server de Next.js tipado."
+
+En React usamos TypeScript principalmente para tipar props, estados, hooks, contextos, eventos y datos de la API. En Next.js se utilizan esos mismos conocimientos, pero 
+también debemos aprender a tipar páginas, layouts, parámetros de rutas dinámicas, Server Components, Client Components y Server Actions. Los Server Components se ejecutan en
+el servidor y pueden obtener información directamente, pero no pueden utilizar hooks como useState ni eventos del navegador.

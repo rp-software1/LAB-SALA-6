@@ -1,0 +1,50 @@
+Estudiante Luis
+
+1. ¿Por qué React obliga a usar setCarrito en lugar de mutar el array directamente con 
+push? ¿Qué mecanismo interno de React hace que esto sea necesario?
+React necesita detectar el cambio de estado para volver a renderizar el componente. setCarrito le informa 
+a React que el estado cambió y, usando setCarrito([...carrito, plato]), se crea un nuevo array. En cambio,
+push modifica directamente el array original y mantiene la misma referencia, por lo que no es la forma correcta 
+de actualizar el estado.
+
+2. Hoy usaron useEffect con [] para cargar el menú. Mañana van a usar Axios para hacer un GET real 
+a /api/platos. ¿Qué parte del código de hoy va a cambiar y qué parte se va a quedar igual?
+Cambiará la parte donde obtenemos los datos, porque hoy usamos datos simulados y mañana Axios hará la 
+petición al backend. El useEffect, el [], el estado platos y la forma de mostrar los datos en el JSX 
+pueden mantenerse prácticamente iguales.
+
+3. En el Sprint 0 calculaban el total del carrito con un for loop. Hoy usaron reduce. ¿Son
+equivalentes? ¿En qué situación usarías uno sobre el otro?
+Sí, pueden ser equivalentes si realizan la misma operación. Usaría reduce cuando necesito 
+convertir varios elementos en un solo resultado, como calcular el total del carrito. Usaría for cuando 
+la lógica sea más compleja y necesite mayor control sobre el recorrido.
+
+4. Si mañana necesitaran compartir el carrito entre dos componentes distintos —por ejemplo, CarritoPage y una 
+barra de navegación que muestra cuántos ítems hay— ¿dónde tendría que vivir el estado del carrito? ¿Por qué?
+El estado debería vivir en un componente padre común, por ejemplo App.jsx, y luego pasarse a los componentes 
+mediante props. Así ambos utilizan la misma fuente de verdad y el carrito no queda duplicado o desincronizado.
+
+Estudiante Renzo
+
+1. ¿Por qué React obliga a usar setCarrito en lugar de mutar el array directamente con push? ¿Qué 
+mecanismo interno de React hace que esto sea necesario?
+Porque React necesita recibir una actualización del estado para programar un nuevo renderizado. Con 
+setCarrito React recibe el nuevo estado y puede detectar el cambio de referencia. push, en cambio, 
+modifica directamente el array existente, por eso no es recomendable para actualizar un estado de React.
+
+2. Hoy usaron useEffect con [] para cargar el menú. Mañana van a usar Axios para hacer un GET real a /api/platos. 
+¿Qué parte del código de hoy va a cambiar y qué parte se va a quedar igual?
+Cambiará la parte que obtiene los datos: en lugar de usar platosMock, Axios realizará un GET a /api/platos. 
+Se puede mantener el useEffect con [], el estado platos y el JSX que muestra el menú, porque la estructura de 
+la aplicación sigue siendo la misma.
+
+3. En el Sprint 0 calculaban el total del carrito con un for loop. Hoy usaron reduce. ¿Son equivalentes? 
+¿En qué situación usarías uno sobre el otro?
+Sí, ambos pueden calcular el mismo total. reduce es práctico cuando queremos acumular los valores de un array y
+obtener un solo resultado, como el precio total. El for sería mejor si necesitamos realizar varias operaciones o 
+controlar más detalladamente el recorrido.
+
+4. Si mañana necesitaran compartir el carrito entre dos componentes distintos —por ejemplo, CarritoPage
+y una barra de navegación que muestra cuántos ítems hay— ¿dónde tendría que vivir el estado del carrito? ¿Por qué?
+Tendría que vivir en un componente padre común de ambos, como App.jsx. De esta manera, CarritoPage y la barra de 
+navegación reciben el mismo estado y trabajan con una única fuente de verdad mediante props.

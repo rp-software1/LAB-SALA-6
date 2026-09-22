@@ -8,14 +8,14 @@ loom: (agregar link al terminar)
 ## Bloques 
 - [X] A — Comandas + Tickets (cerrar backend)
 - [X] B — Frontend Next.js: páginas del restaurante visibles en navegador
-- [X] C — Flujo completo end-to-end + Loom + PR
+- [ ] C — Flujo completo end-to-end + Loom + PR
 ## Verificación final
 - [X] 5 módulos backend funcionando (Platos, Mesas, Pedidos, Comandas, Tickets)
 - [X] Frontend Next.js mostrando datos del backend en el navegador
 - [X] Flujo completo: crear mesa → crear platos → crear pedido → ver en frontend
-- [X] CHANGES.md actualizado
-- [X] feedback_dia4_[tunombre].md completado y commiteado
-- [X] PR creado y enviado a sala par
+- [ ] CHANGES.md actualizado
+- [ ] feedback_dia4_[tunombre].md completado y commiteado
+- [ ] PR creado y enviado a sala par
 
 
 

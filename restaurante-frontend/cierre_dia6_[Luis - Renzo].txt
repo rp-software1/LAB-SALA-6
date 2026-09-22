@@ -1,0 +1,51 @@
+Estudiante Luis
+ 
+1. ¿Qué ventaja tiene que el mock y la API tengan la misma forma?
+La ventaja es que el componente puede recibir los datos del mock y luego los
+datos reales de la API sin tener que modificar su estructura. Si la API devolviera 
+una estructura diferente, habría que adaptar los datos antes de pasarlos al componente o 
+cambiar el componente para acceder a las nuevas propiedades.
+
+2. ¿Qué es loading/error/data y por qué son necesarios?
+loading indica que los datos todavía están cargando, error indica que ocurrió un 
+problema y data contiene los datos cuando la petición fue exitosa. Los tres permiten 
+manejar correctamente cualquier situación. Si falta loading, el usuario puede pensar que
+la página no funciona; si falta error, no sabrá qué ocurrió cuando falle la petición; y si 
+falta data, no podemos mostrar la información obtenida.
+
+3. ¿Qué preguntas tengo sobre el backend de Node?
+Necesito saber cuál es la URL de los endpoints, qué métodos HTTP utiliza cada uno, 
+qué estructura exacta devuelve, cómo se envían los datos en las peticiones, qué códigos
+de respuesta utiliza y cómo funciona la autenticación. También necesito saber cómo se debe 
+enviar y validar el JWT.
+
+4. ¿Qué es un JWT y cómo fluye entre frontend y backend?
+Un JWT es un token que sirve para identificar y autenticar a un usuario. El usuario inicia sesión, 
+el backend valida sus datos y devuelve un token al frontend. Luego el frontend guarda ese token y lo 
+envía en las siguientes peticiones que requieren autenticación. El backend verifica el token y, si es 
+válido, permite acceder al recurso solicitado.
+
+Estudiante Renzo 
+
+1. ¿Qué ventaja tiene que el mock y la API tengan la misma forma?
+Permite reutilizar los mismos componentes porque esperan las mismas 
+propiedades, aunque los datos vengan primero de un mock y después del backend real.
+Si la API tuviera otra estructura, tendríamos que transformar la respuesta o modificar el 
+componente para que pueda trabajar con esos nuevos nombres y niveles de datos.
+
+2. ¿Qué es loading/error/data y por qué son necesarios?
+Son los tres estados principales de una petición: loading mientras esperamos, error 
+cuando algo falla y data cuando recibimos correctamente la información. Son necesarios 
+porque representan todo el ciclo de la petición. Si falta alguno, la interfaz queda incompleta: 
+por ejemplo, sin loading el usuario no sabe si la aplicación está trabajando y sin error no sabría
+si la petición falló.
+
+3. ¿Qué preguntas tengo sobre el backend de Node?
+Preguntaría cuáles son los endpoints disponibles, qué método usa cada uno, qué 
+parámetros reciben, qué JSON devuelven, cuáles son los códigos de error y cómo manejar los errores. 
+También preguntaría cómo funciona el login, dónde debe enviarse el JWT y qué endpoints requieren autenticación.
+
+4. ¿Qué es un JWT y cómo fluye entre frontend y backend?
+Un JWT es una credencial digital que el backend entrega al usuario después de verificar su identidad. El 
+frontend conserva ese token y lo incluye cuando realiza solicitudes protegidas. El backend recibe el token, 
+comprueba que sea válido y decide si el usuario tiene permiso para acceder a la información solicitada.

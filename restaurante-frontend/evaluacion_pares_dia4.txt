@@ -1,0 +1,39 @@
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO:  Escenario 3
+
+RESUMEN DE LA RESPUESTA: Luis explicó que [] hace que useEffect se ejecute una sola vez después del primer renderizado,
+mientras que [mesaNumero] hace que se ejecute también cuando cambie ese valor.
+
+QUÉ ENTENDIÓ BIEN: Entendió correctamente cómo funciona el array de dependencias de useEffect.
+
+QUÉ NECESITA REPASAR: Nada.
+
+
+ESCENARIO ELEGIDO:  Escenario 1
+
+RESUMEN DE LA RESPUESTA: Luis explicó que en OrderForm.clase.jsx el estado está en this.state, se actualiza con this.setState() 
+y se utiliza en el JSX mediante this.state. En OrderForm.jsx, sus equivalentes son useState, el setter y la variable de estado.
+
+QUÉ ENTENDIÓ BIEN:	Entendió correctamente la equivalencia entre el manejo del estado en componentes de clase y 
+componentes funcionales.
+
+QUÉ NECESITA REPASAR: Nada.
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+EVALUADOR: Luis
+
+EVALUADO: Renzo
+
+ESCENARIO ELEGIDO:	Escenario 2
+
+RESUMEN DE LA RESPUESTA:  Renzo explicó que .bind(this) permite conservar el contexto de la instancia en los 
+métodos de una clase y que, al eliminarlo, this puede ser undefined cuando el método se ejecuta como callback.
+
+QUÉ ENTENDIÓ BIEN: Entendió por qué los componentes de clase necesitan controlar el contexto de this.
+
+QUÉ NECESITA REPASAR: Nada.

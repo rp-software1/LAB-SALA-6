@@ -1,0 +1,48 @@
+EVALUADOR: Luis
+
+EVALUADO: Renzo
+
+ESCENARIO ELEGIDO:	Escenario 1
+
+RESUMEN DE LA RESPUESTA: Renzo explicó que al entrar a CarritoPage se carga el componente, se 
+ejecuta el estado inicial y se realiza la petición para obtener el menú. Cuando llegan los datos, se
+actualiza el estado y React vuelve a renderizar la página mostrando los platos.
+
+QUÉ ENTENDIÓ BIEN:	Entendió que el cambio de estado provoca un nuevo render y permite 
+mostrar los datos obtenidos.
+
+QUÉ NECESITA REPASAR: Nada.
+
+
+EVALUADOR: Renzo
+
+EVALUADO: Luis
+
+ESCENARIO ELEGIDO: Escenario 2
+
+RESUMEN DE LA RESPUESTA: Luis explicó que si el backend responde con un error 500, la petición falla y
+el catch captura el error. Después se actualiza el estado de error y React vuelve a renderizar mostrando un 
+mensaje al usuario. Para probarlo sin apagar el backend, se puede simular una respuesta de error o cambiar 
+temporalmente la URL de un endpoint para provocar el fallo.
+
+QUÉ ENTENDIÓ BIEN:	Entendió claramente la relación entre el error de la petición, el catch, el estado y lo 
+que termina viendo el usuario.
+
+QUÉ NECESITA REPASAR: Nada
+
+----------------------------------------------------------------------------------------------------------------------------
+
+EVALUADOR: Luis
+
+EVALUADO: Renzo
+
+ESCENARIO ELEGIDO: Escenario 3
+
+RESUMEN DE LA RESPUESTA: Renzo explicó que VITE_API_URL está en .env.local para separar la configuración 
+del código y poder cambiar fácilmente la dirección de la API según el entorno. También mencionó que ayuda a
+no dejar directamente en api.js información de configuración que podría terminar expuesta en el código del proyecto.
+
+QUÉ ENTENDIÓ BIEN: Entendió que las variables de entorno permiten separar la configuración del código y 
+facilitar el trabajo entre distintos entornos.
+
+QUÉ NECESITA REPASAR: Nada

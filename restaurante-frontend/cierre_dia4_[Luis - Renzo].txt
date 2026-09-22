@@ -1,0 +1,50 @@
+Estudiante Luis
+
+1. ¿Qué problema concreto resolvió React con los hooks que los componentes de clase no podían resolver 
+bien? No digas "es más simple" — da un ejemplo técnico concreto.
+Los hooks permitieron usar estado y efectos en componentes funcionales sin depender de clases, this 
+y métodos como componentDidMount. Por ejemplo, con useState puedo manejar el estado de un formulario directamente
+dentro de una función y con useEffect ejecutar lógica cuando cambian determinados datos.
+
+2. En la clase, handleChange usaba this.setState({ [name]: value }) para 
+actualizar cualquier campo con una sola función. En el funcional usaron un setter por 
+campo. ¿Cuál de los dos enfoques prefieres y por qué?
+Prefiero el enfoque de la clase porque una sola función puede actualizar diferentes
+campos utilizando el nombre del input. Sin embargo, el enfoque funcional también funciona y puede 
+ser más claro cuando cada campo necesita una lógica diferente.
+
+3. En el Sprint 0 de JavaScript usaban clases de ES6. ¿En qué se parece un componente
+de clase de React a una clase de ES6 normal? ¿Qué agrega React.Component?
+Ambos utilizan la sintaxis de clases de JavaScript, con constructor, métodos y this. React.Component
+agrega las capacidades necesarias para que la clase funcione como componente de React, como state, 
+setState y el método render().
+
+4. Mañana es el día de useState y useEffect en profundidad. Hoy los usaron por primera vez en el funcional. 
+¿Qué pregunta te quedó sin responder sobre useState que quieres que se responda mañana?
+Quiero entender mejor qué ocurre internamente cuando llamo al setter de useState: cómo React sabe que debe 
+volver a renderizar el componente y por qué el valor de la variable no cambia inmediatamente dentro de la misma
+ejecución.
+
+Estudiante Renzo
+
+1. ¿Qué problema concreto resolvió React con los hooks que los componentes de clase no podían resolver bien?
+No digas "es más simple" — da un ejemplo técnico concreto.
+Los hooks permiten reutilizar lógica relacionada con el estado y los efectos entre diferentes componentes 
+funcionales. Antes, con clases, esta lógica podía terminar repartida entre métodos como componentDidMount, 
+componentDidUpdate y componentWillUnmount, haciendo más difícil mantenerla relacionada en un mismo lugar.
+
+2. En la clase, handleChange usaba this.setState({ [name]: value }) para actualizar cualquier campo con una sola función.
+En el funcional usaron un setter por campo. ¿Cuál de los dos enfoques prefieres y por qué?
+Prefiero usar un solo handleChange con un objeto de estado porque permite manejar varios campos sin crear una función 
+diferente para cada uno. Es especialmente útil en formularios que tienen muchos inputs.
+
+3. En el Sprint 0 de JavaScript usaban clases de ES6. ¿En qué se parece un componente de clase de React a
+una clase de ES6 normal? ¿Qué agrega React.Component?
+Un componente de clase de React utiliza las mismas características básicas de una clase ES6, como constructor, 
+métodos y this. Al extender React.Component, obtiene funcionalidades de React como el estado, setState, el ciclo
+de vida y la posibilidad de renderizar JSX mediante render().
+
+4. Mañana es el día de useState y useEffect en profundidad. Hoy los usaron por primera vez en el funcional. 
+¿Qué pregunta te quedó sin responder sobre useState que quieres que se responda mañana?
+Quiero saber por qué cuando actualizo un estado con useState, React vuelve a ejecutar el componente completo 
+y cómo conserva el valor anterior del estado entre un renderizado y otro.
