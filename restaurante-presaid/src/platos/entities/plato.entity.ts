@@ -2,9 +2,9 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
-  UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { Resena } from '../../resenas/entities/resena.entity';
 
 @Entity()
 export class Plato {
@@ -19,4 +19,7 @@ export class Plato {
 
   @Column({ nullable: true })
   descripcion: string;
+
+  @OneToMany(() => Resena, (resena) => resena.plato)
+  resenas: Resena[];
 }

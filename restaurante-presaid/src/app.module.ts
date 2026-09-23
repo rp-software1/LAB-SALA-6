@@ -5,6 +5,7 @@ import { MesasModule } from './mesas/mesas.module';
 import { PedidosModule } from './pedidos/pedidos.module';
 import { ComandasModule } from './comandas/comandas.module';
 import { TicketsModule } from './tickets/tickets.module';
+import { ResenasModule } from './resenas/resenas.module';
 
 const isProduction = !!process.env.DATABASE_URL;
 
@@ -31,6 +32,7 @@ const isProduction = !!process.env.DATABASE_URL;
     PedidosModule,
     ComandasModule,
     TicketsModule,
+    ResenasModule,
   ],
 })
 export class AppModule {}
