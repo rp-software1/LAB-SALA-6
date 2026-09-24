@@ -1,7 +1,14 @@
-import { IsInt, IsNotEmpty, IsString, Max, Min } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsNotEmpty, IsNumber, IsString, Max, Min } from 'class-validator';
 
 export class CreateResenaDto {
-  @IsInt()
+  @IsNotEmpty()
+  @Type(() => Number)
+  @IsNumber()
+  platoId: number;
+
+  @Type(() => Number)
+  @IsNumber()
   @Min(1)
   @Max(5)
   calificacion: number;
@@ -9,4 +16,8 @@ export class CreateResenaDto {
   @IsString()
   @IsNotEmpty()
   comentario: string;
+
+  @IsString()
+  @IsNotEmpty()
+  nombreCliente: string;
 }

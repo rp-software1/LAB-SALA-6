@@ -2,20 +2,22 @@ import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common
 import { CreateResenaDto } from './dto/create-resena.dto';
 import { ResenasService } from './resenas.service';
 
-@Controller('platos/:id/resenas')
+@Controller('resenas')
 export class ResenasController {
   constructor(private readonly resenasService: ResenasService) {}
 
   @Post()
-  create(
-    @Param('id', ParseIntPipe) platoId: number,
-    @Body() createResenaDto: CreateResenaDto,
-  ) {
-    return this.resenasService.create(platoId, createResenaDto);
+  create(@Body() createResenaDto: CreateResenaDto) {
+    return this.resenasService.create(createResenaDto);
   }
 
   @Get()
-  findByPlato(@Param('id', ParseIntPipe) platoId: number) {
+  findAll() {
+    return this.resenasService.findAll();
+  }
+
+  @Get('plato/:platoId')
+  findByPlato(@Param('platoId', ParseIntPipe) platoId: number) {
     return this.resenasService.findByPlato(platoId);
   }
 }

@@ -2,6 +2,7 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
@@ -18,12 +19,16 @@ export class Resena {
   @Column()
   comentario: string;
 
+  @Column()
+  nombreCliente: string;
+
   @CreateDateColumn()
-  fecha: Date;
+  createdAt: Date;
 
   @ManyToOne(() => Plato, (plato) => plato.resenas, {
     nullable: false,
     onDelete: 'CASCADE',
   })
+  @JoinColumn({ name: 'platoId' })
   plato: Plato;
 }

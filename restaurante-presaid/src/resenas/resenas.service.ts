@@ -14,23 +14,28 @@ export class ResenasService {
     private readonly platoRepository: Repository<Plato>,
   ) {}
 
-  async create(platoId: number, createResenaDto: CreateResenaDto) {
+  async create(createResenaDto: CreateResenaDto) {
+    const { platoId, ...resenaData } = createResenaDto;
     const plato = await this.platoRepository.findOneBy({ id: platoId });
     if (!plato) {
-      throw new NotFoundException(`Plato #${platoId} no encontrado`);
+      throw new NotFoundException('Plato no encontrado');
     }
 
     const resena = this.resenaRepository.create({
-      ...createResenaDto,
+      ...resenaData,
       plato,
     });
     return this.resenaRepository.save(resena);
   }
 
+  findAll() {
+    return this.resenaRepository.find();
+  }
+
   findByPlato(platoId: number) {
     return this.resenaRepository.find({
       where: { plato: { id: platoId } },
-      order: { fecha: 'DESC' },
+      order: { createdAt: 'DESC' },
     });
   }
 }

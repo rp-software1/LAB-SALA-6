@@ -22,7 +22,10 @@ export class PlatosService {
   }
 
   async findOne(id: number) {
-    const plato = await this.platoRepository.findOneBy({ id });
+    const plato = await this.platoRepository.findOne({
+      where: { id },
+      relations: { resenas: true },
+    });
     if (!plato) {
       throw new NotFoundException(`Plato #${id} no encontrado`);
     }
