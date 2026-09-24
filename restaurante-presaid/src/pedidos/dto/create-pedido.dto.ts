@@ -1,5 +1,29 @@
-import { IsInt, IsPositive, IsNotEmpty, IsArray, ArrayMinSize } from 'class-validator';
+import { Type } from 'class-transformer';
+import {
+  ArrayMinSize,
+  IsArray,
+  IsNotEmpty,
+  IsNumber,
+  IsPositive,
+  IsInt,
+  Min,
+  ValidateNested,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+
+export class CreatePedidoItemDto {
+  @ApiProperty({ example: 1, description: 'ID del plato solicitado' })
+  @IsNumber()
+  @IsNotEmpty()
+  platoId: number;
+
+  @ApiProperty({ example: 2, description: 'Cantidad solicitada del plato' })
+  @IsNumber()
+  @IsNotEmpty()
+  @IsInt()
+  @Min(1)
+  cantidad: number;
+}
 
 export class CreatePedidoDto {
   @ApiProperty({ example: 1, description: 'ID de la mesa asociada al pedido' })
@@ -8,10 +32,10 @@ export class CreatePedidoDto {
   @IsNotEmpty()
   mesaId: number;
 
-  @ApiProperty({ example: [1, 2], description: 'Arreglo de IDs de los platos solicitados' })
+  @ApiProperty({ type: [CreatePedidoItemDto], description: 'Platos y cantidades solicitadas' })
   @IsArray()
   @ArrayMinSize(1)
-  @IsInt({ each: true })
-  @IsPositive({ each: true })
-  platoIds: number[];
+  @ValidateNested({ each: true })
+  @Type(() => CreatePedidoItemDto)
+  items: CreatePedidoItemDto[];
 }

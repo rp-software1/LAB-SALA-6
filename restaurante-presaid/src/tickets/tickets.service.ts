@@ -87,7 +87,7 @@ export class TicketsService {
   private findPedidosByMesa(mesaId: number): Promise<Pedido[]> {
     return this.pedidoRepository.find({
       where: { mesaId },
-      relations: { mesa: true, platos: true },
+      relations: { mesa: true, items: { plato: true } },
       order: { createdAt: 'ASC' },
     });
   }

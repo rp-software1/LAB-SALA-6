@@ -3,11 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { PedidosController } from './pedidos.controller';
 import { PedidosService } from './pedidos.service';
 import { Pedido } from './entities/pedido.entity';
+import { PedidoPlato } from './entities/pedido-plato.entity';
 import { Plato } from '../platos/entities/plato.entity';
 import { Mesa } from '../mesas/mesa.entity'; // Ajusta esta ruta si tu mesa está en otra carpeta
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Pedido, Plato, Mesa])],
+  imports: [TypeOrmModule.forFeature([Pedido, PedidoPlato, Plato, Mesa])],
   controllers: [PedidosController],
   providers: [PedidosService],
 })

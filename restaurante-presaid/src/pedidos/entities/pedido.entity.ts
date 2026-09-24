@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { Plato } from '../../platos/entities/plato.entity';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { Mesa } from '../../mesas/mesa.entity';
+import { PedidoPlato } from './pedido-plato.entity';
 
 export enum EstadoPedido {
   PENDIENTE = 'pendiente',
@@ -29,13 +29,8 @@ export class Pedido {
   @Column()
   mesaId: number;
 
-  @ManyToMany(() => Plato, { eager: true })
-  @JoinTable({
-    name: 'pedido_platos',
-    joinColumn: { name: 'pedidoId', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'platoId', referencedColumnName: 'id' },
-  })
-  platos: Plato[];
+  @OneToMany(() => PedidoPlato, (item) => item.pedido, { cascade: true })
+  items: PedidoPlato[];
 
   @CreateDateColumn()
   createdAt: Date;

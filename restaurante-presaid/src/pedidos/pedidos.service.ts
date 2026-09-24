@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, In } from 'typeorm';
+import { Repository } from 'typeorm';
 import { Pedido, EstadoPedido } from './entities/pedido.entity';
 import { Mesa } from '../mesas/mesa.entity';
 import { Plato } from '../platos/entities/plato.entity';
@@ -18,7 +18,7 @@ export class PedidosService {
   ) {}
 
   async create(createPedidoDto: CreatePedidoDto): Promise<Pedido> {
-    const { mesaId, platoIds } = createPedidoDto;
+    const { mesaId, items } = createPedidoDto;
 
     // 1. Validar que la mesa exista (Lanza error 400 si no existe)
     const mesa = await this.mesaRepository.findOne({ where: { id: mesaId } });
@@ -26,20 +26,30 @@ export class PedidosService {
       throw new BadRequestException(`La mesa con ID ${mesaId} no existe.`);
     }
 
-    // 2. Validar que todos los platos existan (Lanza error 400 si falta alguno)
-    const platos = await this.platoRepository.findBy({ id: In(platoIds) });
-    if (platos.length !== platoIds.length) {
-      throw new BadRequestException('Uno o más IDs de platos proporcionados no existen.');
-    }
+    // 2. Resolver cada plato y calcular su subtotal según la cantidad solicitada.
+    const pedidoItems = await Promise.all(
+      items.map(async (item) => {
+        const plato = await this.platoRepository.findOneBy({ id: item.platoId });
+        if (!plato) {
+          throw new NotFoundException(`Plato #${item.platoId} no encontrado`);
+        }
 
-    // 3. Calcular el total sumando los precios de los platos
-    const total = platos.reduce((sum, plato) => sum + Number(plato.precio), 0);
+        return {
+          plato,
+          cantidad: item.cantidad,
+        };
+      }),
+    );
+    const total = pedidoItems.reduce(
+      (sum, item) => sum + Number(item.plato.precio) * item.cantidad,
+      0,
+    );
 
-    // 4. Crear y guardar el pedido con relaciones reales
+    // 3. Crear y guardar el pedido con sus ítems asociados.
     const nuevoPedido = this.pedidoRepository.create({
       mesaId,
       mesa,
-      platos,
+      items: pedidoItems,
       total,
       estado: EstadoPedido.PENDIENTE,
     });
@@ -51,7 +61,7 @@ export class PedidosService {
     return await this.pedidoRepository.find({
       relations: {
         mesa: true,
-        platos: true,
+        items: { plato: true },
       },
     });
   }
@@ -61,7 +71,7 @@ export class PedidosService {
       where: { id },
       relations: {
         mesa: true,
-        platos: true,
+        items: { plato: true },
       },
     });
     if (!pedido) {

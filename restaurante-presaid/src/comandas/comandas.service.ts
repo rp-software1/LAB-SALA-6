@@ -18,7 +18,7 @@ export class ComandasService {
   async create(createComandaDto: CreateComandaDto): Promise<Comanda> {
     const pedido = await this.pedidoRepository.findOne({
       where: { id: createComandaDto.pedidoId },
-      relations: { platos: true },
+      relations: { items: { plato: true } },
     });
 
     if (!pedido) {
@@ -38,7 +38,7 @@ export class ComandasService {
 
   findAll(): Promise<Comanda[]> {
     return this.comandaRepository.find({
-      relations: { pedido: { platos: true } },
+      relations: { pedido: { items: { plato: true } } },
       order: { createdAt: 'DESC' },
     });
   }
@@ -49,7 +49,7 @@ export class ComandasService {
   ): Promise<Comanda> {
     const comanda = await this.comandaRepository.findOne({
       where: { id },
-      relations: { pedido: { platos: true } },
+      relations: { pedido: { items: { plato: true } } },
     });
 
     if (!comanda) {
