@@ -9,9 +9,9 @@ loom:
 ## Bloques
 - [X] A — Explorar código ajeno: entender sin preguntar
 - [X] B — Agregar feature: Reseñas de Clientes al módulo Platos
-- [ ] C — Documentar: qué fue imposible y por qué
+- [X] C — Documentar: qué fue imposible y por qué
 ## Verificación final
 - [X] Feature de reseñas funciona (o documentación de por qué no fue posible)
 - [X] Documento de hallazgos: qué faltó en el repo para poder trabajar
-- [ ] feedback_dia6_[tunombre].md completado y commiteado
-- [ ] PR creado en el repo ajeno
+- [X] feedback_dia6_[tunombre].md completado y commiteado
+- [X] PR creado en el repo ajeno
