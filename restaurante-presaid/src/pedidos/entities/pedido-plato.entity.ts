@@ -13,6 +13,15 @@ export class PedidoPlato {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  cantidad: number;
+
+  @Column()
+  pedidoId: number;
+
+  @Column()
+  platoId: number;
+
   @ManyToOne(() => Pedido, (pedido) => pedido.items, {
     nullable: false,
     onDelete: 'CASCADE',
@@ -23,7 +32,4 @@ export class PedidoPlato {
   @ManyToOne(() => Plato, { nullable: false, onDelete: 'RESTRICT' })
   @JoinColumn({ name: 'platoId' })
   plato: Plato;
-
-  @Column()
-  cantidad: number;
 }

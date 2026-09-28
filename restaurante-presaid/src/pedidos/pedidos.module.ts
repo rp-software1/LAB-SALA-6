@@ -5,10 +5,13 @@ import { PedidosService } from './pedidos.service';
 import { Pedido } from './entities/pedido.entity';
 import { PedidoPlato } from './entities/pedido-plato.entity';
 import { Plato } from '../platos/entities/plato.entity';
-import { Mesa } from '../mesas/mesa.entity'; // Ajusta esta ruta si tu mesa está en otra carpeta
+import { MesasModule } from '../mesas/mesas.module'; // ← Importar MesasModule
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Pedido, PedidoPlato, Plato, Mesa])],
+  imports: [
+    TypeOrmModule.forFeature([Pedido, PedidoPlato, Plato]),
+    MesasModule, // ← Permite usar MesasService dentro de PedidosService
+  ],
   controllers: [PedidosController],
   providers: [PedidosService],
 })

@@ -1,93 +1,93 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Pedido, EstadoPedido } from './entities/pedido.entity';
-import { Mesa } from '../mesas/mesa.entity';
-import { Plato } from '../platos/entities/plato.entity';
+import { Pedido } from './entities/pedido.entity';
 import { CreatePedidoDto } from './dto/create-pedido.dto';
+import { MesasService } from '../mesas/mesas.service';
+import { EstadoMesa } from '../mesas/mesa.entity';
 
 @Injectable()
 export class PedidosService {
   constructor(
     @InjectRepository(Pedido)
-    private readonly pedidoRepository: Repository<Pedido>,
-    @InjectRepository(Mesa)
-    private readonly mesaRepository: Repository<Mesa>,
-    @InjectRepository(Plato)
-    private readonly platoRepository: Repository<Plato>,
+    private readonly pedidosRepository: Repository<Pedido>,
+    private readonly mesasService: MesasService,
   ) {}
 
-  async create(createPedidoDto: CreatePedidoDto): Promise<Pedido> {
-    const { mesaId, items } = createPedidoDto;
+  async create(createPedidoDto: CreatePedidoDto) {
+    // 1. Consultar la mesa para validar su estado actual
+    const mesa = await this.mesasService.findOne(createPedidoDto.mesaId);
 
-    // 1. Validar que la mesa exista (Lanza error 400 si no existe)
-    const mesa = await this.mesaRepository.findOne({ where: { id: mesaId } });
-    if (!mesa) {
-      throw new BadRequestException(`La mesa con ID ${mesaId} no existe.`);
+    // 2. Si la mesa está reservada, lanzar error 400
+    if (mesa.estado === EstadoMesa.RESERVADA) {
+      throw new BadRequestException(
+        `La mesa #${createPedidoDto.mesaId} está reservada. No se pueden crear pedidos.`,
+      );
     }
 
-    // 2. Resolver cada plato y calcular su subtotal según la cantidad solicitada.
-    const pedidoItems = await Promise.all(
-      items.map(async (item) => {
-        const plato = await this.platoRepository.findOneBy({ id: item.platoId });
-        if (!plato) {
-          throw new NotFoundException(`Plato #${item.platoId} no encontrado`);
-        }
+    // 3. Mapear explícitamente los items con su relación a plato
+    const items = createPedidoDto.items.map((item) => ({
+      cantidad: item.cantidad,
+      platoId: item.platoId,
+      plato: { id: item.platoId },
+    }));
 
-        return {
-          plato,
-          cantidad: item.cantidad,
-        };
-      }),
-    );
-    const total = pedidoItems.reduce(
-      (sum, item) => sum + Number(item.plato.precio) * item.cantidad,
-      0,
-    );
-
-    // 3. Crear y guardar el pedido con sus ítems asociados.
-    const nuevoPedido = this.pedidoRepository.create({
-      mesaId,
-      mesa,
-      items: pedidoItems,
-      total,
-      estado: EstadoPedido.PENDIENTE,
+    // 4. Crear la entidad Pedido asignando mesa e items mapeados
+    const pedido = this.pedidosRepository.create({
+      mesaId: createPedidoDto.mesaId,
+      mesa: { id: createPedidoDto.mesaId },
+      items,
     });
 
-    return await this.pedidoRepository.save(nuevoPedido);
+    const pedidoGuardado = await this.pedidosRepository.save(pedido);
+
+    // 5. Ocupar la mesa automáticamente
+    await this.mesasService.cambiarEstado(
+      createPedidoDto.mesaId,
+      EstadoMesa.OCUPADA,
+    );
+
+    return pedidoGuardado;
   }
 
-  async findAll(): Promise<Pedido[]> {
-    return await this.pedidoRepository.find({
+  async findAll() {
+    return await this.pedidosRepository.find({
       relations: {
-        mesa: true,
-        items: { plato: true },
+        items: {
+          plato: true,
+        },
       },
     });
   }
 
-  async findOne(id: number): Promise<Pedido> {
-    const pedido = await this.pedidoRepository.findOne({
+  async findOne(id: number) {
+    const pedido = await this.pedidosRepository.findOne({
       where: { id },
       relations: {
-        mesa: true,
-        items: { plato: true },
+        items: {
+          plato: true,
+        },
       },
     });
     if (!pedido) {
-      throw new NotFoundException(`El pedido con ID ${id} no fue encontrado.`);
+      throw new NotFoundException(`Pedido #${id} no encontrado`);
     }
     return pedido;
   }
 
-  async cambiarEstado(id: number, nuevoEstado: EstadoPedido): Promise<Pedido> {
+  async cambiarEstado(id: number, estado: any) {
     const pedido = await this.findOne(id);
-    pedido.estado = nuevoEstado;
-    return await this.pedidoRepository.save(pedido);
+    pedido.estado = estado;
+    return await this.pedidosRepository.save(pedido);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: number) {
     const pedido = await this.findOne(id);
-    await this.pedidoRepository.remove(pedido);
+    await this.pedidosRepository.remove(pedido);
+    return { mensaje: `Pedido #${id} eliminado` };
   }
 }
