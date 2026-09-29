@@ -7,11 +7,11 @@ loom:
 proyecto: (nombre de lo que van a construir)
 ---
 ## Bloques
-- [ ] A — Definir proyecto + setup
-- [ ] B — Construir (el día entero)
+- [X] A — Definir proyecto + setup
+- [X] B — Construir (el día entero)
 - [ ] C — Cierre: reflexión + Loom + PR
 ## Verificación final
-- [ ] Proyecto funcionando (localhost o desplegado)
-- [ ] CHANGES.md o README documentando qué hace y cómo levantarlo
+- [X] Proyecto funcionando (localhost o desplegado)
+- [X] CHANGES.md o README documentando qué hace y cómo levantarlo
 - [ ] feedback_dia8_[tunombre].md completado y commiteado
 - [ ] PR creado
