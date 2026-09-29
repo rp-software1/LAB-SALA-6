@@ -7,9 +7,9 @@ loom: (agregar link al terminar)
 ---
 ## Bloques
 - [X] A — Retrospectiva: ¿qué se rompió y por qué?
-- [ ] B — Marco Vitalii: nombrar el dolor
-- [ ] C — La revelación: el prompt real es un .md
-- [ ] D — Loom final + Gate para SAID
+- [X] B — Marco Vitalii: nombrar el dolor
+- [X] C — La revelación: el prompt real es un .md
+- [X] D — Loom final + Gate para SAID
 ## Verificación final
 - [ ] Retrospectiva completada con respuestas honestas
 - [ ] Loom final grabado (máx 5 min)
