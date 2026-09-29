@@ -1,0 +1,19 @@
+---
+sala: I-SALAX
+curso: PRE-SAID — Desarrollo Moderno con IA y CLI
+dia: 7
+estado: en_progreso
+loom: 
+---
+## Bloques
+- [X] A — Video: diagnóstico cruzado + cambio de requisitos
+- [X] B — Implementar Cambio 1: cantidades por plato en pedidos
+- [X] C — Implementar Cambio 2: mesa auto-ocupada + diagnóstico cruzado
+- [X] D — Documentar: qué se rompió y por qué + Loom + PR
+## Verificación final
+- [X] Pedidos aceptan cantidades por plato
+- [X] Mesa cambia a 'ocupada' automáticamente al crear pedido
+- [X] Total del pedido se calcula con cantidades
+- [X] Los 5 módulos siguen funcionando
+- [X] feedback_dia7_[Luis - Renzo].md completado y commiteado
+- [X] PR creado
